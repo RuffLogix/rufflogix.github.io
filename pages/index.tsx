@@ -17,8 +17,8 @@ const Home: NextPage<Props> = ({ posts }) => {
 
       <main className='flex flex-col gap-3 px-80 py-5'>
         {
-          posts.map(post => {
-            return <PostCard post={ post } />
+          posts.map((post, idx) => {
+            return <PostCard post={ post } key={ idx } />
           }) 
         }
       </main>

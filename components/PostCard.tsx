@@ -21,8 +21,8 @@ const PostCard: FunctionComponent<Props> = ({ post }) => {
                 <div className="flex gap-1 items-center">
                     <h1 className="text-sm">{ date } ({ moment(date).fromNow()})</h1>
                     <div className="flex gap-1">{
-                        tags.map(tag => {
-                            return <p className="px-3 border-dashed border-x-2 border-y-2 rounded-lg text-sm">{ tag }</p>
+                        tags.map((tag, idx) => {
+                            return <p className="px-3 border-dashed border-x-2 border-y-2 rounded-lg text-sm" key={ idx }>{ tag }</p>
                         })
                     }</div>
                 </div>
