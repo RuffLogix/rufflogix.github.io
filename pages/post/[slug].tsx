@@ -54,7 +54,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async (context) => {    
-    const slug: string = context.params?.slug
+    const slug: string | undefined | string[] = context.params?.slug
 
     let content: string = fs.readFileSync('./posts/' + slug + '.md' , 'utf-8')
     content = fm(content).body
