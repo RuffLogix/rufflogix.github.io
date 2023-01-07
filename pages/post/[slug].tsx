@@ -3,7 +3,6 @@ import fm from 'front-matter'
 import { marked } from 'marked'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Header from '../../components/Header'
-import Link from 'next/link'
 import Footer from '../../components/Footer'
 import "../../node_modules/github-markdown-css/github-markdown-light.css"
 
@@ -21,15 +20,12 @@ const Blog: NextPage<Props> = ({ content }) => {
     return (
         <div>
             <Header />
-
-            <div className='px-80 py-5 markdown-body' dangerouslySetInnerHTML={ {__html: content } }>
-            </div>
-            <div className='px-80' >
-                <Link href="/" legacyBehavior>
-                    <a href="/">Back to Home</a>
-                </Link>
-            </div>
-
+            <img 
+                src="https://images.unsplash.com/photo-1593062096033-9a26b09da705?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80" 
+                className='object-cover h-64 w-full'
+                alt="banner" 
+            />
+            <div className='px-80 py-5 markdown-body' dangerouslySetInnerHTML={ {__html: content } }></div>
             <Footer />
         </div>
     )

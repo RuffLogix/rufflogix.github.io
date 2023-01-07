@@ -2,9 +2,9 @@ import { FunctionComponent } from "react";
 
 const Footer: FunctionComponent = () => {
     return (
-        <div className='w-full h-32 bg-orange-300'>
+        <footer className='w-full h-32 bg-stone-900 text-white px-80 py-5'>
             <p>Some Footer...</p>
-        </div>
+        </footer>
     )
 }
 

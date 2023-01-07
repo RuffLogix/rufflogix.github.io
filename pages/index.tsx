@@ -12,10 +12,22 @@ interface Props {
 
 const Home: NextPage<Props> = ({ posts }) => {
   return (
-    <div className=''>
+    <div className='relative'>
       <Header />
+    
+      <img 
+        src="https://images.unsplash.com/photo-1593062096033-9a26b09da705?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80" 
+        className='object-cover h-64 w-full'
+        alt="banner" 
+      />
+    
+      <div className='flex px-80 py-3 justify-center'>
+        <h1 className='text-4xl underline'>
+          Blog
+        </h1>
+      </div>
 
-      <main className='flex flex-col gap-3 px-80 py-5'>
+      <main className='flex flex-col gap-3 px-80 pb-5'>
         {
           posts.map((post, idx) => {
             return <PostCard post={ post } key={ idx } />
