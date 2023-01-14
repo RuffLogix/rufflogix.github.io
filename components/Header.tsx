@@ -3,7 +3,7 @@ import { FunctionComponent } from "react"
 
 const Header: FunctionComponent = () => {
     return (
-        <div className='flex gap-3 px-80 py-3 w-full text-white/60 items-baseline justify-between  bg-stone-600/30 backdrop-blur-md fixed'>
+        <div className='flex gap-3 px-80 py-3 w-full text-white/60 items-baseline justify-between  bg-stone-900/30 backdrop-blur-md fixed'>
             <div className="flex gap-3 items-baseline">
                 <Link href="https://github.com/rufflogix" target='_blank' legacyBehavior> 
                     <a className="" href="https://github.com/rufflogix" target='_blank'>

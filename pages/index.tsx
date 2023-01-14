@@ -9,7 +9,6 @@ import Footer from '../components/Footer';
 interface Props {
   posts: IPost[],
 }
-
 const Home: NextPage<Props> = ({ posts }) => {
   return (
     <div className='relative'>
@@ -27,12 +26,14 @@ const Home: NextPage<Props> = ({ posts }) => {
         </h1>
       </div>
 
-      <main className='flex flex-col gap-3 px-80 pb-5'>
+      <main className='flex flex-col gap-5 px-80 pb-5'>
         {
           posts.map((post, idx) => {
             return <PostCard post={ post } key={ idx } />
           }) 
         }
+
+        {/* <div dangerouslySetInnerHTML={ { __html: katex.renderToString('\\ce{CO2 + C -> 2 C0}') } }></div> */}
       </main>
 
       <Footer />

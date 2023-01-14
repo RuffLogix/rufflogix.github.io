@@ -14,8 +14,11 @@ const PostCard: FunctionComponent<Props> = ({ post }) => {
     return (
         <div className='flex flex-col w-full gap-5'>
             <div className="flex flex-col gap-1">
-                <div className="flex gap-1 items-baseline"> 
-                    <h1 className=''><b>{title}</b></h1>
+                <div className="flex gap-1 items-baseline">
+                    
+                    <Link href={ url }  legacyBehavior>
+                        <a href={ url }><h1><b>{title}</b></h1></a>
+                    </Link> 
                     <h1 className="h-fit text-xs text-gray-400">
                         <Link href="/about" legacyBehavior>
                             <a href="/about"> 
@@ -33,9 +36,6 @@ const PostCard: FunctionComponent<Props> = ({ post }) => {
                     }</div>
                 </div>
             </div>
-            <Link href={ url }  legacyBehavior>
-                <a className='bg-black text-white text-sm px-3 py-1 w-fit rounded-md hover:underline' href={ url }> Read more... </a>
-            </Link>
         </div>
     )
 }

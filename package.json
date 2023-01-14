@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/markdown-it": "^12.2.3",
     "front-matter": "^4.0.2",
     "github-markdown-css": "^5.1.0",
     "gray-matter": "^4.0.3",
+    "markdown-it": "^13.0.1",
+    "markdown-it-katex": "^2.0.3",
+    "markdown-it-prism": "^2.3.0",
     "marked": "^4.2.5",
     "moment": "^2.29.4",
     "next": "13.1.1",
+    "prismjs": "^1.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
