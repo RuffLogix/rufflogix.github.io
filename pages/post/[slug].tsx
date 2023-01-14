@@ -12,7 +12,7 @@ import prism from 'markdown-it-prism'
 // import "../../node_modules/prismjs/components/prism-clike"
 // import "prismjs/components/prism-clike"
 
-import 'prismjs/themes/prism-github.css'
+import '../../public/prismjs/themes/prism-github.css'
 
 interface Props {
     content: string,
