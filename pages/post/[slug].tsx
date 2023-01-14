@@ -12,8 +12,6 @@ import prism from 'markdown-it-prism'
 // import "../../node_modules/prismjs/components/prism-clike"
 // import "prismjs/components/prism-clike"
 
-import '../../public/prismjs/themes/prism-github.css'
-
 interface Props {
     content: string,
 }
