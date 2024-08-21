@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { formatDate } from "../services/utils";
+const postFilepaths = await Astro.glob("../pages/blog/*.md");
+
+postFilepaths.sort((a, b) => {
+    const dateA: Date = new Date(a.frontmatter.date);
+    const dateB: Date = new Date(b.frontmatter.date);
+    return dateB.getTime() - dateA.getTime();
+});
+
+const showPrevious = false;
+const showNext = true;
+---
+
+<BaseLayout title="RuffLogix's Story">
+    <div class="py-10 h-min-screen flex flex-col gap-8">
+        {
+            postFilepaths.map(
+                (post) =>
+                    post.frontmatter.published && (
+                        <div>
+                            <div class="flex flex-col gap-2">
+                                <h1 class="text-xl font-bold">
+                                    {post.frontmatter.title}
+                                </h1>
+                                <p class="text-sm">
+                                    Written by {post.frontmatter.author} on{" "}
+                                    {formatDate(post.frontmatter.date)}
+                                </p>
+                                <div class="flex gap-1">
+                                    {post.frontmatter.tags.map(
+                                        (tag: string) => (
+                                            <span class="px-3 py-1 font-normal bg-orange-200 hover:bg-orange-400 hover:cursor-default duration-300 rounded-full text-xs">
+                                                # {tag}
+                                            </span>
+                                        ),
+                                    )}
+                                </div>
+                                <p>{post.frontmatter.description}</p>
+                            </div>
+                            <a
+                                href={post.url}
+                                class="underline hover:text-orange-500 font-medium"
+                            >
+                                Read more
+                            </a>
+                        </div>
+                    ),
+            )
+        }
+
+        <!--  TODO: Implement Pagination when the number of blog posts is more than 5-->
+        <!-- <div class="flex justify-between">
+            {showPrevious ? <button class="hover:text-orange-400 hover:underline font-medium">Previous</button> : <div></div>}
+            {showNext ? <button class="hover:text-orange-400 hover:underline font-medium">Next</button> : <div></div>}
+        </div> -->
+    </div>
+</BaseLayout>
