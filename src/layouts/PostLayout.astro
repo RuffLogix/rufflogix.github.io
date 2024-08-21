@@ -1,0 +1,44 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { GITHUB_URL } from "../const";
+import { formatDate } from "../services/utils";
+const { frontmatter } = Astro.props;
+
+const title = frontmatter.title + " - RuffLogix";
+const date = formatDate(frontmatter.date);
+---
+
+<BaseLayout title={title}>
+    <article
+        class="py-10 bg-white w-full flex flex-col justify-center items-center"
+    >
+        <div class="flex flex-col justify-center items-center gap-2">
+            <h1 class="text-3xl font-bold">{frontmatter.title}</h1>
+            <p class="">{frontmatter.description}</p>
+            <p class="text-sm">
+                Written by <a
+                    class="font-bold underline text-orange-500"
+                    href={GITHUB_URL}>{frontmatter.author}</a
+                > on {date}
+            </p>
+            <div class="flex gap-1">
+                {
+                    frontmatter.tags.map((tag: string) => (
+                        <span class="px-3 py-1 font-normal bg-orange-200 hover:bg-orange-400 hover:cursor-default duration-300 rounded-full text-xs">
+                            # {tag}
+                        </span>
+                    ))
+                }
+            </div>
+        </div>
+        <img
+            class="py-5"
+            src={frontmatter.image.url}
+            alt={frontmatter.image.alt}
+            draggable="false"
+        />
+        <div id="page-content" class="prose py-5">
+            <slot />
+        </div>
+    </article>
+</BaseLayout>
