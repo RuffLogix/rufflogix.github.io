@@ -1,14 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { RUFFLOGIX_IMAGE } from "../const";
+import { RUFFLOGIX_IMAGE_512 } from "../const";
+import Image from "astro/components/Image.astro";
 
-const tags: string[] = ["Learn", "Code", "Game"];
+const tags: string[] = ["Learn", "Coffee", "Code"];
 ---
 
 <BaseLayout title="RuffLogix - Teejuta Sriwaranon">
     <div class="flex flex-col h-screen gap-5 justify-center items-center w-full">
         <div class="inline-block overflow-hidden">
-            <img src={RUFFLOGIX_IMAGE} alt="rufflogix profile" class="w-80 block hover:scale-125 duration-500">
+            <Image src={RUFFLOGIX_IMAGE_512} alt="rufflogix profile" class="block hover:scale-125 duration-500" width={360} height={360} loading="eager">
         </div>
         <h1 class="text-5xl">Hi there, I'm <span class="font-semibold text-orange-500 duration-500">RuffLogix!</span></h1>
         <div class="flex gap-3">
@@ -20,7 +21,7 @@ const tags: string[] = ["Learn", "Code", "Game"];
         </div>
         <div class="flex items-center">
             <hr class="flex-grow">
-            <span class="">Ruff Ruff Ruff</span>
+            <span class="font-medium animate-bounce underline">Ruff Ruff Ruff 🐰</span>
             <hr class="flex-grow">
         </div>
     </div>
