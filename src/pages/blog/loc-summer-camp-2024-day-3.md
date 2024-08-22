@@ -7,7 +7,7 @@ description: "The lecture notes from the C++ class on day 3 of the LOC summer ca
 author: "RuffLogix"
 image:
     url: "../images/rufflogix512.png"
-    alt: ""
+    alt: "RuffLogix Logo"
 tags: ["League of Code Summer Camp (2024)"]
 ---
 

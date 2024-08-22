@@ -7,13 +7,13 @@ description: "The lecture notes from the C++ class on day 4 of the LOC summer ca
 author: "RuffLogix"
 image:
     url: "../images/rufflogix512.png"
-    alt: ""
+    alt: "RuffLogix Logo"
 tags: ["League of Code Summer Camp (2024)"]
 ---
 
 ## Function
 
-`Function` เป็นส่วนของโค้ดที่ถูกประกาศไว้ล่วงหน้าสำหรับใช้งานในอนาคต ซึ่งทำให้โค้ดนั้นอ่านง่ายขึ้น และช่วยให้การทำงานบางอย่างนั้นซับซ้อนน้อยลงด้วย ซึ่งการประกาศ Function นั้นประกอบไปด้วย 4 ส่วนหลัก ๆ 
+`Function` เป็นส่วนของโค้ดที่ถูกประกาศไว้ล่วงหน้าสำหรับใช้งานในอนาคต ซึ่งทำให้โค้ดนั้นอ่านง่ายขึ้น และช่วยให้การทำงานบางอย่างนั้นซับซ้อนน้อยลงด้วย ซึ่งการประกาศ Function นั้นประกอบไปด้วย 4 ส่วนหลัก ๆ
 
 1. ประเภทของ Function
 2. ชื่อของ Function
@@ -153,7 +153,7 @@ int fib(int n) {
 }
 
 int main() {
-    int n; 
+    int n;
     cin >> n;
 
     cout << fib(n) << '\n';
