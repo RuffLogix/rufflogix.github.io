@@ -37,7 +37,10 @@ const date = formatDate(frontmatter.date);
             alt={frontmatter.image.alt}
             draggable="false"
         />
-        <div id="page-content" class="prose py-5 w-[400px] lg:w-full">
+        <div
+            id="page-content"
+            class="prose py-5 w-[400px] md:w-full px-3 md:px-0"
+        >
             <slot />
         </div>
     </article>
