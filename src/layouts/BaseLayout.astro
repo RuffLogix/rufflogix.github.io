@@ -2,18 +2,22 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 const { title } = Astro.props;
+const description = Astro.props.description || "RuffLogix's personal blog";
+const image =
+    Astro.props.image || "https://rufflogix.com/images/rufflogix512.png";
 ---
 
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="RuffLogix's personal blog" />
+        <meta name="description" content={description} />
         <meta
             name="keywords"
             content="RuffLogix, blog, personal, learn, code, game"
         />
         <meta name="author" content="RuffLogix" />
+        <meta name="image" content={image} />
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"

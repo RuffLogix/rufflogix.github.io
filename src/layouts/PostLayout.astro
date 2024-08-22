@@ -8,7 +8,11 @@ const title = frontmatter.title + " - RuffLogix";
 const date = formatDate(frontmatter.date);
 ---
 
-<BaseLayout title={title}>
+<BaseLayout
+    title={title}
+    description={frontmatter.description}
+    image={frontmatter.image.url}
+>
     <article
         class="py-10 bg-white w-full flex flex-col justify-center items-center"
     >
