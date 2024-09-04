@@ -5,6 +5,8 @@ const { title } = Astro.props;
 const description = Astro.props.description || "RuffLogix's personal blog";
 const image =
     Astro.props.image || "https://rufflogix.com/images/rufflogix512.png";
+const author = "RuffLogix";
+const twitterHandle = "@RuffLogix";
 ---
 
 <html lang="en">
@@ -16,8 +18,17 @@ const image =
             name="keywords"
             content="RuffLogix, blog, personal, learn, code, game"
         />
-        <meta name="author" content="RuffLogix" />
-        <meta name="image" content={image} />
+        <meta name="author" content={author} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={image} />
+        <meta name="twitter:site" content={twitterHandle} />
+        <meta name="twitter:creator" content={twitterHandle} />
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
