@@ -11,6 +11,15 @@ image:
 tags: ["CU Intania 107 x CP 50"]
 ---
 
+## Table of Contents
+
+- [Truth Table](#truth-table)
+- [Sum of Products (SOP) หรือ Min-terms](#sum-of-products-sop-หรือ-min-terms)
+- [Product of Sums (POS) หรือ Max-terms](#product-of-sums-pos-หรือ-max-terms)
+- [Example](#example)
+  - [Sum of Products (SOP)](#sum-of-products-sop)
+  - [Product of Sums (POS)](#product-of-sums-pos)
+
 ## Truth Table
 
 `Truth Table` คือ ตารางที่ใช้สำหรับแสดงความจริงของฟังก์ชันตาม Input ที่รับเข้ามา
