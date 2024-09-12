@@ -3,9 +3,9 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 const { title } = Astro.props;
 const description = Astro.props.description || "RuffLogix's personal blog";
-const image = (
-    Astro.props.image || "https://rufflogix.com/images/rufflogix512.png"
-).replace("../../", "https://rufflogix.github.io/");
+const image =
+    "https://rufflogix.github.io/" +
+    (Astro.props.image || "images/rufflogix512.png").replace("../", "");
 const author = "RuffLogix";
 const twitterHandle = "@RuffLogix";
 ---
