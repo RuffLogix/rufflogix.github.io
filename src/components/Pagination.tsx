@@ -36,7 +36,7 @@ const Pagination: React.FC<PaginationProps> = ({ posts, postsPerPage }) => {
   };
 
   return (
-    <div className="py-10 h-screen flex flex-col gap-8">
+    <div className="py-10 h-screen flex flex-col gap-5">
       {posts
         .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
         .map(
@@ -69,7 +69,7 @@ const Pagination: React.FC<PaginationProps> = ({ posts, postsPerPage }) => {
               </div>
             ),
         )}
-      <div className="flex justify-between mt-4">
+      <div className="flex justify-between my-4">
         {currentPage > 1 && (
           <button
             onClick={handlePrevious}
