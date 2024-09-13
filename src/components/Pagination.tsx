@@ -19,9 +19,10 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ posts, postsPerPage }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [displayedPosts, setDisplayedPosts] = useState<Post[]>(posts);
 
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const totalPages = Math.ceil(displayedPosts.length / postsPerPage);
 
   const handlePrevious = () => {
     if (currentPage > 1) {
@@ -35,9 +36,30 @@ const Pagination: React.FC<PaginationProps> = ({ posts, postsPerPage }) => {
     }
   };
 
+  const searchTag = (tag: string) => {
+    const filteredPosts = posts.filter((post) => {
+      let shouldDisplay = false;
+      post.frontmatter.tags.forEach((postTag) => {
+        if (postTag.includes(tag)) {
+          shouldDisplay = true;
+        }
+      });
+      return shouldDisplay;
+    });
+    setDisplayedPosts(filteredPosts);
+  };
+
   return (
-    <div className="py-10 h-screen flex flex-col gap-5">
-      {posts
+    <div className="h-screen flex flex-col gap-5">
+      <div className="flex justify-end">
+        <input
+          type="text"
+          placeholder="Search by tag ..."
+          className="px-4 py-2 font-medium bg-orange-200 hover:bg-orange-400 hover:cursor-pointer duration-300 rounded-md"
+          onChange={(e) => searchTag(e.target.value)}
+        />
+      </div>
+      {displayedPosts
         .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
         .map(
           (post: Post) =>
