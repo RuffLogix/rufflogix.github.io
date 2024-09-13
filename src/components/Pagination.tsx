@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { formatDate } from "../services/utils";
 
-interface Post {
+export interface Post {
   frontmatter: {
     title: string;
     author: string;
