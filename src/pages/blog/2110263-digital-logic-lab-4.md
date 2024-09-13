@@ -11,6 +11,15 @@ image:
 tags: ["CU Intania x CP"]
 ---
 
+## Table of Contents
+
+- [Functionally Complete](#functionally-complete)
+- [NAND และ NOR](#nand-และ-nor)
+  - [NAND](#nand)
+  - [NOR](#nor)
+- [การต่อ Half Adder ด้วย NAND](#การต่อ-half-adder-ด้วย-nand)
+- [การต่อ Full Adder ด้วย NAND](#การต่อ-full-adder-ด้วย-nand)
+
 ในสัปดาห์นี้จะเป็นการต่อ Half Adder/Full Adder บน Breadboard และใช้ 74HC00N/74HC00P เป็น IC ที่ใช้ในการต่อวงจร
 
 <img src="../../images/cu-intania/2110263-digital-logic-lab/lab-4-74hc00n-74hc00p.jpg" alt="74HC00N/74HC00P" style="max-width: 50%; clear: both; display: block; margin: 0 auto;">
