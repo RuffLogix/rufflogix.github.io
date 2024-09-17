@@ -40,7 +40,7 @@ const Pagination: React.FC<PaginationProps> = ({ posts, postsPerPage }) => {
     const filteredPosts = posts.filter((post) => {
       let shouldDisplay = false;
       post.frontmatter.tags.forEach((postTag) => {
-        if (postTag.includes(tag)) {
+        if (postTag.toLowerCase().includes(tag.toLowerCase())) {
           shouldDisplay = true;
         }
       });
