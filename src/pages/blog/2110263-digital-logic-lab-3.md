@@ -8,7 +8,7 @@ author: "RuffLogix"
 image:
     url: "../../images/cu-intania/2110263-digital-logic-lab/thumbnail.png"
     alt: "Digital Logic Lab"
-tags: ["CU Intania x CP"]
+tags: ["CU Intania x CP", "2110263"]
 ---
 
 ## Table of Contents

@@ -8,7 +8,7 @@ author: "RuffLogix"
 image:
     url: "../../images/rufflogix512.png"
     alt: "RuffLogix Logo"
-tags: ["League of Code Summer Camp (2024)"]
+tags: ["League of Code"]
 ---
 
 ## Array
