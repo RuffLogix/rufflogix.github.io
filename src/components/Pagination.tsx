@@ -70,7 +70,7 @@ const Pagination: React.FC<PaginationProps> = ({ posts, postsPerPage }) => {
                     {post.frontmatter.title}
                   </h1>
                   <p className="text-sm">
-                    Written by {post.frontmatter.author} on //{" "}
+                    Written by {post.frontmatter.author} on{" "}
                     {formatDate(post.frontmatter.date)}
                   </p>
                   <div className="flex gap-1">
