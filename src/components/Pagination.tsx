@@ -50,7 +50,7 @@ const Pagination: React.FC<PaginationProps> = ({ posts, postsPerPage }) => {
   };
 
   return (
-    <div className="h-screen flex flex-col gap-5">
+    <div className="flex flex-col gap-5 mx-3 md:mx-0">
       <div className="flex justify-end">
         <input
           type="text"
@@ -59,38 +59,41 @@ const Pagination: React.FC<PaginationProps> = ({ posts, postsPerPage }) => {
           onChange={(e) => searchTag(e.target.value)}
         />
       </div>
-      {displayedPosts
-        .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
-        .map(
-          (post: Post, postIndex: number) =>
-            post.frontmatter.published && (
-              <div key={postIndex}>
-                <div className="flex flex-col gap-2">
-                  <h1 className="text-xl font-bold">
-                    {post.frontmatter.title}
-                  </h1>
-                  <p className="text-sm">
-                    Written by {post.frontmatter.author} on{" "}
-                    {formatDate(post.frontmatter.date)}
-                  </p>
-                  <div className="flex gap-1">
-                    {post.frontmatter.tags.map((tag: string) => (
-                      <span className="px-3 py-1 font-normal bg-orange-200 hover:bg-orange-400 hover:cursor-default duration-300 rounded-full text-xs">
-                        # {tag}
-                      </span>
-                    ))}
+      <div>
+        {displayedPosts
+          .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
+          .map(
+            (post: Post, postIndex: number) =>
+              post.frontmatter.published && (
+                <div key={postIndex}>
+                  <div className="flex flex-col gap-2">
+                    <h1 className="text-xl font-bold">
+                      {post.frontmatter.title}
+                    </h1>
+                    <p className="text-sm">
+                      Written by {post.frontmatter.author} on{" "}
+                      {formatDate(post.frontmatter.date)}
+                    </p>
+                    <div className="flex gap-1">
+                      {post.frontmatter.tags.map((tag: string) => (
+                        <span className="px-3 py-1 font-normal bg-orange-200 hover:bg-orange-400 hover:cursor-default duration-300 rounded-full text-xs">
+                          # {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <p>{post.frontmatter.description}</p>
                   </div>
-                  <p>{post.frontmatter.description}</p>
+                  <a
+                    href={post.url}
+                    className="underline hover:text-orange-500 font-medium"
+                  >
+                    Read more
+                  </a>
+                  <hr className="my-4 border-gray-300" />
                 </div>
-                <a
-                  href={post.url}
-                  className="underline hover:text-orange-500 font-medium"
-                >
-                  Read more
-                </a>
-              </div>
-            )
-        )}
+              )
+          )}
+      </div>
       <div className="flex justify-between my-4">
         {currentPage > 1 && (
           <button
@@ -100,7 +103,6 @@ const Pagination: React.FC<PaginationProps> = ({ posts, postsPerPage }) => {
             Previous
           </button>
         )}
-
         <div></div>
 
         {currentPage < totalPages && (
