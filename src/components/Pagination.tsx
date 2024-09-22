@@ -62,9 +62,9 @@ const Pagination: React.FC<PaginationProps> = ({ posts, postsPerPage }) => {
       {displayedPosts
         .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
         .map(
-          (post: Post) =>
+          (post: Post, postIndex: number) =>
             post.frontmatter.published && (
-              <div>
+              <div key={postIndex}>
                 <div className="flex flex-col gap-2">
                   <h1 className="text-xl font-bold">
                     {post.frontmatter.title}
@@ -89,7 +89,7 @@ const Pagination: React.FC<PaginationProps> = ({ posts, postsPerPage }) => {
                   Read more
                 </a>
               </div>
-            ),
+            )
         )}
       <div className="flex justify-between my-4">
         {currentPage > 1 && (
