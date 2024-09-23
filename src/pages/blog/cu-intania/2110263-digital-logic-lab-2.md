@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/PostLayout.astro"
+layout: "../../../layouts/PostLayout.astro"
 title: "Digital Logic Lab (2110263) - Lab 2"
 date: "2024-09-13"
 published: false
@@ -65,8 +65,8 @@ tags: ["CU Intania x CP", "2110263"]
 
 ### Sum of Products (SOP)
 
-![SOP](../../../public/images/cu-intania/2110263-digital-logic-lab/lab-2-sop.png)
+![SOP](../../../../public/images/cu-intania/2110263-digital-logic-lab/lab-2-sop.png)
 
 ### Product of Sums (POS)
 
-![SOP](../../../public/images/cu-intania/2110263-digital-logic-lab/lab-2-pos.png)
+![SOP](../../../../public/images/cu-intania/2110263-digital-logic-lab/lab-2-pos.png)

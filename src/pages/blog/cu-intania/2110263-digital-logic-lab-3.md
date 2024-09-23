@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/PostLayout.astro"
+layout: "../../../layouts/PostLayout.astro"
 title: "Digital Logic Lab (2110263) - Lab 3"
 date: "2024-09-13"
 published: false

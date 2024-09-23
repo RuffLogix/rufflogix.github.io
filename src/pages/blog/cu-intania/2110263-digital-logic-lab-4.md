@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/PostLayout.astro"
+layout: "../../../layouts/PostLayout.astro"
 title: "Digital Logic Lab (2110263) - Lab 4"
 date: "2024-09-13"
 published: false
@@ -26,7 +26,7 @@ tags: ["CU Intania x CP", "2110263"]
 
 หน้าตาของ 74HC00N/74HC00P
 
-![Full Adder Breadboard](../../../public/images/cu-intania/2110263-digital-logic-lab/lab-4-full-adder-breadboard.jpg)
+![Full Adder Breadboard](../../../../public/images/cu-intania/2110263-digital-logic-lab/lab-4-full-adder-breadboard.jpg)
 
 Full Adder บน Breadboard
 
@@ -40,18 +40,18 @@ NAND และ NOR ทั้งคู่เป็น functionally complete ซ�
 
 ### NAND
 
-![NAND Functionally Complete](../../../public/images/cu-intania/2110263-digital-logic-lab/lab-4-nand-functionally-complete.jpg)
+![NAND Functionally Complete](../../../../public/images/cu-intania/2110263-digital-logic-lab/lab-4-nand-functionally-complete.jpg)
 
 ### NOR
 
-![NOR Functionally Complete](../../../public/images/cu-intania/2110263-digital-logic-lab/lab-4-nor-functionally-complete.jpg)
+![NOR Functionally Complete](../../../../public/images/cu-intania/2110263-digital-logic-lab/lab-4-nor-functionally-complete.jpg)
 
 > เนื่องจาก IC ที่เราใช้คือ 74HC00N/74HC00P ซึ่งเป็น NAND Gate 4 ช่อง ดังนั้นเราจะใช้ NAND Gate ในการสร้างวงจรต่าง ๆ
 
 ## การต่อ Half Adder ด้วย NAND
 
-![NOR Functionally Complete](../../../public/images/cu-intania/2110263-digital-logic-lab/lab-4-nand-half-adder.png)
+![NOR Functionally Complete](../../../../public/images/cu-intania/2110263-digital-logic-lab/lab-4-nand-half-adder.png)
 
 ## การต่อ Full Adder ด้วย NAND
 
-![NOR Functionally Complete](../../../public/images/cu-intania/2110263-digital-logic-lab/lab-4-nand-full-adder.png)
+![NOR Functionally Complete](../../../../public/images/cu-intania/2110263-digital-logic-lab/lab-4-nand-full-adder.png)

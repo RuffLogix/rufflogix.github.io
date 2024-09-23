@@ -32,9 +32,9 @@ Coming soon...
 
 ## 2110263 - Digital Computer Logic Laboratory I
 
-- [Lab 2](/blog/2110263-digital-logic-lab-2)
-- [Lab 3](/blog/2110263-digital-logic-lab-3)
-- [Lab 4](/blog/2110263-digital-logic-lab-4)
+- [Lab 2](/blog/cu-intania/2110263-digital-logic-lab-2)
+- [Lab 3](/blog/cu-intania/2110263-digital-logic-lab-3)
+- [Lab 4](/blog/cu-intania/2110263-digital-logic-lab-4)
 
 ## 2110251 - Digital Computer Logic Laboratory
 
