@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Pagination, { type Post } from "../components/Pagination.jsx";
 
-const postFilepaths = (await Astro.glob("../pages/blog/*.md")) as Post[];
+const postFilepaths: Post[]  = ((await Astro.glob("../pages/blog/*.md")) as Post[]).filter((post) => post.frontmatter.published !== false);
 
 postFilepaths.sort((a, b) => {
     const dateA: Date = new Date(a.frontmatter.date);

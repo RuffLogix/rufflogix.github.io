@@ -2,7 +2,7 @@
 layout: "../../layouts/PostLayout.astro"
 title: "Digital Logic Lab (2110263) - Lab 3"
 date: "2024-09-13"
-published: true
+published: false
 description: "สรุปเนื้อหาวิชา Digital Logic Lab (2110263) ภาคเรียนที่ 1 ปีการศึกษา 2567"
 author: "RuffLogix"
 image:
