@@ -24,7 +24,10 @@ tags: ["CU Intania x CP"]
 
 ## 2110211 - Introduction To Data Structures
 
-Coming soon...
+- [CP::pair](/blog/cu-intania/2110211-data-structures-cp-pair)
+- [CP::vector](/blog/cu-intania/2110211-data-structures-cp-vector)
+- [CP::stack](/blog/cu-intania/2110211-data-structures-cp-stack)
+- [CP::queue](/blog/cu-intania/2110211-data-structures-cp-queue)
 
 ## 2603284 - Statistics For Physical Science
 
