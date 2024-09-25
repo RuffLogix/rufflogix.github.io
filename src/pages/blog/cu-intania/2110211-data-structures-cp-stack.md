@@ -14,6 +14,7 @@ tags: ["CU Intania x CP", "2110211"]
 ## Table of Contents
 
 - [Stack](#stack)
+- [Lecture Slide](#lecture-slide)
 
 ## Stack
 
@@ -109,3 +110,7 @@ namespace CP {
 }
 #endif
 ```
+
+## Lecture Slide
+
+- [CP::stack](https://mycourseville-default.s3.ap-southeast-1.amazonaws.com/useruploaded_course_files/2023_1/35349/materials/10_cp_stack-660-16945336627189.pdf)
