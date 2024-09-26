@@ -18,18 +18,6 @@ tags: ["League of Code"]
 - [Criteria](#criteria)
 - [Lecturers](#lecturers)
 
-## Timeline
-
-```mermaid
-timeline
-  Day 1 (2024-10-14) : Time Complexity + Quiz : State Space Search
-  Day 2 (2024-10-15) : Combinatrics + Quiz : State Space Search Contest
-  Day 3 (2024-10-16) : Dynamic Programming
-  Day 4 (2024-10-17) : Dynamic Programming : Dynamic Programming Contest
-  Day 5 (2024-10-18) : Dynamic Programming
-  Day 6 (2024-10-19) : Final Contest
-```
-
 ## Curriculum
 
 ### Day 1
