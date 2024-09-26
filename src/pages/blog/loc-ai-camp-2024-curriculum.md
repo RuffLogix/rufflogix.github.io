@@ -13,7 +13,6 @@ tags: ["League of Code"]
 
 ## Table of Contents
 
-- [Timeline](#timeline)
 - [Curriculum](#curriculum)
 - [Criteria](#criteria)
 - [Lecturers](#lecturers)
