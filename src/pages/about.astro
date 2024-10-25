@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import SlideShow from "../components/SlideShow";
-import { GITHUB_URL, ACTIVITY_CARDS, PROJECT_CARDS } from "../const";
+import { GITHUB_URL, ACTIVITY_CARDS, PROJECT_CARDS, PRIMARY_TEXT_COLOR } from "../const";
 ---
 
 <BaseLayout title="About RuffLogix">
@@ -10,7 +9,7 @@ import { GITHUB_URL, ACTIVITY_CARDS, PROJECT_CARDS } from "../const";
         <header>
             <h1 class="text-2xl font-medium">
                 Teejuta Sriwaranon
-                <a href={GITHUB_URL} class="text-orange-500">@RuffLogix</a>
+                <a href={GITHUB_URL} class=`${PRIMARY_TEXT_COLOR}`>@RuffLogix</a>
             </h1>
             <p class="mt-2">Work in progress.</p>
         </header>

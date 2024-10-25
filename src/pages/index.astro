@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { RUFFLOGIX_IMAGE_512 } from "../const";
+import { RUFFLOGIX_IMAGE_512, PRIMARY_TEXT_COLOR, PRIMARY_BACKGROUND_COLOR, SECONDARY_BACKGROUND_COLOR } from "../const";
 import Image from "astro/components/Image.astro";
 
 const tags: string[] = ["Learn", "Coffee", "Code"];
@@ -22,14 +22,14 @@ const tags: string[] = ["Learn", "Coffee", "Code"];
         </div>
         <h1 class="text-5xl text-center">
             Hi there, I'm <span
-                class="font-semibold text-orange-500 duration-500"
+                class=`font-semibold ${PRIMARY_TEXT_COLOR} duration-500`
                 >RuffLogix!</span
             >
         </h1>
         <div class="flex gap-3">
             {
                 tags.map((tag) => (
-                    <span class="px-3 py-1 font-normal bg-orange-200 hover:bg-orange-400 hover:cursor-default duration-300 rounded-full">
+                    <span class=`px-3 py-1 font-normal ${SECONDARY_BACKGROUND_COLOR} hover:${PRIMARY_BACKGROUND_COLOR} hover:cursor-default duration-300 rounded-full`>
                         # {tag}
                     </span>
                 ))

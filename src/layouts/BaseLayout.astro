@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { CONTENT_BACKGROUND_COLOR } from "../const";
 const { title } = Astro.props;
 const description = Astro.props.description || "RuffLogix's personal blog";
 const image =
@@ -38,7 +39,7 @@ const twitterHandle = "@RuffLogix";
     </head>
     <body class="font-light">
         <Header />
-        <div class="h-min-screen w-full flex justify-center bg-orange-50">
+        <div class=`h-min-screen w-full flex justify-center ${CONTENT_BACKGROUND_COLOR}`>
             <div class="w-full md:max-w-[720px]">
                 <slot />
             </div>

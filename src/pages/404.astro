@@ -1,19 +1,20 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { PRIMARY_TEXT_COLOR, PRIMARY_BACKGROUND_COLOR, HOVER_BACKGROUND_COLOR, NORMAL_TEXT_COLOR, CONTENT_BACKGROUND_COLOR } from "../const";
 ---
 
 <BaseLayout title="404 Not Found">
     <div
-        class="h-screen flex flex-col justify-center items-center text-center bg-orange-50"
+        class=`h-screen flex flex-col justify-center items-center text-center ${CONTENT_BACKGROUND_COLOR}`
     >
-        <h1 class="text-6xl font-bold text-orange-600">404</h1>
+        <h1 class=`text-6xl font-bold ${PRIMARY_TEXT_COLOR}`>404</h1>
         <p class="text-2xl mt-4 text-gray-700">Oops! Page not found.</p>
         <p class="text-lg mt-2 text-gray-500">
             It looks like the page you are looking for doesn't exist.
         </p>
         <a
             href="/"
-            class="mt-6 px-6 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition"
+            class=`mt-6 px-6 py-2 ${PRIMARY_BACKGROUND_COLOR} ${NORMAL_TEXT_COLOR} rounded-md hover:${HOVER_BACKGROUND_COLOR} transition`
         >
             Back to Home
         </a>
