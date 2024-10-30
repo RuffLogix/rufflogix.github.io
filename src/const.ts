@@ -81,6 +81,13 @@ const ACTIVITY_CARDS: CardProps[] = [
   },
 ];
 
+const NORMAL_TEXT_COLOR: string = "text-white";
+const PRIMARY_TEXT_COLOR: string = "text-orange-500";
+const HOVER_BACKGROUND_COLOR: string = "bg-orange-600";
+const PRIMARY_BACKGROUND_COLOR: string = "bg-orange-400";
+const SECONDARY_BACKGROUND_COLOR: string = "bg-orange-200";
+const CONTENT_BACKGROUND_COLOR: string = "bg-orange-50";
+
 export {
   GITHUB_URL,
   RUFFLOGIX_IMAGE_256,
@@ -88,4 +95,10 @@ export {
   RUFFLOGIX_IMAGE_1024,
   PROJECT_CARDS,
   ACTIVITY_CARDS,
+  PRIMARY_TEXT_COLOR,
+  PRIMARY_BACKGROUND_COLOR,
+  SECONDARY_BACKGROUND_COLOR,
+  HOVER_BACKGROUND_COLOR,
+  NORMAL_TEXT_COLOR,
+  CONTENT_BACKGROUND_COLOR,
 };
