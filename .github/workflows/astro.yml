@@ -18,14 +18,8 @@ jobs:
           node-version: 22
           cache: "pnpm"
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 9.9.0
-          run_install: false # prevent auto install to avoid conflicts
-
-      - name: Add pnpm to PATH
-        run: echo "$(pnpm bin)" >> $GITHUB_PATH
+      - name: Enable pnpm via corepack
+        run: corepack enable
 
       - name: Install dependencies
         run: pnpm install
