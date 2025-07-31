@@ -6,7 +6,19 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://rufflogix.github.io",
   base: "/rufflogix.github.io",
+  build: {
+    assets: "_astro/[name].[hash][extname]",
+  },
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      rollupOptions: {
+        output: {
+          assetFileNames: "assets/[name].[hash][extname]",
+          chunkFileNames: "assets/[name].[hash].js",
+          entryFileNames: "assets/[name].[hash].js",
+        },
+      },
+    },
   },
 });

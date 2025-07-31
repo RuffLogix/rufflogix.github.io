@@ -57,6 +57,20 @@ jobs:
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
+        env:
+          # Add build timestamp for cache busting
+          BUILD_TIMESTAMP: ${{ github.run_number }}-${{ github.sha }}
+
+      - name: Add cache busting headers
+        run: |
+          # Create _headers file for Netlify-style headers (GitHub Pages supports some)
+          echo "/*" > ${{ env.BUILD_PATH }}/dist/_headers
+          echo "  Cache-Control: no-cache, no-store, must-revalidate" >> ${{ env.BUILD_PATH }}/dist/_headers
+          echo "  Pragma: no-cache" >> ${{ env.BUILD_PATH }}/dist/_headers
+          echo "  Expires: 0" >> ${{ env.BUILD_PATH }}/dist/_headers
+
+          # Add meta tag to HTML files for cache busting
+          find ${{ env.BUILD_PATH }}/dist -name "*.html" -exec sed -i 's/<head>/<head><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">/g' {} \;
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
