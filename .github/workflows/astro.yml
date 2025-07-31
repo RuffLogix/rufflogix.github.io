@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write # Granting the id-token: write permission
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
