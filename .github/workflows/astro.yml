@@ -1,28 +1,31 @@
-name: Deploy to Vercel
+name: Deploy Astro with pnpm
 
 on:
   push:
-    branches: [master]
-  workflow_dispatch:
+    branches:
+      - master # Or your desired deployment branch
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js v22
-        uses: actions/setup-node@v4
+      - name: Install dependencies and build Astro
+        uses: withastro/action@v3
         with:
-          node-version: 22
-          cache: "pnpm"
+          node-version: 22 # Or your desired Node.js version
+          package-manager: pnpm # Explicitly set pnpm
+          build-command: pnpm run build # Or your custom build command
 
-      - name: Enable pnpm via corepack
-        run: corepack enable
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Deploy to Vercel
-        run: npx vercel --token ${{ secrets.VERCEL_TOKEN }} --prod
+  deploy:
+    needs: build # Ensures build job completes successfully
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
