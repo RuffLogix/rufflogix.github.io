@@ -1,35 +1,34 @@
-name: Deploy Astro with pnpm
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - master # Or your desired deployment branch
+      - master # Or your default branch, e.g., master
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write # Granting the id-token: write permission
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install dependencies and build Astro
-        uses: withastro/action@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 22 # Or your desired Node.js version
-          package-manager: pnpm # Explicitly set pnpm
-          build-command: pnpm run build # Or your custom build command
-
-  deploy:
-    needs: build # Ensures build job completes successfully
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
+          node-version: "22" # Or your preferred Node.js version
+          cache: "pnpm" # Cache pnpm dependencies
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build Astro
+        run: pnpm run build
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: withastro/action@v2
+        with:
+          # Optional: if your site is in a subdirectory, uncomment and set the path
+          # project-path: './my-astro-site'
+          # Optional: if your build output is not in 'dist', uncomment and set the path
+          # dist: 'build'
+          # Optional: if you need to pass environment variables
+          # public-env: 'PUBLIC_VAR1,PUBLIC_VAR2'
+          # Optional: if you need to pass secrets (requires GitHub secrets)
+          # secrets: 'PRIVATE_SECRET1'
