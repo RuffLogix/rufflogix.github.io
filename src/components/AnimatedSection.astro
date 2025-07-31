@@ -1,0 +1,314 @@
+---
+export interface Props {
+  animation?:
+    | "fadeIn"
+    | "slideUp"
+    | "slideLeft"
+    | "slideRight"
+    | "stagger"
+    | "scale";
+  delay?: number;
+  duration?: number;
+  trigger?: string;
+  className?: string;
+  staggerDelay?: number;
+  offset?: number;
+  easing?: string;
+  threshold?: number;
+}
+
+const {
+  animation = "fadeIn",
+  delay = 0,
+  duration = 0.6,
+  trigger,
+  className = "",
+  staggerDelay = 0.1,
+  offset = 50,
+  easing = "power2.out",
+  threshold = 0.5,
+} = Astro.props;
+
+// Generate unique ID for this animated section
+const sectionId = `animated-section-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div
+  id={sectionId}
+  class={`animated-section ${className}`}
+  data-animation={animation}
+  data-delay={delay}
+  data-duration={duration}
+  data-trigger={trigger}
+  data-stagger-delay={staggerDelay}
+  data-offset={offset}
+  data-easing={easing}
+  data-threshold={threshold}
+>
+  <slot />
+</div>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { GSAPManager } from "../scripts/gsap-init";
+  import {
+    prefersReducedMotion,
+    getResponsiveAnimationDuration,
+  } from "../scripts/theme-consistency";
+
+  // Register ScrollTrigger plugin
+  gsap.registerPlugin(ScrollTrigger);
+
+  interface AnimationOptions {
+    animation: string;
+    delay: number;
+    duration: number;
+    trigger?: string;
+    staggerDelay: number;
+    offset: number;
+    easing: string;
+    threshold: number;
+  }
+
+  class AnimatedSectionController {
+    private element: HTMLElement;
+    private options: AnimationOptions;
+    private scrollTrigger?: ScrollTrigger;
+
+    constructor(element: HTMLElement) {
+      this.element = element;
+      this.options = this.parseOptions();
+      this.init();
+    }
+
+    private parseOptions(): AnimationOptions {
+      const dataset = this.element.dataset;
+      return {
+        animation: dataset.animation || "fadeIn",
+        delay: parseFloat(dataset.delay || "0"),
+        duration: parseFloat(dataset.duration || "0.6"),
+        trigger: dataset.trigger,
+        staggerDelay: parseFloat(dataset.staggerDelay || "0.1"),
+        offset: parseFloat(dataset.offset || "50"),
+        easing: dataset.easing || "power2.out",
+        threshold: parseFloat(dataset.threshold || "0.5"),
+      };
+    }
+
+    private async init(): Promise<void> {
+      try {
+        // Wait for GSAP to be initialized
+        const manager = GSAPManager.getInstance();
+        if (!manager.isInitialized()) {
+          await manager.initialize();
+        }
+
+        this.setupAnimation();
+      } catch (error) {
+        console.error("Failed to initialize animated section:", error);
+        this.fallbackToCSS();
+      }
+    }
+
+    private setupAnimation(): void {
+      const {
+        animation,
+        delay,
+        duration,
+        staggerDelay,
+        offset,
+        easing,
+        threshold,
+      } = this.options;
+
+      // Respect user's motion preferences
+      const responsiveDuration = getResponsiveAnimationDuration(duration);
+      const responsiveDelay = getResponsiveAnimationDuration(delay);
+
+      // Set initial state based on animation type
+      this.setInitialState();
+
+      // Create animation timeline
+      const tl = gsap.timeline({ paused: true });
+
+      if (animation === "stagger") {
+        // Handle stagger animation for child elements
+        const children = Array.from(this.element.children);
+        children.forEach((child, index) => {
+          this.setChildInitialState(child as HTMLElement, animation);
+        });
+
+        tl.to(children, {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          scale: 1,
+          duration: responsiveDuration,
+          ease: easing,
+          stagger: prefersReducedMotion() ? 0 : staggerDelay,
+          delay: responsiveDelay,
+        });
+      } else {
+        // Handle single element animations
+        const animationProps = this.getAnimationProps(
+          animation,
+          responsiveDuration,
+          easing,
+          responsiveDelay
+        );
+        tl.to(this.element, animationProps);
+      }
+
+      // Set up ScrollTrigger
+      this.setupScrollTrigger(tl, threshold);
+    }
+
+    private setInitialState(): void {
+      const { animation } = this.options;
+
+      if (prefersReducedMotion()) {
+        return; // Skip initial state changes for reduced motion
+      }
+
+      switch (animation) {
+        case "fadeIn":
+          gsap.set(this.element, { opacity: 0 });
+          break;
+        case "slideUp":
+          gsap.set(this.element, { opacity: 0, y: this.options.offset });
+          break;
+        case "slideLeft":
+          gsap.set(this.element, { opacity: 0, x: this.options.offset });
+          break;
+        case "slideRight":
+          gsap.set(this.element, { opacity: 0, x: -this.options.offset });
+          break;
+        case "scale":
+          gsap.set(this.element, { opacity: 0, scale: 0.8 });
+          break;
+        case "stagger":
+          // Initial state will be set per child in setupAnimation
+          break;
+      }
+    }
+
+    private setChildInitialState(child: HTMLElement, animation: string): void {
+      if (prefersReducedMotion()) {
+        return;
+      }
+
+      // Default stagger animation is slideUp
+      gsap.set(child, { opacity: 0, y: this.options.offset });
+    }
+
+    private getAnimationProps(
+      animation: string,
+      duration: number,
+      easing: string,
+      delay: number
+    ): gsap.TweenVars {
+      const baseProps = {
+        duration,
+        ease: easing,
+        delay,
+      };
+
+      switch (animation) {
+        case "fadeIn":
+          return { ...baseProps, opacity: 1 };
+        case "slideUp":
+          return { ...baseProps, opacity: 1, y: 0 };
+        case "slideLeft":
+          return { ...baseProps, opacity: 1, x: 0 };
+        case "slideRight":
+          return { ...baseProps, opacity: 1, x: 0 };
+        case "scale":
+          return { ...baseProps, opacity: 1, scale: 1 };
+        default:
+          return { ...baseProps, opacity: 1 };
+      }
+    }
+
+    private setupScrollTrigger(
+      timeline: gsap.core.Timeline,
+      threshold: number
+    ): void {
+      const triggerElement = this.options.trigger
+        ? document.querySelector(this.options.trigger)
+        : this.element;
+
+      if (!triggerElement) {
+        console.warn("Trigger element not found, using self as trigger");
+        return;
+      }
+
+      this.scrollTrigger = ScrollTrigger.create({
+        trigger: triggerElement,
+        start: `top ${(1 - threshold) * 100}%`,
+        onEnter: () => timeline.play(),
+        onLeave: () => timeline.reverse(),
+        onEnterBack: () => timeline.play(),
+        onLeaveBack: () => timeline.reverse(),
+      });
+    }
+
+    private fallbackToCSS(): void {
+      // Fallback to CSS animations if GSAP fails
+      this.element.classList.add("animate-ready", "animate-in");
+      console.warn("Falling back to CSS animations for", this.element);
+    }
+
+    public destroy(): void {
+      if (this.scrollTrigger) {
+        this.scrollTrigger.kill();
+      }
+      gsap.killTweensOf(this.element);
+      gsap.killTweensOf(this.element.children);
+    }
+  }
+
+  // Initialize all animated sections on the page
+  function initializeAnimatedSections(): void {
+    const sections = document.querySelectorAll(".animated-section");
+    const controllers: AnimatedSectionController[] = [];
+
+    sections.forEach((section) => {
+      const controller = new AnimatedSectionController(section as HTMLElement);
+      controllers.push(controller);
+    });
+
+    // Cleanup on page unload
+    window.addEventListener("beforeunload", () => {
+      controllers.forEach((controller) => controller.destroy());
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeAnimatedSections);
+  } else {
+    initializeAnimatedSections();
+  }
+</script>
+
+<style>
+  .animated-section {
+    /* Ensure the section is ready for animation */
+    position: relative;
+  }
+
+  /* Fallback styles for when GSAP is not available */
+  .animated-section.animate-ready {
+    opacity: 0;
+    transform: translateY(var(--animation-offset));
+    transition:
+      opacity var(--timing-medium) var(--easing-default),
+      transform var(--timing-medium) var(--easing-default);
+  }
+
+  .animated-section.animate-ready.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

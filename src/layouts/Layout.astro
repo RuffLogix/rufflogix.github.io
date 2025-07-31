@@ -1,22 +1,53 @@
+---
+import Navbar from "../components/Navbar.astro";
+import ScrollAnimations from "../components/ScrollAnimations.astro";
+import "../styles/global.css";
+
+export interface Props {
+    title?: string;
+    description?: string;
+}
+
+const { title = "Portfolio", description = "Personal portfolio website" } =
+    Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <meta name="description" content={description} />
+        <title>{title}</title>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+        <!-- Preload theme consistency script for better performance -->
+        <link rel="modulepreload" href="/src/scripts/theme-consistency.ts" />
+    </head>
+    <body class="theme-body">
+        <Navbar />
+        <div
+            class="min-h-screen"
+            style="background-color: var(--color-background); color: var(--color-text);"
+        >
+            <slot />
+        </div>
+        <ScrollAnimations />
+
+        <!-- Initialize theme consistency -->
+        <script>
+            import { applyPageTheme } from "../scripts/theme-consistency.ts";
+
+            // Apply theme on page load
+            document.addEventListener("DOMContentLoaded", () => {
+                applyPageTheme();
+            });
+
+            // Reapply theme on navigation (for SPA-like behavior)
+            document.addEventListener("astro:page-load", () => {
+                applyPageTheme();
+            });
+        </script>
+    </body>
+</html>

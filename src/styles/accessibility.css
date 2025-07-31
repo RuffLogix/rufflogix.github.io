@@ -1,0 +1,501 @@
+/**
+ * Accessibility Styles
+ * Comprehensive accessibility support for animations and interactions
+ */
+
+/* Skip Navigation Links */
+.skip-links {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--color-accent);
+  color: var(--color-text);
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-weight: var(--font-weight-medium);
+  font-size: 0.875rem;
+  z-index: 10000;
+  transition: top 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.skip-to-content:focus {
+  top: 6px;
+  outline: none;
+  border-color: var(--color-text);
+}
+
+.skip-to-content:hover {
+  background: var(--color-accent-hover);
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.sr-only-focusable:focus {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+}
+
+/* Keyboard Navigation Support */
+.keyboard-navigation-active *:focus {
+  outline: 2px solid var(--color-accent) !important;
+  outline-offset: 2px !important;
+  z-index: 10 !important;
+}
+
+.keyboard-navigable {
+  position: relative;
+}
+
+.keyboard-navigable:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  z-index: 10;
+  border-radius: var(--border-radius);
+}
+
+.keyboard-navigable:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  z-index: 10;
+  border-radius: var(--border-radius);
+}
+
+/* Enhanced Focus Indicators */
+.focus-ring {
+  transition: box-shadow var(--timing-fast) var(--easing-default);
+}
+
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+/* Ensure animated elements maintain focus visibility */
+.animate-ready:focus,
+.animate-fade:focus,
+.animate-slide-up:focus,
+.animate-slide-down:focus,
+.animate-slide-left:focus,
+.animate-slide-right:focus,
+.animate-scale:focus,
+.animate-rotate:focus {
+  outline: 2px solid var(--color-accent) !important;
+  outline-offset: 2px !important;
+  z-index: 10 !important;
+}
+
+/* Focus Trap for Modals/Overlays */
+.focus-trap {
+  position: relative;
+}
+
+.focus-trap::before,
+.focus-trap::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Animation State Announcements */
+.animate-ready[aria-hidden="true"] {
+  visibility: hidden;
+}
+
+.animate-ready[aria-hidden="false"],
+.animate-in[aria-hidden="false"] {
+  visibility: visible;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  /* Global animation disable */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Ensure all animated content is immediately visible */
+  .animate-ready,
+  .animate-fade,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-scale,
+  .animate-scale-up,
+  .animate-rotate,
+  .hero-name,
+  .hero-role,
+  .hero-description,
+  .hero-image,
+  .hero-social,
+  .project-card,
+  .timeline-dot,
+  .timeline-card,
+  .certificate-card,
+  .section-header {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    visibility: visible !important;
+    animation: none !important;
+  }
+
+  /* Remove stagger delays */
+  .stagger-container > *,
+  .stagger-fast > *,
+  .stagger-slow > * {
+    transition-delay: 0s !important;
+  }
+
+  /* Disable parallax effects */
+  .parallax-element {
+    transform: none !important;
+  }
+
+  /* Keep focus indicators functional */
+  .focus-ring:focus,
+  .focus-ring:focus-visible,
+  .keyboard-navigable:focus,
+  .keyboard-navigable:focus-visible {
+    transition: box-shadow 0.01ms !important;
+  }
+
+  /* Maintain hover effects but make them instant */
+  .hover-scale:hover,
+  .hover-scale-sm:hover,
+  .hover-scale-lg:hover,
+  .hover-lift:hover,
+  .hover-lift-sm:hover,
+  .project-card:hover {
+    transition: none !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  /* Ensure all content is visible */
+  .animate-ready,
+  .animate-fade,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-scale,
+  .animate-scale-up,
+  .animate-rotate {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Enhanced focus indicators */
+  .focus-ring:focus,
+  .focus-ring:focus-visible,
+  .keyboard-navigable:focus,
+  .keyboard-navigable:focus-visible {
+    outline: 3px solid currentColor !important;
+    outline-offset: 3px !important;
+    background: var(--color-accent) !important;
+    color: var(--color-text) !important;
+  }
+
+  /* Enhanced hover effects visibility */
+  .hover-scale:hover,
+  .hover-lift:hover,
+  .project-card:hover {
+    outline: 2px solid currentColor !important;
+    background: var(--color-accent) !important;
+  }
+
+  /* Skip links enhancement */
+  .skip-to-content {
+    border: 3px solid currentColor !important;
+    background: var(--color-background) !important;
+    color: var(--color-text) !important;
+  }
+}
+
+/* Screen Reader Active Optimizations */
+.screen-reader-active .animate-ready,
+.screen-reader-active .animate-fade,
+.screen-reader-active .animate-slide-up,
+.screen-reader-active .animate-slide-down,
+.screen-reader-active .animate-slide-left,
+.screen-reader-active .animate-slide-right,
+.screen-reader-active .animate-scale,
+.screen-reader-active .animate-rotate {
+  /* Ensure content is immediately available to screen readers */
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+
+/* Touch Device Accessibility */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  .keyboard-navigable,
+  .focus-ring,
+  .hover-scale,
+  .hover-lift,
+  .project-card {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Enhanced focus indicators for touch */
+  .keyboard-navigable:focus,
+  .focus-ring:focus {
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3) !important;
+    outline: 2px solid var(--color-accent) !important;
+    outline-offset: 2px !important;
+  }
+}
+
+/* Print Accessibility */
+@media print {
+  /* Ensure all content is visible when printing */
+  .animate-ready,
+  .animate-fade,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-scale,
+  .animate-rotate {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Hide skip links in print */
+  .skip-links,
+  .skip-to-content {
+    display: none !important;
+  }
+
+  /* Remove focus indicators in print */
+  *:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Forced Colors Mode (Windows High Contrast) */
+@media (forced-colors: active) {
+  .animate-ready,
+  .animate-fade,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-scale,
+  .animate-rotate {
+    opacity: 1 !important;
+    transform: none !important;
+    forced-color-adjust: none;
+  }
+
+  .focus-ring:focus,
+  .keyboard-navigable:focus {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+  }
+
+  .skip-to-content {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border: 2px solid ButtonText !important;
+  }
+}
+
+/* Animation Control Utilities */
+.animations-paused * {
+  animation-play-state: paused !important;
+}
+
+.animations-disabled * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.animations-disabled .animate-ready,
+.animations-disabled .animate-fade,
+.animations-disabled .animate-slide-up,
+.animations-disabled .animate-slide-down,
+.animations-disabled .animate-slide-left,
+.animations-disabled .animate-slide-right,
+.animations-disabled .animate-scale,
+.animations-disabled .animate-rotate {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Accessibility Status Indicators */
+.accessibility-status {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--timing-fast) var(--easing-default);
+}
+
+.accessibility-status.visible {
+  opacity: 1;
+}
+
+.accessibility-status.reduced-motion::before {
+  content: "🔇 ";
+}
+
+.accessibility-status.high-contrast::before {
+  content: "🔆 ";
+}
+
+.accessibility-status.screen-reader::before {
+  content: "🔊 ";
+}
+
+/* Animation Loading States */
+.animation-loading {
+  position: relative;
+}
+
+.animation-loading::after {
+  content: "Loading...";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-card);
+  padding: 4px 8px;
+  border-radius: var(--border-radius);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  z-index: 1;
+}
+
+.screen-reader-active .animation-loading::after {
+  content: "Content is loading, please wait...";
+}
+
+/* Ensure minimum color contrast */
+.low-contrast-warning {
+  background: var(--color-warning) !important;
+  color: var(--color-background) !important;
+  border: 2px solid var(--color-background) !important;
+}
+
+/* Responsive Accessibility */
+@media (max-width: 767px) {
+  .skip-to-content {
+    font-size: 1rem;
+    padding: 12px 16px;
+  }
+
+  .keyboard-navigable:focus,
+  .focus-ring:focus {
+    outline-width: 3px !important;
+    outline-offset: 3px !important;
+  }
+
+  .accessibility-status {
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.875rem;
+  }
+}
+
+/* Animation Performance Indicators */
+.performance-warning {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-warning);
+  color: var(--color-background);
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--timing-fast) var(--easing-default);
+}
+
+.performance-warning.visible {
+  opacity: 1;
+}
+
+.performance-warning::before {
+  content: "⚠️ ";
+}
+
+/* Ensure content remains accessible during animations */
+.animating [tabindex],
+.animating button,
+.animating a,
+.animating input,
+.animating select,
+.animating textarea {
+  /* Maintain keyboard accessibility during animations */
+  pointer-events: auto;
+}
+
+.animating [tabindex]:focus,
+.animating button:focus,
+.animating a:focus,
+.animating input:focus,
+.animating select:focus,
+.animating textarea:focus {
+  /* Ensure focus is always visible */
+  outline: 2px solid var(--color-accent) !important;
+  outline-offset: 2px !important;
+  z-index: 100 !important;
+}

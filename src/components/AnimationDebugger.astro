@@ -1,0 +1,503 @@
+---
+/**
+ * AnimationDebugger Component
+ * Displays performance metrics, error logs, and debug information for animations
+ * Only visible in development mode or when debug is explicitly enabled
+ */
+
+export interface Props {
+  enabled?: boolean;
+  showFPS?: boolean;
+  showMemory?: boolean;
+  showAnimationCount?: boolean;
+  showErrors?: boolean;
+  position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+}
+
+const {
+  enabled = false,
+  showFPS = true,
+  showMemory = true,
+  showAnimationCount = true,
+  showErrors = true,
+  position = "top-left",
+} = Astro.props;
+
+// Only render in development or when explicitly enabled
+const isDevelopment = import.meta.env.DEV;
+const shouldRender = enabled || isDevelopment;
+---
+
+{
+  shouldRender && (
+    <div
+      id="animation-debugger"
+      class={`animation-debugger animation-debugger--${position}`}
+      data-show-fps={showFPS}
+      data-show-memory={showMemory}
+      data-show-animation-count={showAnimationCount}
+      data-show-errors={showErrors}
+    >
+      {showFPS && (
+        <div id="fps-counter" class="fps-counter">
+          FPS: <span id="fps-value">--</span>
+        </div>
+      )}
+
+      {showMemory && (
+        <div id="memory-indicator" class="memory-indicator">
+          Memory: <span id="memory-value">--</span>MB
+        </div>
+      )}
+
+      {showAnimationCount && (
+        <div id="animation-count" class="animation-count">
+          Animations: <span id="animation-count-value">--</span>
+        </div>
+      )}
+
+      {showErrors && (
+        <div id="error-log" class="error-log">
+          <div class="error-log__header">
+            <span>Errors: </span>
+            <span id="error-count">0</span>
+            <button id="clear-errors" class="error-log__clear">
+              Clear
+            </button>
+          </div>
+          <div id="error-list" class="error-log__list" />
+        </div>
+      )}
+
+      <div class="debugger-controls">
+        <button id="toggle-debug" class="debugger-controls__button">
+          Toggle Debug
+        </button>
+        <button id="optimize-performance" class="debugger-controls__button">
+          Optimize
+        </button>
+        <button id="pause-animations" class="debugger-controls__button">
+          Pause
+        </button>
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .animation-debugger {
+    position: fixed;
+    z-index: 10000;
+    font-family: monospace;
+    font-size: 12px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .animation-debugger--top-left {
+    top: 10px;
+    left: 10px;
+  }
+
+  .animation-debugger--top-right {
+    top: 10px;
+    right: 10px;
+  }
+
+  .animation-debugger--bottom-left {
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .animation-debugger--bottom-right {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .animation-debugger > * {
+    margin-bottom: 5px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+  }
+
+  .fps-counter.fps-good {
+    color: #10b981;
+  }
+  .fps-counter.fps-warning {
+    color: #f59e0b;
+  }
+  .fps-counter.fps-critical {
+    color: #ef4444;
+  }
+
+  .memory-indicator.memory-good {
+    color: #10b981;
+  }
+  .memory-indicator.memory-warning {
+    color: #f59e0b;
+  }
+  .memory-indicator.memory-critical {
+    color: #ef4444;
+  }
+
+  .animation-count.count-good {
+    color: #10b981;
+  }
+  .animation-count.count-warning {
+    color: #f59e0b;
+  }
+  .animation-count.count-critical {
+    color: #ef4444;
+  }
+
+  .error-log {
+    max-width: 300px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .error-log__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .error-log__clear {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-size: 10px;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .error-log__clear:hover {
+    background: #dc2626;
+  }
+
+  .error-log__list {
+    max-height: 150px;
+    overflow-y: auto;
+  }
+
+  .error-item {
+    padding: 2px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 10px;
+  }
+
+  .error-item:last-child {
+    border-bottom: none;
+  }
+
+  .error-item__type {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .error-item__type--gsap_load {
+    color: #ef4444;
+  }
+  .error-item__type--animation_fail {
+    color: #f59e0b;
+  }
+  .error-item__type--performance {
+    color: #3b82f6;
+  }
+  .error-item__type--memory {
+    color: #8b5cf6;
+  }
+  .error-item__type--timeout {
+    color: #f97316;
+  }
+
+  .error-item__message {
+    margin-top: 2px;
+    opacity: 0.8;
+  }
+
+  .error-item__timestamp {
+    font-size: 9px;
+    opacity: 0.6;
+    margin-top: 1px;
+  }
+
+  .debugger-controls {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .debugger-controls__button {
+    background: #374151;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background-color 0.2s;
+  }
+
+  .debugger-controls__button:hover {
+    background: #4b5563;
+  }
+
+  .debugger-controls__button:active {
+    background: #1f2937;
+  }
+
+  /* Hide in reduced motion mode */
+  @media (prefers-reduced-motion: reduce) {
+    .animation-debugger {
+      display: none;
+    }
+  }
+
+  /* Hide in print mode */
+  @media print {
+    .animation-debugger {
+      display: none !important;
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .animation-debugger {
+      font-size: 10px;
+    }
+
+    .animation-debugger > * {
+      padding: 3px 6px;
+    }
+
+    .error-log {
+      max-width: 250px;
+      max-height: 150px;
+    }
+
+    .debugger-controls__button {
+      padding: 3px 6px;
+      font-size: 9px;
+    }
+  }
+</style>
+
+<script>
+  import { animationManager } from "../scripts/animation-manager";
+
+  // Initialize debugger when DOM is ready
+  document.addEventListener("DOMContentLoaded", () => {
+    const debuggerElement = document.getElementById("animation-debugger");
+    if (!debuggerElement) return;
+
+    const fpsCounter = document.getElementById("fps-counter");
+    const fpsValue = document.getElementById("fps-value");
+    const memoryIndicator = document.getElementById("memory-indicator");
+    const memoryValue = document.getElementById("memory-value");
+    const animationCount = document.getElementById("animation-count");
+    const animationCountValue = document.getElementById(
+      "animation-count-value"
+    );
+    const errorLog = document.getElementById("error-log");
+    const errorCount = document.getElementById("error-count");
+    const errorList = document.getElementById("error-list");
+    const clearErrorsBtn = document.getElementById("clear-errors");
+    const toggleDebugBtn = document.getElementById("toggle-debug");
+    const optimizeBtn = document.getElementById("optimize-performance");
+    const pauseBtn = document.getElementById("pause-animations");
+
+    let isPaused = false;
+    let debugMode = false;
+
+    // Update performance metrics
+    function updateMetrics() {
+      const metrics = animationManager.getPerformanceMetrics();
+
+      // Update FPS
+      if (fpsValue) {
+        fpsValue.textContent = metrics.fps.toString();
+        if (fpsCounter) {
+          fpsCounter.className = `fps-counter ${
+            metrics.fps >= 50
+              ? "fps-good"
+              : metrics.fps >= 30
+                ? "fps-warning"
+                : "fps-critical"
+          }`;
+        }
+      }
+
+      // Update Memory
+      if (memoryValue) {
+        memoryValue.textContent = metrics.memoryUsage.toFixed(1);
+        if (memoryIndicator) {
+          memoryIndicator.className = `memory-indicator ${
+            metrics.memoryUsage < 50
+              ? "memory-good"
+              : metrics.memoryUsage < 100
+                ? "memory-warning"
+                : "memory-critical"
+          }`;
+        }
+      }
+
+      // Update Animation Count
+      if (animationCountValue) {
+        animationCountValue.textContent = metrics.animationCount.toString();
+        if (animationCount) {
+          animationCount.className = `animation-count ${
+            metrics.animationCount < 5
+              ? "count-good"
+              : metrics.animationCount < 8
+                ? "count-warning"
+                : "count-critical"
+          }`;
+        }
+      }
+    }
+
+    // Update error log
+    function updateErrorLog() {
+      const errors = animationManager.getErrors();
+
+      if (errorCount) {
+        errorCount.textContent = errors.length.toString();
+      }
+
+      if (errorList) {
+        errorList.innerHTML = "";
+        errors.slice(-10).forEach((error) => {
+          const errorItem = document.createElement("div");
+          errorItem.className = "error-item";
+          errorItem.innerHTML = `
+            <div class="error-item__type error-item__type--${error.type}">
+              ${error.type}
+            </div>
+            <div class="error-item__message">${error.message}</div>
+            <div class="error-item__timestamp">
+              ${new Date(error.timestamp).toLocaleTimeString()}
+            </div>
+          `;
+          errorList.appendChild(errorItem);
+        });
+      }
+    }
+
+    // Set up performance monitoring
+    animationManager.onPerformanceChange((metrics) => {
+      updateMetrics();
+    });
+
+    // Set up error monitoring
+    animationManager.onError((error) => {
+      updateErrorLog();
+
+      // Show console warning for critical errors
+      if (error.type === "gsap_load" || error.type === "animation_fail") {
+        const warning = document.createElement("div");
+        warning.className = "console-warning";
+        warning.textContent = `Animation Error: ${error.message}`;
+        document.body.appendChild(warning);
+
+        setTimeout(() => {
+          document.body.removeChild(warning);
+        }, 3000);
+      }
+    });
+
+    // Button event listeners
+    if (clearErrorsBtn) {
+      clearErrorsBtn.addEventListener("click", () => {
+        animationManager.clearErrors();
+        updateErrorLog();
+      });
+    }
+
+    if (toggleDebugBtn) {
+      toggleDebugBtn.addEventListener("click", () => {
+        debugMode = !debugMode;
+        if (debugMode) {
+          document.body.classList.add("debug-mode");
+          animationManager.enableDebugMode();
+          toggleDebugBtn.textContent = "Debug: ON";
+        } else {
+          document.body.classList.remove("debug-mode");
+          animationManager.disableDebugMode();
+          toggleDebugBtn.textContent = "Debug: OFF";
+        }
+      });
+    }
+
+    if (optimizeBtn) {
+      optimizeBtn.addEventListener("click", () => {
+        animationManager.optimizePerformance();
+        updateMetrics();
+      });
+    }
+
+    if (pauseBtn) {
+      pauseBtn.addEventListener("click", () => {
+        isPaused = !isPaused;
+        if (isPaused) {
+          animationManager.pauseAllAnimations();
+          pauseBtn.textContent = "Resume";
+        } else {
+          animationManager.resumeAllAnimations();
+          pauseBtn.textContent = "Pause";
+        }
+      });
+    }
+
+    // Initial updates
+    updateMetrics();
+    updateErrorLog();
+
+    // Update metrics every second
+    setInterval(updateMetrics, 1000);
+
+    // Update error log every 5 seconds
+    setInterval(updateErrorLog, 5000);
+
+    // Keyboard shortcuts
+    document.addEventListener("keydown", (e) => {
+      // Only handle shortcuts if Ctrl/Cmd + Shift are pressed
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey) {
+        switch (e.key) {
+          case "D":
+            e.preventDefault();
+            toggleDebugBtn?.click();
+            break;
+          case "O":
+            e.preventDefault();
+            optimizeBtn?.click();
+            break;
+          case "P":
+            e.preventDefault();
+            pauseBtn?.click();
+            break;
+          case "C":
+            e.preventDefault();
+            clearErrorsBtn?.click();
+            break;
+        }
+      }
+    });
+
+    console.log("Animation Debugger initialized");
+    console.log("Keyboard shortcuts:");
+    console.log("  Ctrl/Cmd + Shift + D: Toggle debug mode");
+    console.log("  Ctrl/Cmd + Shift + O: Optimize performance");
+    console.log("  Ctrl/Cmd + Shift + P: Pause/resume animations");
+    console.log("  Ctrl/Cmd + Shift + C: Clear error log");
+  });
+</script>

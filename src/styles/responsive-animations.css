@@ -1,0 +1,386 @@
+/**
+ * Responsive Animation Styles
+ * Mobile-optimized animations and viewport-specific adjustments
+ */
+
+/* Base responsive animation variables */
+:root {
+  /* Mobile-first animation distances */
+  --animation-distance-mobile: 20px;
+  --animation-distance-tablet: 40px;
+  --animation-distance-desktop: 50px;
+
+  /* Mobile-first stagger delays */
+  --stagger-delay-mobile: 0.05s;
+  --stagger-delay-tablet: 0.1s;
+  --stagger-delay-desktop: 0.15s;
+
+  /* Mobile-first animation durations */
+  --timing-fast-mobile: 0.2s;
+  --timing-medium-mobile: 0.4s;
+  --timing-slow-mobile: 0.6s;
+
+  /* Touch interaction thresholds */
+  --touch-scale-factor: 1.02;
+  --touch-lift-distance: 2px;
+}
+
+/* Mobile-specific animations (default) */
+@media (max-width: 767px) {
+  :root {
+    --animation-offset: var(--animation-distance-mobile);
+    --stagger-delay: var(--stagger-delay-mobile);
+    --timing-fast: var(--timing-fast-mobile);
+    --timing-medium: var(--timing-medium-mobile);
+    --timing-slow: var(--timing-slow-mobile);
+  }
+
+  /* Reduce animation complexity on mobile */
+  .animate-ready,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-slide-left,
+  .animate-slide-right {
+    transform: translateY(var(--animation-distance-mobile));
+  }
+
+  /* Optimize hover effects for touch */
+  .hover-scale:hover,
+  .hover-scale-sm:hover,
+  .hover-scale-lg:hover {
+    transform: scale(var(--touch-scale-factor));
+  }
+
+  .hover-lift:hover,
+  .hover-lift-sm:hover {
+    transform: translateY(calc(-1 * var(--touch-lift-distance)));
+  }
+
+  /* Disable complex animations on very small screens */
+  @media (max-width: 480px) {
+    .animate-typewriter,
+    .animate-gradient,
+    .animate-bounce {
+      animation: none !important;
+    }
+
+    .animate-typewriter {
+      border-right: none;
+      white-space: normal;
+      width: auto;
+    }
+  }
+
+  /* Touch-friendly project cards */
+  .project-card {
+    transition: transform var(--timing-fast-mobile) var(--easing-default),
+      box-shadow var(--timing-fast-mobile) var(--easing-default);
+  }
+
+  .project-card:hover,
+  .project-card:active {
+    transform: scale(var(--touch-scale-factor)) translateZ(0);
+  }
+
+  /* Reduce parallax effects on mobile */
+  .parallax-element {
+    transform: none !important;
+  }
+}
+
+/* Tablet-specific animations */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --animation-offset: var(--animation-distance-tablet);
+    --stagger-delay: var(--stagger-delay-tablet);
+  }
+
+  /* Enable moderate parallax on tablets */
+  .parallax-element {
+    will-change: transform;
+  }
+}
+
+/* Desktop-specific animations */
+@media (min-width: 1024px) {
+  :root {
+    --animation-offset: var(--animation-distance-desktop);
+    --stagger-delay: var(--stagger-delay-desktop);
+  }
+
+  /* Full animation complexity on desktop */
+  .animate-typewriter {
+    animation: typewriter 3s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+
+  /* Enhanced hover effects on desktop */
+  .project-card:hover {
+    transform: scale(1.05) translateZ(0);
+  }
+
+  /* Enable full parallax on desktop */
+  .parallax-element {
+    will-change: transform;
+  }
+}
+
+/* High DPI displays - reduce animation complexity */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .animate-gradient,
+  .animate-bounce {
+    animation-duration: calc(var(--timing-medium) * 0.8);
+  }
+}
+
+/* Landscape orientation optimizations */
+@media (orientation: landscape) and (max-height: 600px) {
+  :root {
+    --animation-offset: calc(var(--animation-distance-mobile) * 0.7);
+    --timing-medium: calc(var(--timing-medium-mobile) * 0.8);
+  }
+
+  /* Reduce vertical animations in landscape */
+  .animate-slide-up,
+  .animate-slide-down {
+    transform: translateY(calc(var(--animation-offset) * 0.5));
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects that don't work on touch */
+  .hover-scale:hover,
+  .hover-scale-sm:hover,
+  .hover-scale-lg:hover,
+  .hover-lift:hover,
+  .hover-lift-sm:hover {
+    transform: none;
+  }
+
+  /* Add active states for touch feedback */
+  .hover-scale:active,
+  .hover-scale-sm:active {
+    transform: scale(var(--touch-scale-factor));
+  }
+
+  .hover-scale-lg:active {
+    transform: scale(1.05);
+  }
+
+  .hover-lift:active,
+  .hover-lift-sm:active {
+    transform: translateY(calc(-1 * var(--touch-lift-distance)));
+  }
+
+  /* Optimize project cards for touch */
+  .project-card:active {
+    transform: scale(var(--touch-scale-factor)) translateZ(0);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2),
+      0 4px 6px -2px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(16, 185, 129, 0.1);
+  }
+}
+
+/* Slow connection optimizations */
+@media (prefers-reduced-data: reduce) {
+  /* Disable resource-intensive animations */
+  .animate-gradient,
+  .animate-typewriter,
+  .animate-bounce,
+  .animate-pulse {
+    animation: none !important;
+  }
+
+  /* Simplify transitions */
+  * {
+    transition-duration: var(--timing-fast) !important;
+  }
+}
+
+/* Low-end device optimizations */
+@supports not (backdrop-filter: blur(10px)) {
+  /* Assume older/low-end device - simplify animations */
+  .animate-scale,
+  .animate-rotate {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .animate-gradient {
+    background-size: 100% 100% !important;
+    animation: none !important;
+  }
+}
+
+/* Battery optimization */
+@media (prefers-reduced-motion: no-preference) {
+  /* Only enable complex animations when user hasn't requested reduced motion */
+  .animate-typewriter {
+    animation: typewriter 3s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+
+  .animate-gradient {
+    animation: gradient 3s ease infinite;
+  }
+
+  .animate-bounce {
+    animation: bounce 1s infinite;
+  }
+}
+
+/* Performance-based animation quality */
+.animation-quality-low {
+  /* Simplified animations for low-end devices */
+  animation-duration: var(--timing-fast) !important;
+  transition-duration: var(--timing-fast) !important;
+}
+
+.animation-quality-low .animate-scale,
+.animation-quality-low .animate-rotate {
+  transform: none !important;
+}
+
+.animation-quality-low .animate-gradient,
+.animation-quality-low .animate-typewriter,
+.animation-quality-low .animate-bounce {
+  animation: none !important;
+}
+
+.animation-quality-medium {
+  /* Moderate animations for mid-range devices */
+  animation-duration: var(--timing-medium) !important;
+  transition-duration: var(--timing-medium) !important;
+}
+
+.animation-quality-medium .animate-bounce {
+  animation-iteration-count: 3;
+}
+
+.animation-quality-high {
+  /* Full animations for high-end devices */
+  animation-duration: var(--timing-slow) !important;
+  transition-duration: var(--timing-slow) !important;
+}
+
+/* Viewport-specific trigger adjustments */
+.scroll-trigger-mobile {
+  /* Earlier trigger on mobile for better UX */
+  --scroll-trigger-start: 70%;
+}
+
+.scroll-trigger-tablet {
+  /* Moderate trigger on tablet */
+  --scroll-trigger-start: 60%;
+}
+
+.scroll-trigger-desktop {
+  /* Standard trigger on desktop */
+  --scroll-trigger-start: 50%;
+}
+
+/* Touch scroll optimization */
+.touch-scrolling .animate-ready {
+  /* Faster animations during touch scrolling */
+  transition-duration: calc(var(--timing-medium) * 0.5) !important;
+}
+
+.fast-scroll .animate-ready {
+  /* Instant completion for very fast scrolling */
+  transition-duration: 0.01ms !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Memory usage optimization */
+.memory-optimized {
+  /* Reduce will-change usage to save memory */
+  will-change: auto !important;
+}
+
+.memory-optimized .animate-optimized {
+  will-change: auto !important;
+  transform: none;
+  backface-visibility: visible;
+}
+
+/* Network-aware animations */
+.slow-connection {
+  /* Reduce animation complexity on slow connections */
+  animation-duration: var(--timing-fast) !important;
+  transition-duration: var(--timing-fast) !important;
+}
+
+.slow-connection .animate-gradient,
+.slow-connection .animate-typewriter {
+  animation: none !important;
+}
+
+/* Accessibility enhancements for mobile */
+@media (max-width: 767px) {
+  .focus-ring:focus,
+  .focus-ring:focus-visible {
+    /* Larger focus rings on mobile */
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3);
+  }
+
+  /* Ensure minimum touch target size */
+  .hover-scale,
+  .hover-lift,
+  .project-card {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Print optimizations */
+@media print {
+  /* Disable all animations for printing */
+  .animate-ready,
+  .animate-fade,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-scale,
+  .animate-rotate {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Dark mode animation adjustments */
+@media (prefers-color-scheme: dark) {
+  .hover-glow:hover {
+    /* Adjust glow intensity in dark mode */
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+  }
+
+  .project-card:hover {
+    /* Enhanced shadow in dark mode */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5),
+      0 10px 10px -5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(16, 185, 129, 0.2),
+      0 0 30px rgba(16, 185, 129, 0.3);
+  }
+}
+
+/* Container queries for component-level responsiveness */
+@container (max-width: 400px) {
+  .animate-ready {
+    --animation-offset: 15px;
+  }
+
+  .stagger-container > * {
+    transition-delay: calc(0.03s * var(--stagger-index, 0));
+  }
+}
+
+@container (min-width: 800px) {
+  .animate-ready {
+    --animation-offset: 60px;
+  }
+
+  .stagger-container > * {
+    transition-delay: calc(0.2s * var(--stagger-index, 0));
+  }
+}

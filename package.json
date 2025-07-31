@@ -9,6 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.12.6"
+    "@astrojs/check": "^0.9.4",
+    "@tailwindcss/vite": "^4.1.11",
+    "astro": "^5.12.6",
+    "gsap": "^3.13.0",
+    "lucide-astro": "^0.534.0",
+    "nanostores": "^1.0.1",
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.8.3"
   }
 }
