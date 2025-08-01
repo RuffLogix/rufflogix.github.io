@@ -13,7 +13,7 @@ import { Github, Linkedin } from "lucide-astro";
         >
             <div class="flex flex-col gap-6 max-w-2xl text-center lg:text-left">
                 <h1
-                    class="text-4xl md:text-5xl lg:text-6xl font-bold hero-name"
+                    class="text-4xl md:text-5xl lg:text-6xl font-bold hero-name drop-shadow-emerald"
                     id="hero-name"
                 >
                     Teejuta Sriwaranon
@@ -26,7 +26,7 @@ import { Github, Linkedin } from "lucide-astro";
                         ["Software Developer", "AI Engineer", "Writer"].map(
                             (value) => {
                                 return (
-                                    <span class="hero-role-badge bg-emerald-600 hover:bg-emerald-500 border-emerald-900 border rounded-full px-4 py-2 text-sm font-medium transition-colors">
+                                    <span class="hero-role-badge bg-emerald-600 hover:bg-emerald-500 border-emerald-900 border rounded-full px-4 py-2 text-sm font-medium transition-colors shadow-emerald">
                                         {value}
                                     </span>
                                 );
@@ -36,12 +36,12 @@ import { Github, Linkedin } from "lucide-astro";
                 </div>
                 <div id="hero-description" class="hero-description gap-3">
                     <p
-                        class="hero-description-paragraph text-gray-300 text-lg leading-relaxed"
+                        class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
                     >
                         Hello!
                     </p>
                     <p
-                        class="hero-description-paragraph text-gray-300 text-lg leading-relaxed"
+                        class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
                     >
                         My name is Teejuta Sriwaranon (Gun). I'm a junior
                         Computer Engineering student with a strong interest in
@@ -51,7 +51,7 @@ import { Github, Linkedin } from "lucide-astro";
                         foundations and practical applications.
                     </p>
                     <p
-                        class="hero-description-paragraph text-gray-300 text-lg leading-relaxed"
+                        class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
                     >
                         Beyond that, I have a deep appreciation for Theoretical
                         Computer Science, which continues to strengthen my
@@ -64,14 +64,14 @@ import { Github, Linkedin } from "lucide-astro";
                 >
                     <a
                         href="https://github.com/rufflogix"
-                        class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800"
+                        class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
                         aria-label="GitHub Profile"
                     >
                         <Github size={24} />
                     </a>
                     <a
                         href="https://www.linkedin.com/in/teejuta-sriwaranon/"
-                        class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800"
+                        class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
                         aria-label="LinkedIn Profile"
                     >
                         <Linkedin size={24} />
@@ -82,7 +82,7 @@ import { Github, Linkedin } from "lucide-astro";
                 <img
                     src="/images/rufflogix-logo.jpg"
                     alt="Teejuta Sriwaranon - RuffLogix"
-                    class="hero-image rounded-full w-72 md:w-80 lg:w-96 shadow-2xl border-4 border-gray-700"
+                    class="hero-image rounded-full w-72 md:w-80 lg:w-96 shadow-emerald-xl border-4 border-gray-700"
                     id="hero-image"
                 />
             </div>
@@ -97,6 +97,39 @@ import { Github, Linkedin } from "lucide-astro";
         .hero-image,
         .hero-social-icon {
             opacity: 0;
+        }
+
+        /* Custom emerald drop shadows */
+        .drop-shadow-emerald {
+            filter: drop-shadow(0 4px 6px rgba(16, 185, 129, 0.4))
+                drop-shadow(0 2px 4px rgba(16, 185, 129, 0.2));
+        }
+
+        .drop-shadow-emerald-sm {
+            filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.3))
+                drop-shadow(0 1px 2px rgba(16, 185, 129, 0.1));
+        }
+
+        .shadow-emerald {
+            box-shadow:
+                0 4px 6px -1px rgba(16, 185, 129, 0.3),
+                0 2px 4px -1px rgba(16, 185, 129, 0.1);
+        }
+
+        .shadow-emerald-xl {
+            box-shadow:
+                0 20px 25px -5px rgba(16, 185, 129, 0.3),
+                0 10px 10px -5px rgba(16, 185, 129, 0.1);
+        }
+
+        .shadow-emerald-hover {
+            transition: box-shadow 0.3s ease;
+        }
+
+        .shadow-emerald-hover:hover {
+            box-shadow:
+                0 10px 15px -3px rgba(16, 185, 129, 0.4),
+                0 4px 6px -2px rgba(16, 185, 129, 0.2);
         }
 
         /* Ensure elements are visible if animations fail or are disabled */
