@@ -3,403 +3,278 @@ import Layout from "../../layouts/Layout.astro";
 import ScrollAnimations from "../../components/ScrollAnimations.astro";
 
 const educationalInformation = [
-    {
-        image: "/images/education/chula-logo.png",
-        instituteName: "Chulalongkorn University",
-        program: "Computer Engineering Faculty (CP)",
-        location: "Bangkok, Thailand",
-        duration: "2023 - Present",
-        description:
-            "Currently pursuing a Bachelor's degree in Computer Engineering. Developing expertise in software development, artificial intelligence, and algorithm design while maintaining strong academic performance.",
-    },
-    {
-        image: "/images/education/benjama-logo.jpg",
-        instituteName: "Benjamarachutit School",
-        program:
-            "Development and Promotion of Science and Technology Excellence (DPSTE)",
-        location: "Nakhon Si Thammarat, Thailand",
-        duration: "2017 - 2023",
-        description:
-            "Completed high school with a focus on science and technology development. Gained foundational knowledge in mathematics, physics, and computer science that sparked my interest in engineering.",
-    },
-];
-
-const certificateInformation = [
-    // {
-    //     title: "Supervised Machine Learning: Regression and Classification",
-    //     issuerImage: "/images/deeplearning-ai-logo.png",
-    //     issuerName: "DeepLearning.AI",
-    //     certificateImage: "/images/ml-certificate.jpg",
-    //     description:
-    //         "Principles of supervised machine learning By in-depth look at regression and classification methods. Gain practical skills in model training, evaluation. Learn to use algorithms for predictive analytics.",
-    //     issueDate: "October 2022",
-    //     tags: [
-    //         "Linear Regression",
-    //         "Regularization to Avoid Overfitting",
-    //         "Logistic Regression for Classification",
-    //         "Gradient Descent",
-    //         "Supervised Learning",
-    //     ],
-    // },
-    // {
-    //     title: "Deep Learning Specialization",
-    //     issuerImage: "/images/deeplearning-ai-logo.png",
-    //     issuerName: "DeepLearning.AI",
-    //     certificateImage: "/images/deep-learning-certificate.jpg",
-    //     description:
-    //         "Comprehensive program covering neural networks, deep learning, and their applications. Master the fundamentals of deep learning and build neural networks.",
-    //     issueDate: "December 2022",
-    //     tags: ["Neural Networks", "Deep Learning", "TensorFlow", "CNN", "RNN"],
-    // },
-    // {
-    //     title: "Machine Learning Engineering for Production (MLOps)",
-    //     issuerImage: "/images/deeplearning-ai-logo.png",
-    //     issuerName: "DeepLearning.AI",
-    //     certificateImage: "/images/mlops-certificate.jpg",
-    //     description:
-    //         "Learn how to design, deploy, and maintain machine learning systems in production. Focus on MLOps practices and production-ready ML systems.",
-    //     issueDate: "March 2023",
-    //     tags: [
-    //         "MLOps",
-    //         "Production ML",
-    //         "Model Deployment",
-    //         "ML Pipeline",
-    //         "Monitoring",
-    //     ],
-    // },
+  {
+    image: "/images/education/chula-logo.png",
+    instituteName: "Chulalongkorn University",
+    program: "Computer Engineering Faculty (CP)",
+    location: "Bangkok, Thailand",
+    duration: "2023 - Present",
+    description:
+      "Currently pursuing a Bachelor's degree in Computer Engineering. Developing expertise in software development, artificial intelligence, and algorithm design while maintaining strong academic performance.",
+  },
+  {
+    image: "/images/education/benjama-logo.jpg",
+    instituteName: "Benjamarachutit School",
+    program:
+      "Development and Promotion of Science and Technology Excellence (DPSTE)",
+    location: "Nakhon Si Thammarat, Thailand",
+    duration: "2017 - 2023",
+    description:
+      "Completed high school with a focus on science and technology development. Gained foundational knowledge in mathematics, physics, and computer science that sparked my interest in engineering.",
+  },
 ];
 
 const experienceInformation = [
-    {
-        image: "/images/experience/lmwn-logo.jpg",
-        instituteName: "LINE MAN Wongnai",
-        program: "Back End Developer (Internship)",
-        location: "Bangkok, Thailand",
-        duration: "May 2025 - Jul 2025",
-        description:
-            "I developed a gRPC service in Go to retrieve data for feeding into DAGs and implemented the DAGs to automate report generation and email delivery to merchants. During this process, I also gained a strong understanding of encryption algorithms to ensure secure data handling throughout the pipeline.",
-    },
-    {
-        image: "/images/experience/aimet-logo.png",
-        instituteName: "AIMET",
-        program: "Software Developer (Part-time)",
-        location: "Bangkok, Thailand",
-        duration: "Jan 2025 - May 2025",
-        description:
-            "I developed mobile and web platforms for the MDCU Wellness Center, supporting medical students at Chulalongkorn University, as well as mobile platforms for the CPIRD Wellness Center serving students in the CPIRD program. These applications were successfully deployed on both the App Store and Play Store, providing accessible wellness resources to medical students across programs.",
-    },
-    {
-        image: "/images/experience/looloo-logo.png",
-        instituteName: "Looloo Technology",
-        program: "Machine Learning Engineer (Internship & Part-time)",
-        location: "Bangkok, Thailand",
-        duration: "Jun 2024 - Dec 2024",
-        description:
-            "I experimented with voice activity detection and speaker diarization models, integrating them into an automatic speech recognition (ASR) pipeline. I deployed AI services using the Gradio framework and Docker, ensuring scalable and user-friendly interfaces. Additionally, I scraped and preprocessed audio data and implemented audio enhancement modules to improve input quality for downstream tasks.",
-    },
-    {
-        image: "/images/experience/kbtg-logo.png",
-        instituteName: "Kasikorn Business-Technology Group (KBTG)",
-        program: "Research Engineer (Apprenticeship)",
-        location: "Bangkok, Thailand",
-        duration: "Jan 2024 - Jun 2024",
-        description:
-            "I developed Federated Learning models for fraud detection tasks, enabling collaborative training across decentralized data sources. To ensure data confidentiality, I applied privacy-preserving techniques and policies to enhance the privacy of sensitive datasets throughout the learning process.",
-    },
-    {
-        image: "/images/experience/kbtg-logo.png",
-        instituteName: "Kasikorn Business-Technology Group (KBTG)",
-        program: "Blockchain Developer (Internship)",
-        location: "Bangkok, Thailand",
-        duration: "Apr 2023 - Jun 2023",
-        description:
-            "I developed an E-learning platform using Next.js for the frontend and Express.js for the backend, featuring a course recommendation model that processes user input to suggest suitable courses. Additionally, I designed and implemented smart contracts for learning tokens and NFT-based course completion certificates, integrating blockchain technology into the educational experience.",
-    },
+  {
+    image: "/images/experience/lmwn-logo.jpg",
+    instituteName: "LINE MAN Wongnai",
+    program: "Back End Developer (Internship)",
+    location: "Bangkok, Thailand",
+    duration: "May 2025 - Jul 2025",
+    description:
+      "I developed a gRPC service in Go to retrieve data for feeding into DAGs and implemented the DAGs to automate report generation and email delivery to merchants. During this process, I also gained a strong understanding of encryption algorithms to ensure secure data handling throughout the pipeline.",
+  },
+  {
+    image: "/images/experience/aimet-logo.png",
+    instituteName: "AIMET",
+    program: "Software Developer (Part-time)",
+    location: "Bangkok, Thailand",
+    duration: "Jan 2025 - May 2025",
+    description:
+      "I developed mobile and web platforms for the MDCU Wellness Center, supporting medical students at Chulalongkorn University, as well as mobile platforms for the CPIRD Wellness Center serving students in the CPIRD program. These applications were successfully deployed on both the App Store and Play Store, providing accessible wellness resources to medical students across programs.",
+  },
+  {
+    image: "/images/experience/looloo-logo.png",
+    instituteName: "Looloo Technology",
+    program: "Machine Learning Engineer (Internship & Part-time)",
+    location: "Bangkok, Thailand",
+    duration: "Jun 2024 - Dec 2024",
+    description:
+      "I experimented with voice activity detection and speaker diarization models, integrating them into an automatic speech recognition (ASR) pipeline. I deployed AI services using the Gradio framework and Docker, ensuring scalable and user-friendly interfaces. Additionally, I scraped and preprocessed audio data and implemented audio enhancement modules to improve input quality for downstream tasks.",
+  },
+  {
+    image: "/images/experience/kbtg-logo.png",
+    instituteName: "Kasikorn Business-Technology Group (KBTG)",
+    program: "Research Engineer (Apprenticeship)",
+    location: "Bangkok, Thailand",
+    duration: "Jan 2024 - Jun 2024",
+    description:
+      "I developed Federated Learning models for fraud detection tasks, enabling collaborative training across decentralized data sources. To ensure data confidentiality, I applied privacy-preserving techniques and policies to enhance the privacy of sensitive datasets throughout the learning process.",
+  },
+  {
+    image: "/images/experience/kbtg-logo.png",
+    instituteName: "Kasikorn Business-Technology Group (KBTG)",
+    program: "Blockchain Developer (Internship)",
+    location: "Bangkok, Thailand",
+    duration: "Apr 2023 - Jun 2023",
+    description:
+      "I developed an E-learning platform using Next.js for the frontend and Express.js for the backend, featuring a course recommendation model that processes user input to suggest suitable courses. Additionally, I designed and implemented smart contracts for learning tokens and NFT-based course completion certificates, integrating blockchain technology into the educational experience.",
+  },
 ];
 ---
 
 <Layout>
-    <div class="min-h-screen bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <!-- Header Section -->
-        <div class="max-w-7xl mx-auto mb-16">
-            <h1
-                class="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4"
-            >
-                Teejuta Sriwaranon
-            </h1>
-            <p class="text-lg sm:text-xl text-gray-400 text-center">
-                My Journey & Experience
-            </p>
+  <div class="min-h-screen bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+    <div class="max-w-7xl mx-auto mb-16">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4">
+        Teejuta Sriwaranon
+      </h1>
+      <p class="text-lg sm:text-xl text-gray-400 text-center">
+        My Journey & Experience
+      </p>
 
-            <div
-                class="flex flex-col md:flex-row mt-8 gap-8 md:gap-12 items-center md:items-start"
-            >
-                <img
-                    src="/images/profile.jpg"
-                    alt="Profile"
-                    class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-lg shadow-lg flex-shrink-0"
-                />
-                <section id="about" class="w-full max-w-4xl text-gray-200">
-                    <h2
-                        class="text-3xl font-bold mb-6 text-emerald-300 text-center md:text-left"
-                    >
-                        About Me
-                    </h2>
-                    <p class="mb-4">
-                        Hi, I’m <span class="font-semibold text-emerald-300"
-                            >Teejuta Sriwaranon (Gun)</span
-                        > — a junior Computer Engineering student at{" "}
-                        <span class="font-semibold text-white"
-                            >Chulalongkorn University</span
-                        > with a strong passion for{" "}
-                        <span class="text-emerald-300 font-medium"
-                            >Artificial Intelligence</span
-                        >,{" "}
-                        <span class="text-emerald-300 font-medium"
-                            >software development</span
-                        >, and the{" "}
-                        <span class="text-emerald-300 font-medium"
-                            >mathematics behind algorithms</span
-                        >.
-                    </p>
-                    <p class="mb-4">
-                        I’ve gained hands-on experience through internships and
-                        part-time roles at companies like{" "}
-                        <span class="font-medium text-white"
-                            >LINE MAN Wongnai</span
-                        >,{" "}
-                        <span class="font-medium text-white"
-                            >Looloo Technology</span
-                        >,{" "}
-                        <span class="font-medium text-white">AIMET</span>, and{
-                            " "
-                        }
-                        <span class="font-medium text-white"
-                            >Kasikorn Business-Technology Group</span
-                        >.
-                    </p>
-                    <p class="mb-4">
-                        My work spans building robust APIs, deploying AI-powered
-                        applications, crafting smart contracts, and contributing
-                        to wellness tech solutions for medical students.
-                    </p>
-                    <ul class="list-disc list-inside mb-4 space-y-2">
-                        <li>
-                            🥈 Silver Medal at <span
-                                class="font-medium text-white">iGEM 2024</span
-                            >
-                        </li>
-                        <li>
-                            🥈 Silver Medal in <span
-                                class="font-medium text-white"
-                                >Super AI Engineer Season 3</span
-                            >
-                        </li>
-                        <li>
-                            🥈 Silver Medal at the <span
-                                class="font-medium text-white"
-                                >17th Thailand Olympiad in Informatics</span
-                            >
-                        </li>
-                    </ul>
-                    <p>
-                        I love combining theory with practice and exploring new
-                        technologies.
-                    </p>
-                </section>
-            </div>
-        </div>
-
-        <!-- Education Timeline -->
-        <div class="max-w-4xl mx-auto mb-20">
-            <h2
-                class="text-4xl font-bold mb-12 text-emerald-400"
-                data-animation="education-header"
-            >
-                Education
-            </h2>
-            <div class="relative" data-animation="education-timeline">
-                <div
-                    class="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-emerald-600"
-                >
-                </div>
-                <div class="space-y-12">
-                    {
-                        educationalInformation.map((edu) => (
-                            <div class="relative flex items-start">
-                                <div class="timeline-dot absolute left-2 sm:left-4 w-4 h-4 bg-emerald-600 rounded-full border-4 border-gray-900 z-10" />
-                                <div class="ml-12 sm:ml-20 w-full">
-                                    <div class="timeline-card bg-gray-800 border border-gray-700 rounded-lg p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow">
-                                        <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                                            <div class="flex items-start gap-4">
-                                                {edu.image && (
-                                                    <img
-                                                        src={edu.image}
-                                                        alt={`${edu.instituteName} logo`}
-                                                        class="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0 border-2 border-gray-600"
-                                                    />
-                                                )}
-                                                <div>
-                                                    <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
-                                                        {edu.instituteName}
-                                                    </h3>
-                                                    <p class="text-emerald-400 font-semibold mb-1">
-                                                        {edu.program}
-                                                    </p>
-                                                    <p class="text-gray-400 text-sm">
-                                                        {edu.location}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <span class="inline-block bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium mt-4 md:mt-0">
-                                                {edu.duration}
-                                            </span>
-                                        </div>
-                                        <p class="text-gray-300 leading-relaxed">
-                                            {edu.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
-            </div>
-        </div>
-
-        <!-- Experience Timeline -->
-        <div class="max-w-4xl mx-auto mb-20">
-            <h2
-                class="text-4xl font-bold mb-12 text-emerald-400"
-                data-animation="experience-header"
-            >
-                Experience
-            </h2>
-            <div class="relative" data-animation="experience-timeline">
-                <div
-                    class="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-emerald-600"
-                >
-                </div>
-                <div class="space-y-12">
-                    {
-                        experienceInformation.map((exp) => (
-                            <div class="relative flex items-start">
-                                <div class="timeline-dot absolute left-2 sm:left-4 w-4 h-4 bg-emerald-600 rounded-full border-4 border-gray-900 z-10" />
-                                <div class="ml-12 sm:ml-20 w-full">
-                                    <div class="timeline-card bg-gray-800 border border-gray-700 rounded-lg p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow">
-                                        <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                                            <div class="flex items-start gap-4">
-                                                {exp.image && (
-                                                    <img
-                                                        src={exp.image}
-                                                        alt={`${exp.instituteName} logo`}
-                                                        class="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0 border-2 border-gray-600"
-                                                    />
-                                                )}
-                                                <div>
-                                                    <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
-                                                        {exp.instituteName}
-                                                    </h3>
-                                                    <p class="text-emerald-400 font-semibold mb-1">
-                                                        {exp.program}
-                                                    </p>
-                                                    <p class="text-gray-400 text-sm">
-                                                        {exp.location}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <span class="inline-block bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium mt-4 md:mt-0">
-                                                {exp.duration}
-                                            </span>
-                                        </div>
-                                        <p class="text-gray-300 leading-relaxed">
-                                            {exp.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
-            </div>
-        </div>
-
-        <!-- Competitions Section -->
-        <div class="max-w-4xl mx-auto mb-12">
-            <h2 class="text-4xl font-bold mb-8 text-emerald-400">
-                Competitions
-            </h2>
-            <div
-                class="bg-gray-800 border border-gray-700 rounded-lg p-8 text-center"
-            >
-                <p class="text-gray-400">Competition details coming soon...</p>
-            </div>
-        </div>
-
-        <!-- Certificates Section -->
-        <div class="max-w-7xl mx-auto mb-20">
-            <h2
-                class="text-4xl font-bold mb-12 text-emerald-400"
-                data-animation="certificates-header"
-            >
-                Certificates
-            </h2>
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
-                data-animation="certificates-grid"
-            >
-                {
-                    certificateInformation.map((cert) => (
-                        <div class="certificate-card bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-emerald-500 flex flex-col">
-                            <div class="flex items-center gap-4 mb-4">
-                                <img
-                                    src={cert.issuerImage}
-                                    alt={`${cert.issuerName} logo`}
-                                    class="w-10 h-10 bg-white rounded-full object-contain p-1"
-                                />
-                                <div>
-                                    <h3 class="text-lg font-bold text-white leading-tight">
-                                        {cert.title}
-                                    </h3>
-                                    <div class="flex items-center gap-2 text-sm text-gray-400">
-                                        <span>{cert.issueDate}</span>
-                                        <span>•</span>
-                                        <span>{cert.issuerName}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-gray-300 text-sm leading-relaxed mb-4 flex-grow">
-                                {cert.description}
-                            </p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                {cert.tags.map((tag) => (
-                                    <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs">
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
-                            <div class="relative bg-gray-700 rounded-lg p-4 min-h-[200px] flex items-center justify-center mt-auto cursor-pointer">
-                                <img
-                                    src={cert.certificateImage}
-                                    alt={`${cert.title} certificate preview`}
-                                    class="absolute inset-0 w-full h-full object-cover rounded-lg opacity-80 group-hover:opacity-100 transition-opacity"
-                                />
-                                <div class="relative text-center text-white p-2 bg-gray-600 bg-opacity-50 rounded">
-                                    <p class="font-bold">View Certificate</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
-        </div>
+      <div
+        class="flex flex-col md:flex-row mt-8 gap-8 md:gap-12 items-center md:items-start"
+      >
+        <img
+          src="/images/profile.jpg"
+          alt="Profile"
+          class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-lg shadow-lg flex-shrink-0"
+        />
+        <section id="about" class="w-full max-w-4xl text-gray-200">
+          <h2
+            class="text-3xl font-bold mb-6 text-emerald-300 text-center md:text-left"
+          >
+            About Me
+          </h2>
+          <p class="mb-4">
+            Hi, I’m <span class="font-semibold text-emerald-300"
+              >Teejuta Sriwaranon (Gun)</span
+            > — a junior Computer Engineering student at{" "}
+            <span class="font-semibold text-white"
+              >Chulalongkorn University</span
+            > with a strong passion for{" "}
+            <span class="text-emerald-300 font-medium"
+              >Artificial Intelligence</span
+            >,{" "}
+            <span class="text-emerald-300 font-medium"
+              >software development</span
+            >, and the{" "}
+            <span class="text-emerald-300 font-medium"
+              >mathematics behind algorithms</span
+            >.
+          </p>
+          <p class="mb-4">
+            I’ve gained hands-on experience through internships and part-time
+            roles at companies like{" "}
+            <span class="font-medium text-white">LINE MAN Wongnai</span>,{" "}
+            <span class="font-medium text-white">Looloo Technology</span>,{" "}
+            <span class="font-medium text-white">AIMET</span>, and{" "}
+            <span class="font-medium text-white"
+              >Kasikorn Business-Technology Group</span
+            >.
+          </p>
+          <p class="mb-4">
+            My work spans building robust APIs, deploying AI-powered
+            applications, crafting smart contracts, and contributing to wellness
+            tech solutions for medical students.
+          </p>
+          <ul class="list-disc list-inside mb-4 space-y-2">
+            <li>
+              🥈 Silver Medal at <span class="font-medium text-white"
+                >iGEM 2024</span
+              >
+            </li>
+            <li>
+              🥈 Silver Medal in <span class="font-medium text-white"
+                >Super AI Engineer Season 3</span
+              >
+            </li>
+            <li>
+              🥈 Silver Medal at the <span class="font-medium text-white"
+                >17th Thailand Olympiad in Informatics</span
+              >
+            </li>
+          </ul>
+          <p>
+            I love combining theory with practice and exploring new
+            technologies.
+          </p>
+        </section>
+      </div>
     </div>
+
+    <!-- Education Timeline -->
+    <div class="max-w-4xl mx-auto mb-20">
+      <h2
+        class="text-4xl font-bold mb-12 text-emerald-400"
+        data-animation="education-header"
+      >
+        Education
+      </h2>
+      <div class="relative" data-animation="education-timeline">
+        <div
+          class="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-emerald-600"
+        >
+        </div>
+        <div class="space-y-12">
+          {
+            educationalInformation.map((edu) => (
+              <div class="relative flex items-start">
+                <div class="timeline-dot absolute left-2 sm:left-4 w-4 h-4 bg-emerald-600 rounded-full border-4 border-gray-900 z-10" />
+                <div class="ml-12 sm:ml-20 w-full">
+                  <div class="timeline-card bg-gray-800 border border-gray-700 rounded-lg p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                      <div class="flex items-start gap-4">
+                        {edu.image && (
+                          <img
+                            src={edu.image}
+                            alt={`${edu.instituteName} logo`}
+                            class="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0 border-2 border-gray-600"
+                          />
+                        )}
+                        <div>
+                          <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
+                            {edu.instituteName}
+                          </h3>
+                          <p class="text-emerald-400 font-semibold mb-1">
+                            {edu.program}
+                          </p>
+                          <p class="text-gray-400 text-sm">{edu.location}</p>
+                        </div>
+                      </div>
+                      <span class="inline-block bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium mt-4 md:mt-0">
+                        {edu.duration}
+                      </span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                      {edu.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience Timeline -->
+    <div class="max-w-4xl mx-auto mb-20">
+      <h2
+        class="text-4xl font-bold mb-12 text-emerald-400"
+        data-animation="experience-header"
+      >
+        Experience
+      </h2>
+      <div class="relative" data-animation="experience-timeline">
+        <div
+          class="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-emerald-600"
+        >
+        </div>
+        <div class="space-y-12">
+          {
+            experienceInformation.map((exp) => (
+              <div class="relative flex items-start">
+                <div class="timeline-dot absolute left-2 sm:left-4 w-4 h-4 bg-emerald-600 rounded-full border-4 border-gray-900 z-10" />
+                <div class="ml-12 sm:ml-20 w-full">
+                  <div class="timeline-card bg-gray-800 border border-gray-700 rounded-lg p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                      <div class="flex items-start gap-4">
+                        {exp.image && (
+                          <img
+                            src={exp.image}
+                            alt={`${exp.instituteName} logo`}
+                            class="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0 border-2 border-gray-600"
+                          />
+                        )}
+                        <div>
+                          <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
+                            {exp.instituteName}
+                          </h3>
+                          <p class="text-emerald-400 font-semibold mb-1">
+                            {exp.program}
+                          </p>
+                          <p class="text-gray-400 text-sm">{exp.location}</p>
+                        </div>
+                      </div>
+                      <span class="inline-block bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium mt-4 md:mt-0">
+                        {exp.duration}
+                      </span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                      {exp.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Competitions Section -->
+    <div class="max-w-4xl mx-auto mb-12">
+      <h2 class="text-4xl font-bold mb-8 text-emerald-400">Competitions</h2>
+      <div
+        class="bg-gray-800 border border-gray-700 rounded-lg p-8 text-center"
+      >
+        <p class="text-gray-400">Competition details coming soon...</p>
+      </div>
+    </div>
+  </div>
 </Layout>
 
 <ScrollAnimations />
-
-<style>
-    .certificate-card:hover {
-        transform: translateY(-4px);
-    }
-</style>

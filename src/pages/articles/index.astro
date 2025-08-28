@@ -1,0 +1,87 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ScrollPosts from "../../components/ScrollPosts.jsx";
+import PostCard from "../../components/PostCard.astro";
+import ScrollAnimations from "../../components/ScrollAnimations.astro";
+
+const MEDIUM_URL =
+  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
+
+interface MediumResponse {
+  title: string;
+  pubDate: string;
+  link: string;
+  guid: string;
+  author: string;
+  thumbnail: string;
+  description: string;
+}
+
+interface MediumPost {
+  title: string;
+  date: string;
+  link: string;
+  author: string;
+  thumbnail: string;
+}
+
+function extractPostImage(postDescription: string) {
+  const regex = /<img[^>]+src="([^">]+)"/;
+  const match = postDescription.match(regex);
+  return match ? match[1] : null;
+}
+
+async function getMediumPosts(): Promise<MediumPost[]> {
+  const response = await fetch(MEDIUM_URL);
+  const data = await response.json();
+  const postResponse = data.items;
+
+  const posts: MediumPost[] = postResponse.map((post: MediumResponse) => {
+    const image = extractPostImage(post.description);
+    return {
+      title: post.title,
+      date: post.pubDate,
+      link: post.guid,
+      author: post.author,
+      thumbnail: image,
+    };
+  });
+
+  return posts;
+}
+
+const INITIAL_POSTS = 6;
+const posts = (await getMediumPosts()).slice(0, INITIAL_POSTS);
+---
+
+<Layout>
+  <main class="min-h-screen bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <!-- Header Section -->
+      <div class="mb-16 text-center" data-animation="articles-header">
+        <h1
+          class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-emerald-400"
+        >
+          Articles
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-400">
+          Latest posts from <span
+            class="text-emerald-400 hover:text-emerald-300"
+            ><a
+              href="https://medium.com/@rufflogix"
+              target="_blank"
+              rel="noopener noreferrer">@rufflogix</a
+            ></span
+          > on Medium
+        </p>
+      </div>
+
+      <!-- Articles Grid -->
+      <div data-animation="articles-grid">
+        <ScrollPosts initialPosts={posts} client:visible />
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<ScrollAnimations />
