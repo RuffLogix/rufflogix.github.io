@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ScrollAnimations from "../../components/ScrollAnimations.astro";
+import { Image } from "astro:assets";
 
 const educationalInformation = [
   {
@@ -87,12 +88,14 @@ const experienceInformation = [
       <div
         class="flex flex-col md:flex-row mt-8 gap-8 md:gap-12 items-center md:items-start"
       >
-        <img
+        <Image
           src="/images/profile.jpg"
-          alt="Profile"
+          alt="Teejuta Sriwaranon Profile Picture"
+          width={256}
+          height={256}
           class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-lg shadow-lg flex-shrink-0"
         />
-        <section id="about" class="w-full max-w-4xl text-gray-200">
+        <section id="about" class="w-full max-w-4xl text-gray-200 space-y-8">
           <h2
             class="text-3xl font-bold mb-6 text-emerald-300 text-center md:text-left"
           >
@@ -178,9 +181,11 @@ const experienceInformation = [
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                       <div class="flex items-start gap-4">
                         {edu.image && (
-                          <img
+                          <Image
                             src={edu.image}
                             alt={`${edu.instituteName} logo`}
+                            width={64}
+                            height={64}
                             class="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0 border-2 border-gray-600"
                           />
                         )}
@@ -233,9 +238,11 @@ const experienceInformation = [
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                       <div class="flex items-start gap-4">
                         {exp.image && (
-                          <img
+                          <Image
                             src={exp.image}
                             alt={`${exp.instituteName} logo`}
+                            width={64}
+                            height={64}
                             class="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0 border-2 border-gray-600"
                           />
                         )}

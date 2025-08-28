@@ -4,219 +4,230 @@ import { Github, Linkedin } from "lucide-astro";
 ---
 
 <Layout>
+  <div
+    class="w-screen min-h-screen px-4 md:px-32 lg:px-64 flex items-center justify-center"
+    id="hero-section"
+  >
     <div
-        class="w-screen min-h-screen px-4 md:px-32 lg:px-64 flex items-center justify-center"
-        id="hero-section"
+      class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 max-w-6xl"
     >
-        <div
-            class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 max-w-6xl"
+      <div class="flex flex-col gap-6 max-w-2xl text-center lg:text-left">
+        <h1
+          class="text-4xl md:text-5xl lg:text-6xl font-bold hero-name drop-shadow-emerald"
+          id="hero-name"
         >
-            <div class="flex flex-col gap-6 max-w-2xl text-center lg:text-left">
-                <h1
-                    class="text-4xl md:text-5xl lg:text-6xl font-bold hero-name drop-shadow-emerald"
-                    id="hero-name"
-                >
-                    Teejuta Sriwaranon
-                </h1>
-                <div
-                    class="flex gap-2 flex-wrap justify-center lg:justify-start"
-                    id="hero-roles"
-                >
-                    {
-                        ["Software Developer", "AI Engineer", "Writer"].map(
-                            (value) => {
-                                return (
-                                    <span class="hero-role-badge bg-emerald-600 hover:bg-emerald-500 border-emerald-900 border rounded-full px-4 py-2 text-sm font-medium transition-colors shadow-emerald">
-                                        {value}
-                                    </span>
-                                );
-                            },
-                        )
-                    }
-                </div>
-                <div id="hero-description" class="hero-description gap-3">
-                    <p
-                        class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
-                    >
-                        Hello!
-                    </p>
-                    <p
-                        class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
-                    >
-                        My name is Teejuta Sriwaranon (Gun). I'm a junior
-                        Computer Engineering student with a strong interest in
-                        Software Development, Artificial Intelligence, and the
-                        algorithms behind them. I'm passionate about learning
-                        and building projects that combine both theoretical
-                        foundations and practical applications.
-                    </p>
-                    <p
-                        class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
-                    >
-                        Beyond that, I have a deep appreciation for Theoretical
-                        Computer Science, which continues to strengthen my
-                        curiosity and drive in the field.
-                    </p>
-                </div>
-                <div
-                    class="flex gap-6 justify-center lg:justify-start"
-                    id="hero-social"
-                >
-                    <a
-                        href="https://github.com/rufflogix"
-                        class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
-                        aria-label="GitHub Profile"
-                    >
-                        <Github size={24} />
-                    </a>
-                    <a
-                        href="https://www.linkedin.com/in/teejuta-sriwaranon/"
-                        class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
-                        aria-label="LinkedIn Profile"
-                    >
-                        <Linkedin size={24} />
-                    </a>
-                </div>
-            </div>
-            <div class="flex-shrink-0">
-                <img
-                    src="/images/rufflogix-logo.jpg"
-                    alt="Teejuta Sriwaranon - RuffLogix"
-                    class="hero-image rounded-full w-72 md:w-80 lg:w-96 shadow-emerald-xl border-4 border-gray-700"
-                    id="hero-image"
-                />
-            </div>
+          Teejuta Sriwaranon
+        </h1>
+        <div
+          class="flex gap-2 flex-wrap justify-center lg:justify-start"
+          id="hero-roles"
+        >
+          {
+            ["Software Developer", "AI Engineer", "Writer"].map((value) => {
+              return (
+                <span class="hero-role-badge bg-emerald-600 hover:bg-emerald-500 border-emerald-900 border rounded-full px-4 py-2 text-sm font-medium transition-colors shadow-emerald">
+                  {value}
+                </span>
+              );
+            })
+          }
         </div>
+        <div id="hero-description" class="hero-description space-y-6">
+          <!-- Introduction -->
+          <div class="space-y-3">
+            <h2 class="text-2xl font-semibold text-emerald-400">Hello!</h2>
+            <p
+              class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
+            >
+              My name is <span
+                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-bold px-1 rounded"
+                >Teejuta Sriwaranon (Gun)</span
+              >. I'm a junior Computer Engineering student at Chulalongkorn
+              University.
+            </p>
+          </div>
+
+          <!-- Interests Section -->
+          <div class="space-y-3">
+            <p
+              class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
+            >
+              I have a strong passion for <span
+                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
+                >Software Development</span
+              >,
+              <span
+                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
+                >Artificial Intelligence</span
+              >, and the algorithms behind them.
+            </p>
+          </div>
+
+          <!-- Philosophy Section -->
+          <div class="space-y-3">
+            <p
+              class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
+            >
+              I'm passionate about learning and building projects that combine
+              both
+              <span
+                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
+                >theoretical foundations</span
+              >
+              and <span
+                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
+                >practical applications</span
+              >.
+            </p>
+            <p
+              class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
+            >
+              I have a deep appreciation for <span
+                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
+                >Theoretical Computer Science</span
+              >, which continues to strengthen my curiosity and drive in the
+              field.
+            </p>
+          </div>
+        </div>
+        <div
+          class="flex gap-6 justify-center lg:justify-start"
+          id="hero-social"
+        >
+          <a
+            href="https://github.com/rufflogix"
+            class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
+            aria-label="GitHub Profile"
+          >
+            <Github size={24} />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/teejuta-sriwaranon/"
+            class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
+            aria-label="LinkedIn Profile"
+          >
+            <Linkedin size={24} />
+          </a>
+        </div>
+      </div>
+      <div class="flex-shrink-0">
+        <img
+          src="/images/rufflogix-logo.jpg"
+          alt="Teejuta Sriwaranon - RuffLogix"
+          class="hero-image rounded-full w-72 md:w-80 lg:w-96 shadow-emerald-xl border-4 border-gray-700"
+          id="hero-image"
+        />
+      </div>
     </div>
+  </div>
 
-    <style>
-        /* Initial state for hero elements - hidden for animation */
-        .hero-name,
-        .hero-role-badge,
-        .hero-description-paragraph,
-        .hero-image,
-        .hero-social-icon {
-            opacity: 0;
-        }
+  <style>
+    /* Initial state for hero elements - hidden for animation */
+    .hero-name,
+    .hero-role-badge,
+    .hero-description-paragraph,
+    .hero-image,
+    .hero-social-icon {
+      opacity: 0;
+    }
 
-        /* Custom emerald drop shadows */
-        .drop-shadow-emerald {
-            filter: drop-shadow(0 4px 6px rgba(16, 185, 129, 0.4))
-                drop-shadow(0 2px 4px rgba(16, 185, 129, 0.2));
-        }
+    /* Custom emerald drop shadows */
+    .drop-shadow-emerald {
+      filter: drop-shadow(0 4px 6px rgba(16, 185, 129, 0.4))
+        drop-shadow(0 2px 4px rgba(16, 185, 129, 0.2));
+    }
 
-        .drop-shadow-emerald-sm {
-            filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.3))
-                drop-shadow(0 1px 2px rgba(16, 185, 129, 0.1));
-        }
+    .drop-shadow-emerald-sm {
+      filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.3))
+        drop-shadow(0 1px 2px rgba(16, 185, 129, 0.1));
+    }
 
-        .shadow-emerald {
-            box-shadow:
-                0 4px 6px -1px rgba(16, 185, 129, 0.3),
-                0 2px 4px -1px rgba(16, 185, 129, 0.1);
-        }
+    .shadow-emerald {
+      box-shadow:
+        0 4px 6px -1px rgba(16, 185, 129, 0.3),
+        0 2px 4px -1px rgba(16, 185, 129, 0.1);
+    }
 
-        .shadow-emerald-xl {
-            box-shadow:
-                0 20px 25px -5px rgba(16, 185, 129, 0.3),
-                0 10px 10px -5px rgba(16, 185, 129, 0.1);
-        }
+    .shadow-emerald-xl {
+      box-shadow:
+        0 20px 25px -5px rgba(16, 185, 129, 0.3),
+        0 10px 10px -5px rgba(16, 185, 129, 0.1);
+    }
 
-        .shadow-emerald-hover {
-            transition: box-shadow 0.3s ease;
-        }
+    .shadow-emerald-hover {
+      transition: box-shadow 0.3s ease;
+    }
 
-        .shadow-emerald-hover:hover {
-            box-shadow:
-                0 10px 15px -3px rgba(16, 185, 129, 0.4),
-                0 4px 6px -2px rgba(16, 185, 129, 0.2);
-        }
+    .shadow-emerald-hover:hover {
+      box-shadow:
+        0 10px 15px -3px rgba(16, 185, 129, 0.4),
+        0 4px 6px -2px rgba(16, 185, 129, 0.2);
+    }
 
-        /* Ensure elements are visible if animations fail or are disabled */
-        @media (prefers-reduced-motion: reduce) {
-            .hero-name,
-            .hero-role-badge,
-            .hero-description-paragraph,
-            .hero-image,
-            .hero-social-icon {
-                opacity: 1 !important;
+    /* Ensure elements are visible if animations fail or are disabled */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-name,
+      .hero-role-badge,
+      .hero-description-paragraph,
+      .hero-image,
+      .hero-social-icon {
+        opacity: 1 !important;
+      }
+    }
+  </style>
+
+  <script>
+    import { scrollAnimationManager } from "../scripts/scroll-animations";
+    import { GSAPManager } from "../scripts/gsap-init";
+
+    async function initHeroScrollAnimation() {
+      try {
+        // Ensure GSAP is initialized
+        const gsapManager = GSAPManager.getInstance();
+        await gsapManager.initialize();
+
+        // Create scroll-triggered hero sequence animation
+        // Triggers when hero section is 50% visible in viewport
+        const heroScrollTrigger =
+          scrollAnimationManager.createScrollTriggeredHeroSequence(
+            "#hero-section",
+            {
+              name: "#hero-name",
+              role: ".hero-role-badge",
+              description: ".hero-description-paragraph",
+              image: "#hero-image",
+              social: ".hero-social-icon",
+            },
+            {
+              threshold: 0.5, // Activate at 50% viewport visibility
+              enablePerformanceMonitoring: true,
             }
-        }
-    </style>
+          );
 
-    <script>
-        import { scrollAnimationManager } from "../scripts/scroll-animations";
-        import { GSAPManager } from "../scripts/gsap-init";
+        // Handle window resize to refresh ScrollTriggers
+        let resizeTimeout: number;
+        window.addEventListener("resize", () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = window.setTimeout(() => {
+            scrollAnimationManager.refresh();
+          }, 250);
+        });
+      } catch (error) {
+        // Fallback: make elements visible if animation fails
+        const elements = document.querySelectorAll(
+          ".hero-name, .hero-role-badge, .hero-description-paragraph, .hero-image, .hero-social-icon"
+        );
+        elements.forEach((el) => {
+          (el as HTMLElement).style.opacity = "1";
+        });
+      }
+    }
 
-        // Initialize scroll-triggered hero animation when page loads
-        async function initHeroScrollAnimation() {
-            try {
-                // Ensure GSAP is initialized
-                const gsapManager = GSAPManager.getInstance();
-                await gsapManager.initialize();
-
-                // Create scroll-triggered hero sequence animation
-                // Triggers when hero section is 50% visible in viewport
-                const heroScrollTrigger =
-                    scrollAnimationManager.createScrollTriggeredHeroSequence(
-                        "#hero-section",
-                        {
-                            name: "#hero-name",
-                            role: ".hero-role-badge",
-                            description: ".hero-description-paragraph",
-                            image: "#hero-image",
-                            social: ".hero-social-icon",
-                        },
-                        {
-                            threshold: 0.5, // Activate at 50% viewport visibility
-                            enablePerformanceMonitoring: true,
-                        },
-                    );
-
-                console.log("Hero scroll animation initialized successfully");
-
-                // Add debugging info in development
-                if (import.meta.env.DEV) {
-                    console.log("ScrollTrigger created:", heroScrollTrigger);
-                    console.log(
-                        "Hero section element:",
-                        document.querySelector("#hero-section"),
-                    );
-                }
-
-                // Handle window resize to refresh ScrollTriggers
-                let resizeTimeout: number;
-                window.addEventListener("resize", () => {
-                    clearTimeout(resizeTimeout);
-                    resizeTimeout = window.setTimeout(() => {
-                        scrollAnimationManager.refresh();
-                        console.log("ScrollTriggers refreshed after resize");
-                    }, 250);
-                });
-            } catch (error) {
-                console.error(
-                    "Failed to initialize hero scroll animation:",
-                    error,
-                );
-
-                // Fallback: make elements visible if animation fails
-                const elements = document.querySelectorAll(
-                    ".hero-name, .hero-role-badge, .hero-description-paragraph, .hero-image, .hero-social-icon",
-                );
-                elements.forEach((el) => {
-                    (el as HTMLElement).style.opacity = "1";
-                });
-            }
-        }
-
-        // Initialize when DOM is ready
-        if (document.readyState === "loading") {
-            document.addEventListener(
-                "DOMContentLoaded",
-                initHeroScrollAnimation,
-            );
-        } else {
-            initHeroScrollAnimation();
-        }
-    </script>
+    // Initialize when DOM is ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initHeroScrollAnimation);
+    } else {
+      initHeroScrollAnimation();
+    }
+  </script>
 </Layout>
