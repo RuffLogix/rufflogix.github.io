@@ -13,6 +13,7 @@ export default function PostCard({ post }) {
           src={post.thumbnail ?? "/images/rufflogix-logo.jpg"}
           alt={post.title}
           className="w-full h-48 object-cover bg-gray-700"
+          loading="lazy"
         />
         <div className="p-4 flex flex-col">
           <h3 className="text-lg font-bold text-white leading-tight mb-2 line-clamp-2">
