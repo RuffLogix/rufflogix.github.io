@@ -40,7 +40,7 @@ export default function ScrollPosts({ initialPosts }) {
           if (newPosts.length === 0) {
             setHasMore(false);
           } else {
-            setPosts((prev) => [...prev, ...newPosts]);
+            setPosts((prev) => [...prev, ...newPosts].slice(0, 9));
             setPage((prev) => prev + 1);
           }
 
