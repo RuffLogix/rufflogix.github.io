@@ -86,7 +86,7 @@ export class AnimationTimelineFactory {
       delay?: number;
       stagger?: number;
       ease?: string;
-    },
+    }
   ): gsap.core.Timeline {
     const {
       duration = this.responsiveConfig.duration.medium,
@@ -148,7 +148,7 @@ export class AnimationTimelineFactory {
         if (this.accessibilityManager.isScreenReaderActive()) {
           this.accessibilityManager.createAnimationAnnouncement(
             "Content is loading",
-            "polite",
+            "polite"
           );
         }
       },
@@ -166,7 +166,7 @@ export class AnimationTimelineFactory {
           });
           this.accessibilityManager.createAnimationAnnouncement(
             "Content loaded",
-            "polite",
+            "polite"
           );
         }
       },
@@ -186,7 +186,7 @@ export class AnimationTimelineFactory {
       stagger?: number;
       distance?: number;
       ease?: string;
-    },
+    }
   ): gsap.core.Timeline {
     const {
       duration = this.responsiveConfig.duration.medium,
@@ -250,7 +250,7 @@ export class AnimationTimelineFactory {
       stagger?: number;
       distance?: number;
       ease?: string;
-    },
+    }
   ): gsap.core.Timeline {
     const {
       duration = this.responsiveConfig.duration.medium,
@@ -314,7 +314,7 @@ export class AnimationTimelineFactory {
       stagger?: number;
       distance?: number;
       ease?: string;
-    },
+    }
   ): gsap.core.Timeline {
     const {
       duration = this.responsiveConfig.duration.medium,
@@ -379,7 +379,7 @@ export class AnimationTimelineFactory {
       fromScale?: number;
       toScale?: number;
       ease?: string;
-    },
+    }
   ): gsap.core.Timeline {
     const {
       duration = this.responsiveConfig.duration.medium,
@@ -452,7 +452,7 @@ export class AnimationTimelineFactory {
       stagger?: number;
       distance?: number;
       ease?: string;
-    },
+    }
   ): gsap.core.Timeline {
     const {
       duration = this.timing.medium,
@@ -562,7 +562,7 @@ export class AnimationPerformanceMonitor {
 
     if (currentTime >= this.lastTime + 1000) {
       this.fps = Math.round(
-        (this.frameCount * 1000) / (currentTime - this.lastTime),
+        (this.frameCount * 1000) / (currentTime - this.lastTime)
       );
       this.frameCount = 0;
       this.lastTime = currentTime;
@@ -573,7 +573,7 @@ export class AnimationPerformanceMonitor {
       // Log performance warnings
       if (this.fps < 30) {
         console.warn(
-          `Low FPS detected: ${this.fps}fps - Consider reducing animation complexity`,
+          `Low FPS detected: ${this.fps}fps - Consider reducing animation complexity`
         );
       }
     }
@@ -630,13 +630,13 @@ export class ScrollAnimationManager {
           // Reduce animation quality and speed up existing animations
           gsap.globalTimeline.timeScale(1.5);
           console.log(
-            "Performance throttling activated - speeding up animations",
+            "Performance throttling activated - speeding up animations"
           );
         } else if (metrics.fps > 50) {
           // Restore normal animation speed
           gsap.globalTimeline.timeScale(1);
         }
-      },
+      }
     );
 
     // Monitor touch scroll velocity and adjust animations
@@ -689,7 +689,7 @@ export class ScrollAnimationManager {
 
     // Handle reduced motion preference changes
     const reducedMotionQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
+      "(prefers-reduced-motion: reduce)"
     );
     reducedMotionQuery.addEventListener("change", (e) => {
       if (e.matches) {
@@ -757,7 +757,7 @@ export class ScrollAnimationManager {
     // Reinitialize page animations if needed
     // This would typically be called from the main initialization
     console.log(
-      "Animations re-enabled - consider reinitializing page animations",
+      "Animations re-enabled - consider reinitializing page animations"
     );
   }
 
@@ -767,7 +767,7 @@ export class ScrollAnimationManager {
   private makeAllContentVisible(): void {
     const animatedElements = document.querySelectorAll(
       ".animate-ready, .animate-fade, .animate-slide-up, .animate-slide-down, " +
-        ".animate-slide-left, .animate-slide-right, .animate-scale, .animate-rotate",
+        ".animate-slide-left, .animate-slide-right, .animate-scale, .animate-rotate"
     );
 
     animatedElements.forEach((element) => {
@@ -788,7 +788,7 @@ export class ScrollAnimationManager {
     gsap.globalTimeline.pause();
     this.accessibilityManager.createAnimationAnnouncement(
       "Animations paused",
-      "assertive",
+      "assertive"
     );
   }
 
@@ -799,7 +799,7 @@ export class ScrollAnimationManager {
     gsap.globalTimeline.resume();
     this.accessibilityManager.createAnimationAnnouncement(
       "Animations resumed",
-      "polite",
+      "polite"
     );
   }
 
@@ -863,7 +863,7 @@ export class ScrollAnimationManager {
       scrub?: boolean;
       markers?: boolean;
       toggleActions?: string;
-    },
+    }
   ): ScrollTrigger {
     const timeline = timelineCreator();
 
@@ -894,7 +894,7 @@ export class ScrollAnimationManager {
     },
     options?: {
       staggerDelay?: number;
-    },
+    }
   ): gsap.core.Timeline {
     const { staggerDelay = 0.2 } = options || {};
     const tl = gsap.timeline();
@@ -906,7 +906,7 @@ export class ScrollAnimationManager {
       this.timelineFactory.createFadeInTimeline(selectors.name, {
         duration: timing.slow,
         ease: easing.default,
-      }),
+      })
     );
 
     // Role badges slide from left
@@ -915,7 +915,7 @@ export class ScrollAnimationManager {
         duration: timing.medium,
         stagger: 0.1,
       }),
-      `-=${timing.medium * 0.5}`,
+      `-=${timing.medium * 0.5}`
     );
 
     // Description reveal
@@ -923,7 +923,7 @@ export class ScrollAnimationManager {
       this.timelineFactory.createFadeInTimeline(selectors.description, {
         duration: timing.medium,
       }),
-      `-=${timing.fast}`,
+      `-=${timing.fast}`
     );
 
     // Profile image scale with bounce
@@ -932,7 +932,7 @@ export class ScrollAnimationManager {
         duration: timing.medium,
         ease: easing.bounce,
       }),
-      `-=${timing.medium * 0.7}`,
+      `-=${timing.medium * 0.7}`
     );
 
     // Social icons staggered
@@ -941,7 +941,7 @@ export class ScrollAnimationManager {
         stagger: 0.15,
         duration: timing.fast,
       }),
-      `-=${timing.fast}`,
+      `-=${timing.fast}`
     );
 
     return tl;
@@ -963,7 +963,7 @@ export class ScrollAnimationManager {
       staggerDelay?: number;
       threshold?: number;
       enablePerformanceMonitoring?: boolean;
-    },
+    }
   ): ScrollTrigger {
     const {
       staggerDelay = 0.2,
@@ -1046,7 +1046,7 @@ export class ScrollAnimationManager {
       stagger?: number;
       threshold?: number;
       enablePerformanceMonitoring?: boolean;
-    },
+    }
   ): ScrollTrigger {
     const {
       stagger = 0.2,
@@ -1135,7 +1135,7 @@ export class ScrollAnimationManager {
     },
     options?: {
       threshold?: number;
-    },
+    }
   ): ScrollTrigger[] {
     const { threshold = 0.4 } = options || {};
     const scrollTriggers: ScrollTrigger[] = [];
@@ -1147,7 +1147,7 @@ export class ScrollAnimationManager {
       {
         stagger: 0.1,
         duration: this.timelineFactory["timing"].fast,
-      },
+      }
     );
 
     scrollTriggers.push(
@@ -1156,7 +1156,7 @@ export class ScrollAnimationManager {
         start: `top ${(1 - threshold) * 100}%`,
         animation: dotsTimeline,
         toggleActions: "play none none reverse",
-      }),
+      })
     );
 
     // Timeline cards slide from right with fade effects
@@ -1167,7 +1167,7 @@ export class ScrollAnimationManager {
         stagger: 0.15,
         duration: this.timelineFactory["timing"].medium,
         distance: 100,
-      },
+      }
     );
 
     scrollTriggers.push(
@@ -1176,7 +1176,7 @@ export class ScrollAnimationManager {
         start: `top ${(1 - threshold) * 100}%`,
         animation: cardsTimeline,
         toggleActions: "play none none reverse",
-      }),
+      })
     );
 
     return scrollTriggers;
@@ -1190,7 +1190,7 @@ export class ScrollAnimationManager {
     options?: {
       threshold?: number;
       animationType?: "fadeIn" | "slideUp" | "slideLeft";
-    },
+    }
   ): ScrollTrigger {
     const { threshold = 0.4, animationType = "fadeIn" } = options || {};
 
@@ -1237,7 +1237,7 @@ export class ScrollAnimationManager {
       {
         threshold: 0.4,
         animationType: "fadeIn",
-      },
+      }
     );
     scrollTriggers.push(educationHeader);
 
@@ -1247,7 +1247,7 @@ export class ScrollAnimationManager {
         dots: '[data-animation="education-timeline"] .timeline-dot',
         cards: '[data-animation="education-timeline"] .timeline-card',
       },
-      { threshold: 0.4 },
+      { threshold: 0.4 }
     );
     scrollTriggers.push(...educationTimeline);
 
@@ -1257,7 +1257,7 @@ export class ScrollAnimationManager {
       {
         threshold: 0.4,
         animationType: "fadeIn",
-      },
+      }
     );
     scrollTriggers.push(experienceHeader);
 
@@ -1267,9 +1267,53 @@ export class ScrollAnimationManager {
         dots: '[data-animation="experience-timeline"] .timeline-dot',
         cards: '[data-animation="experience-timeline"] .timeline-card',
       },
-      { threshold: 0.4 },
+      { threshold: 0.4 }
     );
     scrollTriggers.push(...experienceTimeline);
+
+    // Tech Stack section header
+    const techStackHeader = this.createSectionHeaderAnimation(
+      '[data-animation="techstack-header"]',
+      {
+        threshold: 0.4,
+        animationType: "fadeIn",
+      }
+    );
+    scrollTriggers.push(techStackHeader);
+
+    // Tech Stack marquee animation
+    const techStackMarquee = this.createSectionHeaderAnimation(
+      '[data-animation="techstack-marquee"]',
+      {
+        threshold: 0.3,
+        animationType: "fadeIn",
+      }
+    );
+    scrollTriggers.push(techStackMarquee);
+
+    // Achievements section header
+    const achievementsHeader = this.createSectionHeaderAnimation(
+      '[data-animation="achievements-header"]',
+      {
+        threshold: 0.4,
+        animationType: "fadeIn",
+      }
+    );
+    scrollTriggers.push(achievementsHeader);
+
+    // Achievements card
+    const achievementsTimeline = this.timelineFactory.createSlideUpTimeline(
+      '[data-animation="achievements-card"]',
+      {
+        duration: this.timelineFactory["timing"].medium,
+      }
+    );
+    const achievementsCard = this.createScrollAnimation({
+      trigger: '[data-animation="achievements-card"]',
+      start: "top 70%",
+      animation: achievementsTimeline,
+    });
+    scrollTriggers.push(achievementsCard);
 
     return scrollTriggers;
   }
@@ -1282,7 +1326,7 @@ export class ScrollAnimationManager {
     options?: {
       stagger?: number;
       threshold?: number;
-    },
+    }
   ): ScrollTrigger {
     const { stagger = 0.15, threshold = 0.3 } = options || {};
 
@@ -1292,7 +1336,7 @@ export class ScrollAnimationManager {
       {
         stagger,
         duration: this.timelineFactory["timing"].medium,
-      },
+      }
     );
 
     return this.createScrollAnimation({
@@ -1378,7 +1422,7 @@ export class ScrollAnimationManager {
             }
           });
         },
-      },
+      }
     );
   }
 }
@@ -1390,14 +1434,14 @@ export const scrollAnimationManager = ScrollAnimationManager.getInstance();
 // Utility functions for common animation patterns
 export function createFadeIn(
   elements: string | HTMLElement | HTMLElement[],
-  options?: any,
+  options?: any
 ) {
   return animationFactory.createFadeInTimeline(elements, options);
 }
 
 export function createSlideUp(
   elements: string | HTMLElement | HTMLElement[],
-  options?: any,
+  options?: any
 ) {
   return animationFactory.createSlideUpTimeline(elements, options);
 }
@@ -1405,7 +1449,7 @@ export function createSlideUp(
 export function createStagger(
   elements: string | HTMLElement[],
   type?: "fadeIn" | "slideUp" | "slideLeft" | "slideRight" | "scale",
-  options?: any,
+  options?: any
 ) {
   return animationFactory.createStaggerTimeline(elements, type, options);
 }
@@ -1413,7 +1457,7 @@ export function createStagger(
 export function createScrollTrigger(
   trigger: string | HTMLElement,
   timeline: gsap.core.Timeline,
-  options?: any,
+  options?: any
 ) {
   return scrollAnimationManager.createScrollAnimation({
     trigger,

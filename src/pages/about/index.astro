@@ -5,16 +5,228 @@ import { Image } from "astro:assets";
 import {
   educationalInformation,
   experienceInformation,
-} from "../../constants/timeline.constant.ts";
+} from "../../constants/timeline.constant";
+import { marqueeRows } from "../../constants/techstack.constant";
+import EducationCard from "../../components/EducationCard.astro";
+import ExperienceCard from "../../components/ExperienceCard.astro";
+import TechStackMarquee from "../../components/TechStackMarquee.astro";
+import AchievementsCard from "../../components/AchievementsCard.astro";
 ---
 
 <Layout>
-  <div class="min-h-screen bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-    <!-- Header Section -->
-    <div class="max-w-7xl mx-auto mb-16">
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4">
-        Teejuta Sriwaranon
-      </h1>
+  <div class="min-h-screen text-white relative overflow-hidden">
+    <!-- Global Background decorative elements -->
+    <div
+      class="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
+    >
+    </div>
+    <div
+      class="fixed top-0 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-2xl"
+    >
+    </div>
+    <div
+      class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-2xl"
+    >
+    </div>
+    <div
+      class="fixed top-1/2 right-0 w-72 h-72 bg-emerald-500/3 rounded-full blur-3xl"
+    >
+    </div>
+    <div
+      class="fixed bottom-1/4 left-0 w-80 h-80 bg-blue-500/3 rounded-full blur-3xl"
+    >
+    </div>
+
+    <!-- Hero Profile Section -->
+    <div class="relative z-10">
+      <div
+        class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24"
+      >
+        <!-- Main Profile Content -->
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <!-- Profile Image Side -->
+          <div
+            class="flex flex-col items-center lg:items-center space-y-8"
+            data-animation="profile-image"
+          >
+            <div class="relative">
+              <Image
+                src="/images/profile.jpg"
+                alt="Teejuta Sriwaranon Profile Picture"
+                width={256}
+                height={256}
+                class="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 object-cover rounded-full shadow-2xl border-4 border-emerald-500/20 hover:border-emerald-500/40 transition-all duration-300"
+              />
+            </div>
+
+            <!-- Contact Section -->
+            <div class="text-center space-y-4">
+              <h3 class="text-lg font-semibold text-emerald-300">
+                Let's Connect
+              </h3>
+              <div class="flex justify-center space-x-4">
+                <a
+                  href="https://github.com/rufflogix"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-center w-12 h-12 bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white rounded-full transition-all duration-300 hover:scale-110"
+                  aria-label="GitHub Profile"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+                    ></path>
+                  </svg>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/teejuta-sriwaranon/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-center w-12 h-12 bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white rounded-full transition-all duration-300 hover:scale-110"
+                  aria-label="LinkedIn Profile"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                    ></path>
+                  </svg>
+                </a>
+                <a
+                  href="mailto:teejuta.sriwaranon@gmail.com"
+                  class="flex items-center justify-center w-12 h-12 bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white rounded-full transition-all duration-300 hover:scale-110"
+                  aria-label="Email Contact"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+              <p class="text-sm text-gray-400 max-w-xs">
+                Feel free to reach out for collaborations, opportunities, or
+                just to connect!
+              </p>
+            </div>
+          </div>
+
+          <!-- Content Side -->
+          <div class="space-y-8" data-animation="profile-content">
+            <!-- Header -->
+            <div class="space-y-4">
+              <h1
+                class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
+              >
+                <span class="text-white">Teejuta</span>
+                <br />
+                <span
+                  class="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent"
+                >
+                  Sriwaranon
+                </span>
+              </h1>
+
+              <p class="text-xl lg:text-2xl text-gray-400 font-light">
+                Computer Engineering Student &
+                <span class="text-emerald-300 font-medium">AI Enthusiast</span>
+              </p>
+            </div>
+
+            <!-- About Content -->
+            <section id="about" class="space-y-6">
+              <div class="space-y-4 text-gray-300 leading-relaxed">
+                <p class="text-lg">
+                  Hi, I'm <span
+                    class="font-semibold text-emerald-300 bg-emerald-500/10 px-2 py-1 rounded"
+                    >Gun</span
+                  >
+                  — a passionate Computer Engineering student at
+                  <span class="font-semibold text-white"
+                    >Chulalongkorn University</span
+                  >
+                  with a deep fascination for
+                  <span class="text-emerald-300 font-medium"
+                    >Artificial Intelligence</span
+                  >,
+                  <span class="text-emerald-300 font-medium"
+                    >software development</span
+                  >, and the <span class="text-emerald-300 font-medium"
+                    >mathematics behind algorithms</span
+                  >.
+                </p>
+
+                <p class="text-lg">
+                  Through internships and roles at industry leaders like
+                  <span
+                    class="font-medium text-white hover:text-emerald-300 transition-colors"
+                    >LINE MAN Wongnai</span
+                  >,
+                  <span
+                    class="font-medium text-white hover:text-emerald-300 transition-colors"
+                    >Looloo Technology</span
+                  >,
+                  <span
+                    class="font-medium text-white hover:text-emerald-300 transition-colors"
+                    >AIMET</span
+                  >, and
+                  <span
+                    class="font-medium text-white hover:text-emerald-300 transition-colors"
+                    >KBTG</span
+                  >, I've cultivated expertise across the full technology stack.
+                </p>
+
+                <p class="text-lg">
+                  My journey spans <strong class="text-white"
+                    >building robust APIs</strong
+                  >,
+                  <strong class="text-white"
+                    >deploying AI-powered applications</strong
+                  >,
+                  <strong class="text-white">crafting smart contracts</strong>,
+                  and
+                  <strong class="text-white"
+                    >developing wellness tech solutions</strong
+                  >
+                  for medical students.
+                </p>
+              </div>
+
+              <!-- Key Interests -->
+              <div class="flex flex-wrap gap-3 pt-4">
+                <span
+                  class="px-4 py-2 bg-gray-800 text-emerald-300 rounded-full text-sm font-medium border border-gray-700 hover:border-emerald-500/50 hover:bg-emerald-500/10 transition-all duration-300"
+                >
+                  🤖 Artificial Intelligence
+                </span>
+                <span
+                  class="px-4 py-2 bg-gray-800 text-emerald-300 rounded-full text-sm font-medium border border-gray-700 hover:border-emerald-500/50 hover:bg-emerald-500/10 transition-all duration-300"
+                >
+                  💻 Full-Stack Development
+                </span>
+                <span
+                  class="px-4 py-2 bg-gray-800 text-emerald-300 rounded-full text-sm font-medium border border-gray-700 hover:border-emerald-500/50 hover:bg-emerald-500/10 transition-all duration-300"
+                >
+                  📊 Algorithm Design
+                </span>
+                <span
+                  class="px-4 py-2 bg-gray-800 text-emerald-300 rounded-full text-sm font-medium border border-gray-700 hover:border-emerald-500/50 hover:bg-emerald-500/10 transition-all duration-300"
+                >
+                  🔗 Blockchain
+                </span>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
       <style>
         a[target="_blank"]:hover {
           box-shadow: 0 4px 16px 0 rgba(16, 185, 129, 0.25);
@@ -24,85 +236,10 @@ import {
             border-color 0.2s;
         }
       </style>
-      <p class="text-lg sm:text-xl text-gray-400 text-center">
-        My Journey & Experience
-      </p>
-
-      <div
-        class="flex flex-col md:flex-row mt-8 gap-8 md:gap-12 items-center md:items-start"
-      >
-        <Image
-          src="/images/profile.jpg"
-          alt="Teejuta Sriwaranon Profile Picture"
-          width={256}
-          height={256}
-          class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-lg shadow-lg flex-shrink-0"
-        />
-        <section id="about" class="w-full max-w-4xl text-gray-200 space-y-8">
-          <h2
-            class="text-3xl font-bold mb-6 text-emerald-300 text-center md:text-left"
-          >
-            About Me
-          </h2>
-          <p class="mb-4">
-            Hi, I'm <span class="font-semibold text-emerald-300"
-              >Teejuta Sriwaranon (Gun)</span
-            > — a junior Computer Engineering student at{" "}
-            <span class="font-semibold text-white"
-              >Chulalongkorn University</span
-            > with a strong passion for{" "}
-            <span class="text-emerald-300 font-medium"
-              >Artificial Intelligence</span
-            >,{" "}
-            <span class="text-emerald-300 font-medium"
-              >software development</span
-            >, and the{" "}
-            <span class="text-emerald-300 font-medium"
-              >mathematics behind algorithms</span
-            >.
-          </p>
-          <p class="mb-4">
-            I’ve gained hands-on experience through internships and part-time
-            roles at companies like{" "}
-            <span class="font-medium text-white">LINE MAN Wongnai</span>,{" "}
-            <span class="font-medium text-white">Looloo Technology</span>,{" "}
-            <span class="font-medium text-white">AIMET</span>, and{" "}
-            <span class="font-medium text-white"
-              >Kasikorn Business-Technology Group</span
-            >.
-          </p>
-          <p class="mb-4">
-            My work spans building robust APIs, deploying AI-powered
-            applications, crafting smart contracts, and contributing to wellness
-            tech solutions for medical students.
-          </p>
-          <ul class="list-disc list-inside mb-4 space-y-2">
-            <li>
-              🥈 Silver Medal at <span class="font-medium text-white"
-                >iGEM 2024</span
-              >
-            </li>
-            <li>
-              🥈 Silver Medal in <span class="font-medium text-white"
-                >Super AI Engineer Season 3</span
-              >
-            </li>
-            <li>
-              🥈 Silver Medal at the <span class="font-medium text-white"
-                >17th Thailand Olympiad in Informatics</span
-              >
-            </li>
-          </ul>
-          <p>
-            I love combining theory with practice and exploring new
-            technologies.
-          </p>
-        </section>
-      </div>
     </div>
 
     <!-- Education Timeline -->
-    <div class="max-w-4xl mx-auto mb-20">
+    <div class="relative z-10 max-w-4xl mx-auto mb-20 px-4 sm:px-6 lg:px-8">
       <h2
         class="text-4xl font-bold mb-12 text-emerald-400"
         data-animation="education-header"
@@ -116,42 +253,8 @@ import {
         </div>
         <div class="space-y-12">
           {
-            educationalInformation.map((edu) => (
-              <div class="relative flex items-start">
-                <div class="timeline-dot absolute left-2 sm:left-4 w-4 h-4 bg-emerald-600 rounded-full border-4 border-gray-900 z-10" />
-                <div class="ml-12 sm:ml-20 w-full">
-                  <div class="timeline-card bg-gray-800 border border-gray-700 rounded-lg p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow">
-                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                      <div class="flex items-start gap-4">
-                        {edu.image && (
-                          <Image
-                            src={edu.image}
-                            alt={`${edu.instituteName} logo`}
-                            width={64}
-                            height={64}
-                            class="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0 border-2 border-gray-600"
-                          />
-                        )}
-                        <div>
-                          <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
-                            {edu.instituteName}
-                          </h3>
-                          <p class="text-emerald-400 font-semibold mb-1">
-                            {edu.program}
-                          </p>
-                          <p class="text-gray-400 text-sm">{edu.location}</p>
-                        </div>
-                      </div>
-                      <span class="inline-block bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium mt-4 md:mt-0">
-                        {edu.duration}
-                      </span>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed">
-                      {edu.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
+            educationalInformation.map((edu, index) => (
+              <EducationCard key={index} edu={edu} />
             ))
           }
         </div>
@@ -159,7 +262,7 @@ import {
     </div>
 
     <!-- Experience Timeline -->
-    <div class="max-w-4xl mx-auto mb-20">
+    <div class="relative z-10 max-w-4xl mx-auto mb-20 px-4 sm:px-6 lg:px-8">
       <h2
         class="text-4xl font-bold mb-12 text-emerald-400"
         data-animation="experience-header"
@@ -174,51 +277,55 @@ import {
         <div class="space-y-12">
           {
             experienceInformation.map((exp) => (
-              <div class="relative flex items-start">
-                <div class="timeline-dot absolute left-2 sm:left-4 w-4 h-4 bg-emerald-600 rounded-full border-4 border-gray-900 z-10" />
-                <div class="ml-12 sm:ml-20 w-full">
-                  <div class="timeline-card bg-gray-800 border border-gray-700 rounded-lg p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow">
-                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                      <div class="flex items-start gap-4">
-                        {exp.image && (
-                          <a
-                            href={exp.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Image
-                              src={exp.image}
-                              alt={`${exp.instituteName} logo`}
-                              width={64}
-                              height={64}
-                              class="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0 border-2 border-gray-600"
-                            />
-                          </a>
-                        )}
-                        <div>
-                          <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
-                            {exp.instituteName}
-                          </h3>
-                          <p class="text-emerald-400 font-semibold mb-1">
-                            {exp.program}
-                          </p>
-                          <p class="text-gray-400 text-sm">{exp.location}</p>
-                        </div>
-                      </div>
-                      <span class="inline-block bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium mt-4 md:mt-0">
-                        {exp.duration}
-                      </span>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed">
-                      {exp.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <ExperienceCard key={exp.instituteName} exp={exp} />
             ))
           }
         </div>
       </div>
+    </div>
+
+    <!-- Tech Stack Section -->
+    <div class="relative z-10 w-full mb-20 px-4">
+      <h2
+        class="text-4xl font-bold mb-4 text-emerald-400 text-center"
+        data-animation="techstack-header"
+      >
+        Technical Skills & Expertise
+      </h2>
+      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        Technologies and tools I work with across different domains
+      </p>
+      <div class="space-y-6" data-animation="techstack-marquee">
+        <!-- Row 1: Moving Left (slower) -->
+        <TechStackMarquee
+          technologies={marqueeRows[0]}
+          direction="left"
+          speed={60}
+        />
+        <!-- Row 2: Moving Right (medium speed) -->
+        <TechStackMarquee
+          technologies={marqueeRows[1]}
+          direction="right"
+          speed={45}
+        />
+        <!-- Row 3: Moving Left (faster) -->
+        <TechStackMarquee
+          technologies={marqueeRows[2]}
+          direction="left"
+          speed={35}
+        />
+      </div>
+    </div>
+
+    <!-- Achievements Section -->
+    <div class="relative z-10 max-w-4xl mx-auto mb-20 px-4 sm:px-6 lg:px-8">
+      <h2
+        class="text-4xl font-bold mb-12 text-emerald-400"
+        data-animation="achievements-header"
+      >
+        Achievements & Recognition
+      </h2>
+      <AchievementsCard />
     </div>
   </div>
 

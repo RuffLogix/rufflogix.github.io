@@ -696,8 +696,27 @@ export class GSAPManager {
     const experienceTimeline = document.querySelector(
       '[data-animation="experience-timeline"]'
     );
+    const techStackHeader = document.querySelector(
+      '[data-animation="techstack-header"]'
+    );
+    const techStackMarquee = document.querySelector(
+      '[data-animation="techstack-marquee"]'
+    );
+    const achievementsCard = document.querySelector(
+      '[data-animation="achievements-card"]'
+    );
+    const achievementsHeader = document.querySelector(
+      '[data-animation="achievements-header"]'
+    );
 
-    if (educationTimeline || experienceTimeline) {
+    if (
+      educationTimeline ||
+      experienceTimeline ||
+      techStackHeader ||
+      techStackMarquee ||
+      achievementsCard ||
+      achievementsHeader
+    ) {
       console.log(
         `Initializing about page timeline animations for ${
           this.deviceInfo.isMobile

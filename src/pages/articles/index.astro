@@ -54,33 +54,57 @@ const posts = (await getMediumPosts()).slice(0, INITIAL_POSTS);
 ---
 
 <Layout>
-  <main class="min-h-screen bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
-      <!-- Header Section -->
-      <div class="mb-16 text-center" data-animation="articles-header">
-        <h1
-          class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-emerald-400"
-        >
-          Articles
-        </h1>
-        <p class="text-lg sm:text-xl text-gray-400">
-          Latest posts from <span
-            class="text-emerald-400 hover:text-emerald-300"
-            ><a
-              href="https://medium.com/@rufflogix"
-              target="_blank"
-              rel="noopener noreferrer">@rufflogix</a
-            ></span
-          > on Medium
-        </p>
-      </div>
-
-      <!-- Articles Grid -->
-      <div data-animation="articles-grid">
-        <ScrollPosts initialPosts={posts} client:visible />
-      </div>
+  <div class="min-h-screen text-white relative overflow-hidden">
+    <!-- Global Background decorative elements -->
+    <div
+      class="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
+    >
     </div>
-  </main>
+    <div
+      class="fixed top-0 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-2xl"
+    >
+    </div>
+    <div
+      class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-2xl"
+    >
+    </div>
+    <div
+      class="fixed top-1/2 right-0 w-72 h-72 bg-emerald-500/3 rounded-full blur-3xl"
+    >
+    </div>
+    <div
+      class="fixed bottom-1/4 left-0 w-80 h-80 bg-blue-500/3 rounded-full blur-3xl"
+    >
+    </div>
+
+    <main class="relative z-10 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto">
+        <!-- Header Section -->
+        <div class="mb-16 text-center" data-animation="articles-header">
+          <h1
+            class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-emerald-400"
+          >
+            Articles
+          </h1>
+          <p class="text-lg sm:text-xl text-gray-400">
+            Latest posts from <span
+              class="text-emerald-400 hover:text-emerald-300"
+              ><a
+                href="https://medium.com/@rufflogix"
+                target="_blank"
+                rel="noopener noreferrer">@rufflogix</a
+              ></span
+            > on Medium
+          </p>
+        </div>
+
+        <!-- Articles Grid -->
+        <div data-animation="articles-grid">
+          <ScrollPosts initialPosts={posts} client:visible />
+        </div>
+      </div>
+    </main>
+  </div>
 </Layout>
 
 <ScrollAnimations />

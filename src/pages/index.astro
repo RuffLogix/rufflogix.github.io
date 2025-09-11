@@ -4,119 +4,143 @@ import { Github, Linkedin } from "lucide-astro";
 ---
 
 <Layout>
-  <div
-    class="w-screen min-h-screen px-4 md:px-32 lg:px-64 flex items-center justify-center"
-    id="hero-section"
-  >
+  <div class="min-h-screen text-white relative overflow-hidden">
+    <!-- Global Background decorative elements -->
     <div
-      class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 max-w-6xl"
+      class="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
     >
-      <div class="flex flex-col gap-6 max-w-2xl text-center lg:text-left">
-        <h1
-          class="text-4xl md:text-5xl lg:text-6xl font-bold hero-name drop-shadow-emerald"
-          id="hero-name"
-        >
-          Teejuta Sriwaranon
-        </h1>
-        <div
-          class="flex gap-2 flex-wrap justify-center lg:justify-start"
-          id="hero-roles"
-        >
-          {
-            ["Software Developer", "AI Engineer", "Writer"].map((value) => {
-              return (
-                <span class="hero-role-badge bg-emerald-600 hover:bg-emerald-500 border-emerald-900 border rounded-full px-4 py-2 text-sm font-medium transition-colors shadow-emerald">
-                  {value}
-                </span>
-              );
-            })
-          }
-        </div>
-        <div id="hero-description" class="hero-description space-y-6">
-          <!-- Introduction -->
-          <div class="space-y-3">
-            <h2 class="text-2xl font-semibold text-emerald-400">Hello!</h2>
-            <p
-              class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
-            >
-              My name is <span
-                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-bold px-1 rounded"
-                >Teejuta Sriwaranon (Gun)</span
-              >. I'm a junior Computer Engineering student at Chulalongkorn
-              University.
-            </p>
-          </div>
+    </div>
+    <div
+      class="fixed top-0 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-2xl"
+    >
+    </div>
+    <div
+      class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-2xl"
+    >
+    </div>
+    <div
+      class="fixed top-1/2 right-0 w-72 h-72 bg-emerald-500/3 rounded-full blur-3xl"
+    >
+    </div>
+    <div
+      class="fixed bottom-1/4 left-0 w-80 h-80 bg-blue-500/3 rounded-full blur-3xl"
+    >
+    </div>
 
-          <!-- Interests Section -->
-          <div class="space-y-3">
-            <p
-              class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
-            >
-              I have a strong passion for <span
-                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
-                >Software Development</span
-              >,
-              <span
-                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
-                >Artificial Intelligence</span
-              >, and the algorithms behind them.
-            </p>
+    <div
+      class="relative z-10 w-screen min-h-screen px-4 md:px-32 lg:px-64 flex items-center justify-center"
+      id="hero-section"
+    >
+      <div
+        class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 max-w-6xl"
+      >
+        <div class="flex flex-col gap-6 max-w-2xl text-center lg:text-left">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold hero-name drop-shadow-emerald"
+            id="hero-name"
+          >
+            Teejuta Sriwaranon
+          </h1>
+          <div
+            class="flex gap-2 flex-wrap justify-center lg:justify-start"
+            id="hero-roles"
+          >
+            {
+              ["Software Developer", "AI Engineer", "Writer"].map((value) => {
+                return (
+                  <span class="hero-role-badge bg-emerald-600 hover:bg-emerald-500 border-emerald-900 border rounded-full px-4 py-2 text-sm font-medium transition-colors shadow-emerald">
+                    {value}
+                  </span>
+                );
+              })
+            }
           </div>
-
-          <!-- Philosophy Section -->
-          <div class="space-y-3">
-            <p
-              class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
-            >
-              I'm passionate about learning and building projects that combine
-              both
-              <span
-                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
-                >theoretical foundations</span
+          <div id="hero-description" class="hero-description space-y-6">
+            <!-- Introduction -->
+            <div class="space-y-3">
+              <h2 class="text-2xl font-semibold text-emerald-400">Hello!</h2>
+              <p
+                class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
               >
-              and <span
-                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
-                >practical applications</span
-              >.
-            </p>
-            <p
-              class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
+                My name is <span
+                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-bold px-1 rounded"
+                  >Teejuta Sriwaranon (Gun)</span
+                >. I'm a junior Computer Engineering student at Chulalongkorn
+                University.
+              </p>
+            </div>
+
+            <!-- Interests Section -->
+            <div class="space-y-3">
+              <p
+                class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
+              >
+                I have a strong passion for <span
+                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
+                  >Software Development</span
+                >,
+                <span
+                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
+                  >Artificial Intelligence</span
+                >, and the algorithms behind them.
+              </p>
+            </div>
+
+            <!-- Philosophy Section -->
+            <div class="space-y-3">
+              <p
+                class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
+              >
+                I'm passionate about learning and building projects that combine
+                both
+                <span
+                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
+                  >theoretical foundations</span
+                >
+                and <span
+                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
+                  >practical applications</span
+                >.
+              </p>
+              <p
+                class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
+              >
+                I have a deep appreciation for <span
+                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
+                  >Theoretical Computer Science</span
+                >, which continues to strengthen my curiosity and drive in the
+                field.
+              </p>
+            </div>
+          </div>
+          <div
+            class="flex gap-6 justify-center lg:justify-start"
+            id="hero-social"
+          >
+            <a
+              href="https://github.com/rufflogix"
+              class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
+              aria-label="GitHub Profile"
             >
-              I have a deep appreciation for <span
-                class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
-                >Theoretical Computer Science</span
-              >, which continues to strengthen my curiosity and drive in the
-              field.
-            </p>
+              <Github size={24} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/teejuta-sriwaranon/"
+              class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
+              aria-label="LinkedIn Profile"
+            >
+              <Linkedin size={24} />
+            </a>
           </div>
         </div>
-        <div
-          class="flex gap-6 justify-center lg:justify-start"
-          id="hero-social"
-        >
-          <a
-            href="https://github.com/rufflogix"
-            class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
-            aria-label="GitHub Profile"
-          >
-            <Github size={24} />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/teejuta-sriwaranon/"
-            class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
-            aria-label="LinkedIn Profile"
-          >
-            <Linkedin size={24} />
-          </a>
+        <div class="flex-shrink-0">
+          <img
+            src="/images/rufflogix-logo.jpg"
+            alt="Teejuta Sriwaranon - RuffLogix"
+            class="hero-image rounded-full w-72 md:w-80 lg:w-96 shadow-emerald-xl border-4 border-gray-700"
+            id="hero-image"
+          />
         </div>
-      </div>
-      <div class="flex-shrink-0">
-        <img
-          src="/images/rufflogix-logo.jpg"
-          alt="Teejuta Sriwaranon - RuffLogix"
-          class="hero-image rounded-full w-72 md:w-80 lg:w-96 shadow-emerald-xl border-4 border-gray-700"
-          id="hero-image"
-        />
       </div>
     </div>
   </div>
