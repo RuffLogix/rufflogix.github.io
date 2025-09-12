@@ -238,6 +238,30 @@ import AchievementsCard from "../../components/AchievementsCard.astro";
       </style>
     </div>
 
+    <!-- Tech Stack Section -->
+    <div class="relative z-10 w-full mb-20 px-4">
+      <div class="space-y-6" data-animation="techstack-marquee">
+        <!-- Row 1: Moving Left (slower) -->
+        <TechStackMarquee
+          technologies={marqueeRows[0]}
+          direction="left"
+          speed={60}
+        />
+        <!-- Row 2: Moving Right (medium speed) -->
+        <TechStackMarquee
+          technologies={marqueeRows[1]}
+          direction="right"
+          speed={45}
+        />
+        <!-- Row 3: Moving Left (faster) -->
+        <TechStackMarquee
+          technologies={marqueeRows[2]}
+          direction="left"
+          speed={35}
+        />
+      </div>
+    </div>
+
     <!-- Education Timeline -->
     <div class="relative z-10 max-w-4xl mx-auto mb-20 px-4 sm:px-6 lg:px-8">
       <h2
@@ -281,39 +305,6 @@ import AchievementsCard from "../../components/AchievementsCard.astro";
             ))
           }
         </div>
-      </div>
-    </div>
-
-    <!-- Tech Stack Section -->
-    <div class="relative z-10 w-full mb-20 px-4">
-      <h2
-        class="text-4xl font-bold mb-4 text-emerald-400 text-center"
-        data-animation="techstack-header"
-      >
-        Technical Skills & Expertise
-      </h2>
-      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-        Technologies and tools I work with across different domains
-      </p>
-      <div class="space-y-6" data-animation="techstack-marquee">
-        <!-- Row 1: Moving Left (slower) -->
-        <TechStackMarquee
-          technologies={marqueeRows[0]}
-          direction="left"
-          speed={60}
-        />
-        <!-- Row 2: Moving Right (medium speed) -->
-        <TechStackMarquee
-          technologies={marqueeRows[1]}
-          direction="right"
-          speed={45}
-        />
-        <!-- Row 3: Moving Left (faster) -->
-        <TechStackMarquee
-          technologies={marqueeRows[2]}
-          direction="left"
-          speed={35}
-        />
       </div>
     </div>
 
