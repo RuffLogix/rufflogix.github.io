@@ -40,11 +40,20 @@ import { Image } from "astro:assets";
             </div>
           </div>
           <div class="flex-shrink-0 self-start">
-            <span
-              class="inline-block bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap"
-            >
-              {edu.duration}
-            </span>
+            <div class="text-right">
+              <span
+                class="inline-block bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap"
+              >
+                {edu.duration}
+              </span>
+              {
+                edu.calculatedDuration && (
+                  <div class="text-emerald-400 text-xs mt-1 font-medium">
+                    ({edu.calculatedDuration})
+                  </div>
+                )
+              }
+            </div>
           </div>
         </div>
       </div>

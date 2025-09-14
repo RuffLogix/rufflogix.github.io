@@ -4,6 +4,7 @@ export interface EducationalInformation {
   program: string;
   location: string;
   duration: string;
+  calculatedDuration: string;
   description: string;
 }
 
@@ -14,5 +15,6 @@ export interface ExperienceInformation {
   program: string;
   location: string;
   duration: string;
+  calculatedDuration: string;
   description: string;
 }
