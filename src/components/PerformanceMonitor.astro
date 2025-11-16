@@ -1,0 +1,202 @@
+---
+// Performance monitoring component for Core Web Vitals
+---
+
+<script is:inline>
+	// Core Web Vitals monitoring (plain JavaScript to avoid TypeScript issues)
+	(function () {
+		if (typeof window === "undefined") return;
+
+		class PerformanceMonitor {
+			constructor() {
+				this.metrics = {};
+				this.init();
+			}
+
+			init() {
+				// Only run in production and if supported
+				if (window.location.hostname === "localhost") return;
+
+				this.observeCLS();
+				this.observeLCP();
+				this.observeFID();
+				this.observeFCP();
+				this.observeTTFB();
+			}
+
+			// Cumulative Layout Shift
+			observeCLS() {
+				if (!("PerformanceObserver" in window)) return;
+
+				let cls = 0;
+				try {
+					const observer = new PerformanceObserver((list) => {
+						for (const entry of list.getEntries()) {
+							if (entry.hadRecentInput === false) {
+								cls += entry.value || 0;
+							}
+						}
+						this.metrics.cls = cls;
+					});
+
+					observer.observe({ type: "layout-shift", buffered: true });
+				} catch (e) {
+					console.warn("Layout shift observation not supported:", e.message);
+				}
+			}
+
+			// Largest Contentful Paint
+			observeLCP() {
+				if (!("PerformanceObserver" in window)) return;
+
+				try {
+					const observer = new PerformanceObserver((list) => {
+						const entries = list.getEntries();
+						if (entries.length > 0) {
+							const lastEntry = entries[entries.length - 1];
+							this.metrics.lcp = lastEntry.startTime;
+						}
+					});
+
+					observer.observe({
+						type: "largest-contentful-paint",
+						buffered: true,
+					});
+				} catch (e) {
+					console.warn("LCP observation not supported:", e.message);
+				}
+			}
+
+			// First Input Delay
+			observeFID() {
+				if (!("PerformanceObserver" in window)) return;
+
+				try {
+					const observer = new PerformanceObserver((list) => {
+						for (const entry of list.getEntries()) {
+							if (entry.processingStart && entry.startTime) {
+								this.metrics.fid = entry.processingStart - entry.startTime;
+								break;
+							}
+						}
+					});
+
+					observer.observe({ type: "first-input", buffered: true });
+				} catch (e) {
+					console.warn("FID observation not supported:", e.message);
+				}
+			}
+
+			// First Contentful Paint
+			observeFCP() {
+				if (!("PerformanceObserver" in window)) return;
+
+				try {
+					const observer = new PerformanceObserver((list) => {
+						for (const entry of list.getEntries()) {
+							if (entry.name === "first-contentful-paint") {
+								this.metrics.fcp = entry.startTime;
+								break;
+							}
+						}
+					});
+
+					observer.observe({ type: "paint", buffered: true });
+				} catch (e) {
+					console.warn("Paint observation not supported:", e.message);
+				}
+			}
+
+			// Time to First Byte
+			observeTTFB() {
+				try {
+					const navEntries = performance.getEntriesByType("navigation");
+					if (navEntries.length > 0) {
+						const navEntry = navEntries[0];
+						if (navEntry.responseStart !== undefined) {
+							this.metrics.ttfb = navEntry.responseStart;
+						}
+					}
+				} catch (e) {
+					console.warn("TTFB measurement not supported:", e.message);
+				}
+			}
+
+			// Get all metrics
+			getMetrics() {
+				return this.metrics;
+			}
+
+			// Report metrics
+			report() {
+				setTimeout(() => {
+					const metrics = this.getMetrics();
+					if (Object.keys(metrics).length > 0) {
+						console.group("🚀 Performance Metrics");
+						if (metrics.cls !== undefined) {
+							const clsStatus =
+								metrics.cls < 0.1
+									? "✅ Good"
+									: metrics.cls < 0.25
+										? "⚠️ Needs Improvement"
+										: "❌ Poor";
+							console.log(`CLS: ${metrics.cls.toFixed(4)} ${clsStatus}`);
+						}
+						if (metrics.lcp !== undefined) {
+							const lcpStatus =
+								metrics.lcp < 2500
+									? "✅ Good"
+									: metrics.lcp < 4000
+										? "⚠️ Needs Improvement"
+										: "❌ Poor";
+							console.log(`LCP: ${metrics.lcp.toFixed(0)}ms ${lcpStatus}`);
+						}
+						if (metrics.fid !== undefined) {
+							const fidStatus =
+								metrics.fid < 100
+									? "✅ Good"
+									: metrics.fid < 300
+										? "⚠️ Needs Improvement"
+										: "❌ Poor";
+							console.log(`FID: ${metrics.fid.toFixed(0)}ms ${fidStatus}`);
+						}
+						if (metrics.fcp !== undefined) {
+							const fcpStatus =
+								metrics.fcp < 1800
+									? "✅ Good"
+									: metrics.fcp < 3000
+										? "⚠️ Needs Improvement"
+										: "❌ Poor";
+							console.log(`FCP: ${metrics.fcp.toFixed(0)}ms ${fcpStatus}`);
+						}
+						if (metrics.ttfb !== undefined) {
+							const ttfbStatus =
+								metrics.ttfb < 800
+									? "✅ Good"
+									: metrics.ttfb < 1800
+										? "⚠️ Needs Improvement"
+										: "❌ Poor";
+							console.log(`TTFB: ${metrics.ttfb.toFixed(0)}ms ${ttfbStatus}`);
+						}
+						console.groupEnd();
+					}
+				}, 3000);
+			}
+		}
+
+		// Initialize performance monitoring
+		const monitor = new PerformanceMonitor();
+
+		// Report metrics after page load
+		const reportMetrics = () => monitor.report();
+
+		if (document.readyState === "complete") {
+			reportMetrics();
+		} else {
+			window.addEventListener("load", reportMetrics);
+		}
+
+		// Expose for debugging
+		window.performanceMonitor = monitor;
+	})();
+</script>

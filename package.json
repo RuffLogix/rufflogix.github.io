@@ -16,6 +16,8 @@
     "@types/react-dom": "^19.1.8",
     "astro": "^5.12.6",
     "gsap": "^3.13.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.3",
     "lucide-astro": "^0.534.0",
     "lucide-react": "^0.542.0",
     "nanostores": "^1.0.1",
@@ -23,5 +25,8 @@
     "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/jspdf": "^2.0.0"
   }
 }

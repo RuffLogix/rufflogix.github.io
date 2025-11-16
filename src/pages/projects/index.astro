@@ -1,112 +1,63 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { Github, Info } from "lucide-astro";
+import ProjectCard from "../../components/ProjectCard.astro";
 import ScrollAnimations from "../../components/ScrollAnimations.astro";
 import { projectInformation } from "../../constants/project.constant";
 ---
 
 <Layout>
-  <div class="min-h-screen text-white relative overflow-hidden">
-    <!-- Global Background decorative elements -->
-    <div
-      class="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
-    >
-    </div>
-    <div
-      class="fixed top-0 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-2xl"
-    >
-    </div>
-    <div
-      class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-2xl"
-    >
-    </div>
-    <div
-      class="fixed top-1/2 right-0 w-72 h-72 bg-emerald-500/3 rounded-full blur-3xl"
-    >
-    </div>
-    <div
-      class="fixed bottom-1/4 left-0 w-80 h-80 bg-blue-500/3 rounded-full blur-3xl"
-    >
-    </div>
+	<div class="min-h-screen text-white relative overflow-hidden">
+		<!-- Global Background decorative elements -->
+		<div
+			class="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
+		>
+		</div>
+		<div
+			class="fixed top-0 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-2xl"
+		>
+		</div>
+		<div
+			class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-2xl"
+		>
+		</div>
+		<div
+			class="fixed top-1/2 right-0 w-72 h-72 bg-emerald-500/3 rounded-full blur-3xl"
+		>
+		</div>
+		<div
+			class="fixed bottom-1/4 left-0 w-80 h-80 bg-blue-500/3 rounded-full blur-3xl"
+		>
+		</div>
 
-    <div class="relative z-10 py-12">
-      <div class="mx-4 md:mx-32">
-        <h1
-          class="text-5xl md:text-6xl font-bold text-center mb-4 text-emerald-400"
-        >
-          My Projects
-        </h1>
-        <p class="text-xl text-gray-400 text-center mb-16">
-          A collection of my work and creations.
-        </p>
+		<div class="relative z-10 py-12">
+			<div class="mx-4 md:mx-32">
+				<h1
+					class="text-5xl md:text-6xl font-bold text-center mb-4 text-emerald-400"
+				>
+					My Projects
+				</h1>
+				<p class="text-xl text-gray-400 text-center mb-16">
+					A collection of my work and creations.
+				</p>
 
-        {
-          projectInformation.length === 0 ? (
-            <div class="text-center py-20">
-              <p class="text-2xl text-gray-500">More projects coming soon!</p>
-            </div>
-          ) : (
-            <div
-              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-              id="projects-grid"
-            >
-              {projectInformation.map((project, index) => (
-                <div
-                  class="project-card bg-gray-800 border border-gray-700 rounded-2xl shadow-lg flex flex-col animate-optimized will-change-transform"
-                  data-project-index={index}
-                >
-                  <div class="bg-gray-700 rounded-t-2xl p-8 flex items-center justify-center h-48">
-                    <img
-                      src={project.image}
-                      alt={`${project.title} logo`}
-                      class="h-20 w-20 project-card-image"
-                    />
-                  </div>
-                  <div class="p-6 flex-grow flex flex-col">
-                    <div class="flex justify-between items-start mb-2">
-                      <h3 class="text-2xl font-bold text-white">
-                        {project.title}
-                      </h3>
-                      <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                        {project.category}
-                      </span>
-                    </div>
-                    <p class="text-sm text-gray-400 mb-4">{project.date}</p>
-                    <p class="text-gray-300 leading-relaxed flex-grow">
-                      {project.description}
-                    </p>
-                    <div class="flex flex-wrap gap-2 my-4">
-                      {project.tags.map((tag) => (
-                        <span class="bg-gray-700 text-gray-300 px-2.5 py-1 rounded-md text-xs">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <div class="border-t border-gray-700 mt-auto pt-4 flex justify-between items-center">
-                      <p class="text-sm text-gray-400">{project.role}</p>
-                      <div class="flex items-center gap-3">
-                        <a
-                          href={project.infoLink}
-                          class="text-gray-400 hover:text-white transition-colors"
-                        >
-                          <Info size={20} />
-                        </a>
-                        <a
-                          href={project.githubLink}
-                          class="text-gray-400 hover:text-white transition-colors"
-                        >
-                          <Github size={20} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )
-        }
-      </div>
-    </div>
-  </div>
-  <ScrollAnimations />
+				{
+					projectInformation.length === 0 ? (
+						<div class="text-center py-20">
+							<p class="text-2xl text-gray-500">More projects coming soon!</p>
+						</div>
+					) : (
+						<div
+							class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+							id="projects-grid"
+						>
+							{projectInformation.map((project, index) => (
+								<ProjectCard project={project} index={index} />
+							))}
+						</div>
+					)
+				}
+			</div>
+		</div>
+	</div>
+	<ScrollAnimations />
 </Layout>

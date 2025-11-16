@@ -1,0 +1,148 @@
+/* Performance-optimized CSS utilities */
+
+/* GPU-accelerated animations */
+.gpu-optimized {
+	transform: translateZ(0);
+	backface-visibility: hidden;
+	perspective: 1000;
+	will-change: transform;
+}
+
+/* Optimized transitions */
+.optimized-transition {
+	transition-property: transform, opacity, filter;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 0.3s;
+}
+
+/* Contain layout shifts */
+.layout-stable {
+	contain: layout style paint;
+}
+
+/* Optimized image containers */
+.img-container {
+	contain: layout style paint;
+	overflow: hidden;
+}
+
+.img-container img {
+	transform: translateZ(0);
+	backface-visibility: hidden;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+
+	.animate-optimized {
+		animation: none !important;
+	}
+}
+
+/* Optimize scrolling performance */
+.smooth-scroll {
+	scroll-behavior: smooth;
+}
+
+@supports (scroll-behavior: smooth) {
+	.smooth-scroll {
+		scroll-behavior: smooth;
+	}
+}
+
+/* Critical loading states */
+.loading-skeleton {
+	background: linear-gradient(90deg, #374151 25%, transparent 37%, #374151 63%);
+	background-size: 400% 100%;
+	animation: skeleton-loading 1.4s ease infinite;
+}
+
+@keyframes skeleton-loading {
+	0% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0 50%;
+	}
+}
+
+/* Optimized grid layouts */
+.optimized-grid {
+	display: grid;
+	contain: layout;
+}
+
+/* Content visibility optimization */
+.content-auto {
+	content-visibility: auto;
+	contain-intrinsic-size: 0 300px;
+}
+
+/* Prevent layout shifts in images */
+.aspect-ratio-16-9 {
+	aspect-ratio: 16/9;
+}
+
+.aspect-ratio-4-3 {
+	aspect-ratio: 4/3;
+}
+
+.aspect-ratio-1-1 {
+	aspect-ratio: 1/1;
+}
+
+/* Optimized focus states */
+.focus-optimized:focus {
+	outline: 2px solid #10b981;
+	outline-offset: 2px;
+	box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Optimized button states */
+.btn-optimized {
+	transform: translateZ(0);
+	transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-optimized:hover {
+	transform: translateY(-1px) translateZ(0);
+}
+
+.btn-optimized:active {
+	transform: translateY(0) translateZ(0);
+}
+
+/* Optimize text rendering */
+.text-optimized {
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Container queries support */
+@container (min-width: 768px) {
+	.responsive-text {
+		font-size: 1.125rem;
+	}
+}
+
+/* Print optimizations */
+@media print {
+	.no-print {
+		display: none !important;
+	}
+
+	.print-optimize {
+		background: white !important;
+		color: black !important;
+		box-shadow: none !important;
+	}
+}

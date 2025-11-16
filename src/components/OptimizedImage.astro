@@ -1,0 +1,43 @@
+---
+export interface Props {
+	src: string;
+	alt: string;
+	class?: string;
+	width?: number;
+	height?: number;
+	loading?: "lazy" | "eager";
+	fetchpriority?: "high" | "low" | "auto";
+	sizes?: string;
+}
+
+const {
+	src,
+	alt,
+	class: className,
+	width,
+	height,
+	loading = "lazy",
+	fetchpriority = "auto",
+	sizes,
+	...props
+} = Astro.props;
+---
+
+<img
+	src={src}
+	alt={alt}
+	class={className}
+	loading={loading}
+	fetchpriority={fetchpriority}
+	sizes={sizes}
+	decoding="async"
+	onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+	{...props}
+/>
+<!-- Fallback if image fails to load -->
+<div
+	class="w-full h-full bg-gray-700 items-center justify-center text-gray-400 text-sm"
+	style="display: none; min-height: inherit;"
+>
+	Image not found: {src}
+</div>

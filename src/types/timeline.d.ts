@@ -1,20 +1,26 @@
 export interface EducationalInformation {
-  image: string;
-  instituteName: string;
-  program: string;
-  location: string;
-  duration: string;
-  calculatedDuration: string;
-  description: string;
+	image: string;
+	instituteName: string;
+	program: string;
+	location: string;
+	duration: string;
+	calculatedDuration: string;
+	description: string;
 }
 
 export interface ExperienceInformation {
-  image: string;
-  instituteName: string;
-  link?: string;
-  program: string;
-  location: string;
-  duration: string;
-  calculatedDuration: string;
-  description: string;
+	image: string;
+	instituteName: string;
+	link?: string;
+	program: string;
+	location: string;
+	duration: string;
+	calculatedDuration: string;
+	description: string;
+}
+
+export interface CVConfig {
+	fileName: string;
+	downloadPath: string;
+	lastUpdated: string;
 }

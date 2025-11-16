@@ -1,55 +1,134 @@
 ---
 import Navbar from "../components/Navbar.astro";
 import ScrollAnimations from "../components/ScrollAnimations.astro";
+import PerformanceMonitor from "../components/PerformanceMonitor.astro";
 import "../styles/global.css";
 
 export interface Props {
-    title?: string;
-    description?: string;
+	title?: string;
+	description?: string;
 }
 
 const {
-    title = "RuffLogix Personal Space | Where I share my thought",
-    description = "RuffLogix Personal Space | Where I share my thought",
+	title = "RuffLogix Personal Space | Where I share my thought",
+	description = "RuffLogix Personal Space | Where I share my thought",
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-        <meta name="generator" content={Astro.generator} />
-        <meta name="description" content={description} />
-        <title>{title}</title>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
 
-        <!-- Preload theme consistency script for better performance -->
-        <link rel="modulepreload" href="/src/scripts/theme-consistency.ts" />
-    </head>
-    <body class="theme-body">
-        <Navbar />
-        <div
-            class="min-h-screen"
-            style="background-color: var(--color-background); color: var(--color-text);"
-        >
-            <slot />
-        </div>
-        <ScrollAnimations />
+		<!-- Critical Resource Hints -->
+		<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-        <!-- Initialize theme consistency -->
-        <script>
-            import { applyPageTheme } from "../scripts/theme-consistency.ts";
+		<!-- Preload critical assets -->
+		<link rel="modulepreload" href="/src/scripts/theme-consistency.ts" />
+		<link rel="modulepreload" href="/src/scripts/gsap-init.ts" />
 
-            // Apply theme on page load
-            document.addEventListener("DOMContentLoaded", () => {
-                applyPageTheme();
-            });
+		<!-- Prefetch key images -->
+		<link rel="prefetch" href="/images/profile.jpg" />
+		<link rel="prefetch" href="/images/rufflogix-logo.jpg" />
 
-            // Reapply theme on navigation (for SPA-like behavior)
-            document.addEventListener("astro:page-load", () => {
-                applyPageTheme();
-            });
-        </script>
-    </body>
+		<!-- Performance optimizations -->
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="theme-color" content="#111827" />
+
+		<!-- Critical CSS inline (for above-the-fold content) -->
+		<style>
+			/* Critical above-the-fold styles */
+			.theme-body {
+				background-color: #111827;
+				color: #ffffff;
+				font-family:
+					system-ui,
+					-apple-system,
+					sans-serif;
+				line-height: 1.6;
+				margin: 0;
+				padding: 0;
+			}
+
+			/* Prevent layout shifts */
+			.min-h-screen {
+				min-height: 100vh;
+				min-height: 100svh; /* Support for new viewport units */
+			}
+
+			/* Loading animation for critical content */
+			.animate-pulse {
+				animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+			}
+
+			@keyframes pulse {
+				0%,
+				100% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.5;
+				}
+			}
+		</style>
+	</head>
+	<body class="theme-body">
+		<!-- Skip to main content for accessibility -->
+		<a
+			href="#main-content"
+			class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-emerald-600 text-white px-4 py-2 rounded-lg z-50"
+		>
+			Skip to main content
+		</a>
+
+		<Navbar />
+		<main
+			id="main-content"
+			class="min-h-screen"
+			style="background-color: var(--color-background); color: var(--color-text);"
+		>
+			<slot />
+		</main>
+
+		<!-- Defer non-critical components -->
+		<ScrollAnimations />
+
+		<!-- Performance monitoring (only in production) -->
+		<PerformanceMonitor />
+
+		<!-- Optimized theme initialization -->
+		<script is:inline>
+			// Register service worker for caching
+			if ("serviceWorker" in navigator) {
+				window.addEventListener("load", () => {
+					navigator.serviceWorker
+						.register("/sw.js")
+						.then((registration) => {
+							console.log("SW registered: ", registration);
+						})
+						.catch((registrationError) => {
+							console.log("SW registration failed: ", registrationError);
+						});
+				});
+			}
+		</script>
+
+		<script>
+			import { applyPageTheme } from "../scripts/theme-consistency.ts";
+
+			// Apply theme immediately to prevent FOUC
+			applyPageTheme();
+
+			// Reapply theme on navigation (for SPA-like behavior)
+			document.addEventListener("astro:page-load", () => {
+				applyPageTheme();
+			});
+		</script>
+	</body>
 </html>
