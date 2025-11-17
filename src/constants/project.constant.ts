@@ -20,6 +20,22 @@ export const projectInformation: ProjectInformation[] = [
       "https://medium.com/@rufflogix/building-conways-game-of-life-in-go-with-raylib-aaf3bc6a6095",
   },
   {
+    title: "Chat Application with Go WebSocket and Next.js",
+    category: "Web Development",
+    date: "October 2025",
+    description:
+      "Real-time chat application using Go for the backend WebSocket server and Next.js for the frontend interface.",
+    tags: ["Next", "Go", "MongoDB", "WebSocket"],
+    role: "University Project",
+    image: "/images/projects/computer-network-project.png",
+    githubLinks: [
+      {
+        label: "Chat App Code",
+        url: "https://github.com/RuffLogix/computer-network-project",
+      },
+    ],
+  },
+  {
     title: "Portfolio Website",
     category: "Web Development",
     date: "July 2025",
