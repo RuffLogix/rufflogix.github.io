@@ -25,7 +25,7 @@ export const projectInformation: ProjectInformation[] = [
     date: "October 2025",
     description:
       "Real-time chat application using Go for the backend WebSocket server and Next.js for the frontend interface.",
-    tags: ["Next", "Go", "MongoDB", "WebSocket"],
+    tags: ["Next", "Gin", "Gorilla", "MongoDB"],
     role: "University Project",
     image: "/images/projects/computer-network-project.png",
     githubLinks: [
