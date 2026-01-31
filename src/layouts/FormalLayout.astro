@@ -1,0 +1,142 @@
+---
+// Formal Layout - Clean, minimal, and fast-loading
+import FormalNavbar from "../components/FormalNavbar.astro";
+import FormalFooter from "../components/FormalFooter.astro";
+import "../styles/formal.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Teejuta Sriwaranon | Software Developer & AI Engineer",
+  description = "Computer Engineering student at Chulalongkorn University passionate about Software Development, AI, and algorithm design.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Preload fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#1a1a1a" />
+
+    <!-- Critical inline styles for instant rendering -->
+    <style is:inline>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #1a1a1a;
+        color: #e8e6e3;
+      }
+    </style>
+  </head>
+  <body class="formal-theme">
+    <!-- Skip to main content for accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[var(--color-accent)] text-[var(--color-bg)] px-4 py-2 rounded z-50"
+    >
+      Skip to main content
+    </a>
+
+    <FormalNavbar />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <FormalFooter />
+  </body>
+  <script>
+    class ThemeManager {
+      private themeToggle: HTMLButtonElement | null = null;
+      private currentTheme: "dark" | "light" = "dark";
+
+      constructor() {
+        this.init();
+      }
+
+      private init(): void {
+        this.themeToggle = document.getElementById(
+          "theme-toggle",
+        ) as HTMLButtonElement;
+        if (!this.themeToggle) return;
+
+        // Get saved theme or default to dark
+        const savedTheme = localStorage.getItem("theme") as
+          | "dark"
+          | "light"
+          | null;
+        this.currentTheme = savedTheme || this.getSystemTheme();
+
+        // Apply initial theme
+        this.applyTheme(this.currentTheme);
+
+        // Bind toggle event
+        this.themeToggle.addEventListener("click", () => this.toggleTheme());
+      }
+
+      private getSystemTheme(): "dark" | "light" {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      }
+
+      private applyTheme(theme: "dark" | "light"): void {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+        this.currentTheme = theme;
+      }
+
+      private toggleTheme(): void {
+        const newTheme = this.currentTheme === "dark" ? "light" : "dark";
+        this.applyTheme(newTheme);
+      }
+    }
+
+    // Initialize theme manager when DOM is loaded
+    new ThemeManager();
+  </script>
+</html>
+
+<style is:global>
+  /* Screen reader only utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .sr-only.focus\:not-sr-only:focus {
+    position: absolute;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+</style>

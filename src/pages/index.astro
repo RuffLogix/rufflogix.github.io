@@ -1,257 +1,446 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { Github, Linkedin } from "lucide-astro";
+import FormalLayout from "../layouts/FormalLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projectInformation } from "../constants/project.constant.ts";
+
+// Fetch Medium posts for featured section
+const MEDIUM_URL =
+  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
+
+interface MediumPost {
+  title: string;
+  pubDate: string;
+  guid: string;
+  description: string;
+}
+
+function extractExcerpt(html: string, maxLength: number = 150): string {
+  const text = html
+    .replace(/<[^>]*>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+}
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+function formatTime(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+let featuredPosts: MediumPost[] = [];
+try {
+  const response = await fetch(MEDIUM_URL);
+  const data = await response.json();
+  featuredPosts = data.items?.slice(0, 3) || [];
+} catch (error) {
+  console.error("Failed to fetch Medium posts:", error);
+}
 ---
 
-<Layout>
-  <div class="min-h-screen text-white relative overflow-hidden">
-    <!-- Global Background decorative elements -->
-    <div
-      class="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
-    >
-    </div>
-    <div
-      class="fixed top-0 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-2xl"
-    >
-    </div>
-    <div
-      class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-2xl"
-    >
-    </div>
-    <div
-      class="fixed top-1/2 right-0 w-72 h-72 bg-emerald-500/3 rounded-full blur-3xl"
-    >
-    </div>
-    <div
-      class="fixed bottom-1/4 left-0 w-80 h-80 bg-blue-500/3 rounded-full blur-3xl"
-    >
-    </div>
+<FormalLayout>
+  <div class="formal-container home-page">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-header">
+        <img
+          src="/images/rufflogix-logo.jpg"
+          alt="Teejuta Sriwaranon"
+          class="hero-avatar"
+          loading="eager"
+          width="100"
+          height="100"
+        />
+        <h1 class="hero-greeting">
+          hi, I'm Gun!
+          <span class="rss-icon" title="RSS Feed">📡</span>
+        </h1>
+      </div>
 
-    <div
-      class="relative z-10 w-screen min-h-screen px-4 md:px-32 lg:px-64 flex items-center justify-center"
-      id="hero-section"
-    >
-      <div
-        class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 max-w-6xl"
-      >
-        <div class="flex flex-col gap-6 max-w-2xl text-center lg:text-left">
-          <h1
-            class="text-4xl md:text-5xl lg:text-6xl font-bold hero-name drop-shadow-emerald"
-            id="hero-name"
-          >
-            Teejuta Sriwaranon
-          </h1>
-          <div
-            class="flex gap-2 flex-wrap justify-center lg:justify-start"
-            id="hero-roles"
-          >
-            {
-              ["Software Developer", "AI Engineer", "Writer"].map((value) => {
-                return (
-                  <span class="hero-role-badge bg-emerald-600 hover:bg-emerald-500 border-emerald-900 border rounded-full px-4 py-2 text-sm font-medium transition-colors shadow-emerald">
-                    {value}
-                  </span>
-                );
-              })
-            }
-          </div>
-          <div id="hero-description" class="hero-description space-y-6">
-            <!-- Introduction -->
-            <div class="space-y-3">
-              <h2 class="text-2xl font-semibold text-emerald-400">Hello!</h2>
-              <p
-                class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
-              >
-                My name is <span
-                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-bold px-1 rounded"
-                  >Teejuta Sriwaranon (Gun)</span
-                >. I'm a junior Computer Engineering student at Chulalongkorn
-                University.
-              </p>
-            </div>
+      <div class="hero-bio">
+        <p>
+          Welcome! I'm Teejuta Sriwaranon, a dedicated Computer Engineering
+          student at <a
+            href="https://www.chula.ac.th/en/"
+            target="_blank"
+            rel="noopener noreferrer">Chulalongkorn University</a
+          >, focusing on Software Development and Artificial Intelligence. My
+          journey involves:
+        </p>
+        <ul>
+          <li>
+            Crafting innovative <a href="/projects">software projects</a> that blend
+            web technologies, AI solutions, and interactive games.
+          </li>
+          <li>
+            Sharing insights through <a
+              href="https://medium.com/@rufflogix"
+              target="_blank"
+              rel="noopener noreferrer">technical articles</a
+            > on AI, machine learning, and software engineering.
+          </li>
+          <li>
+            Participating in <a href="/about#achievements"
+              >competitions and hackathons</a
+            >, pushing the boundaries of what's possible with code.
+          </li>
+        </ul>
+      </div>
 
-            <!-- Interests Section -->
-            <div class="space-y-3">
-              <p
-                class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
-              >
-                I have a strong passion for <span
-                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
-                  >Software Development</span
-                >,
-                <span
-                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
-                  >Artificial Intelligence</span
-                >, and the algorithms behind them.
-              </p>
-            </div>
-
-            <!-- Philosophy Section -->
-            <div class="space-y-3">
-              <p
-                class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
-              >
-                I'm passionate about learning and building projects that combine
-                both
-                <span
-                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
-                  >theoretical foundations</span
-                >
-                and <span
-                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
-                  >practical applications</span
-                >.
-              </p>
-              <p
-                class="hero-description-paragraph text-gray-300 text-lg leading-relaxed drop-shadow-emerald-sm"
-              >
-                I have a deep appreciation for <span
-                  class="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent font-semibold px-1 rounded"
-                  >Theoretical Computer Science</span
-                >, which continues to strengthen my curiosity and drive in the
-                field.
-              </p>
-            </div>
-          </div>
-          <div
-            class="flex gap-6 justify-center lg:justify-start"
-            id="hero-social"
+      <!-- Social Links -->
+      <div class="social-links">
+        <span class="social-label">Social Links:</span>
+        <div class="social-icons">
+          <a
+            href="https://github.com/rufflogix"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            title="GitHub"
           >
-            <a
-              href="https://github.com/rufflogix"
-              class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
-              aria-label="GitHub Profile"
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
             >
-              <Github size={24} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/teejuta-sriwaranon/"
-              class="hero-social-icon text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 shadow-emerald-hover"
-              aria-label="LinkedIn Profile"
+              <path
+                d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/teejuta-sriwaranon/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            title="LinkedIn"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
             >
-              <Linkedin size={24} />
-            </a>
-          </div>
-        </div>
-        <div class="flex-shrink-0">
-          <img
-            src="/images/rufflogix-logo.jpg"
-            alt="Teejuta Sriwaranon - RuffLogix"
-            class="hero-image rounded-full w-72 md:w-80 lg:w-96 shadow-emerald-xl border-4 border-gray-700"
-            id="hero-image"
-          />
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="mailto:teejuta.sriwaranon@gmail.com"
+            aria-label="Email"
+            title="Email"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              ></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </a>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Featured Posts Section -->
+    <section class="featured-section">
+      <h2 class="section-title">Featured</h2>
+
+      {
+        featuredPosts.length > 0 ? (
+          <div class="posts-list">
+            {featuredPosts.map((post) => (
+              <article class="post-item">
+                <h3 class="post-title">
+                  <a href={post.guid} target="_blank" rel="noopener noreferrer">
+                    {post.title}
+                  </a>
+                </h3>
+                <div class="post-meta">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                  <span>
+                    {formatDate(post.pubDate)} | {formatTime(post.pubDate)}
+                  </span>
+                </div>
+                <p class="post-excerpt">{extractExcerpt(post.description)}</p>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p class="post-excerpt">
+            No posts available at the moment. Check back soon!
+          </p>
+        )
+      }
+
+      <div class="all-posts-link">
+        <a href="/articles" class="link-arrow">
+          All Posts
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </section>
   </div>
+</FormalLayout>
 
-  <style>
-    /* Initial state for hero elements - hidden for animation */
-    .hero-name,
-    .hero-role-badge,
-    .hero-description-paragraph,
-    .hero-image,
-    .hero-social-icon {
-      opacity: 0;
+<style>
+  /* Home Page Styles */
+  .home-page {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-border);
+  }
+
+  .hero-greeting {
+    font-size: 1.75rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-primary);
+  }
+
+  .rss-icon {
+    color: var(--color-accent);
+    font-size: 1.25rem;
+  }
+
+  /* Bio Section */
+  .hero-bio {
+    margin-bottom: 2rem;
+  }
+
+  .hero-bio p {
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .hero-bio ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .hero-bio li {
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .hero-bio a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .hero-bio a:hover {
+    color: var(--color-link-hover);
+  }
+
+  /* Social Links */
+  .social-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .social-label {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .social-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .social-icons a {
+    color: var(--color-text-muted);
+    transition: color 150ms ease;
+    padding: 0.25rem;
+  }
+
+  .social-icons a:hover {
+    color: var(--color-text-primary);
+  }
+
+  /* Featured Section */
+  .featured-section {
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-primary);
+  }
+
+  /* Post Items */
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-item:last-child {
+    border-bottom: none;
+  }
+
+  .post-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .post-title a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .post-title a:hover {
+    text-decoration: underline;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.8125rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .post-meta svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .post-excerpt {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  /* All Posts Link */
+  .all-posts-link {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .link-arrow:hover {
+    color: var(--color-text-primary);
+  }
+
+  .link-arrow svg {
+    transition: transform 150ms ease;
+  }
+
+  .link-arrow:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .hero-header {
+      flex-direction: column;
+      text-align: center;
     }
 
-    /* Custom emerald drop shadows */
-    .drop-shadow-emerald {
-      filter: drop-shadow(0 4px 6px rgba(16, 185, 129, 0.4))
-        drop-shadow(0 2px 4px rgba(16, 185, 129, 0.2));
+    .social-links {
+      flex-direction: column;
+      align-items: flex-start;
     }
-
-    .drop-shadow-emerald-sm {
-      filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.3))
-        drop-shadow(0 1px 2px rgba(16, 185, 129, 0.1));
-    }
-
-    .shadow-emerald {
-      box-shadow:
-        0 4px 6px -1px rgba(16, 185, 129, 0.3),
-        0 2px 4px -1px rgba(16, 185, 129, 0.1);
-    }
-
-    .shadow-emerald-xl {
-      box-shadow:
-        0 20px 25px -5px rgba(16, 185, 129, 0.3),
-        0 10px 10px -5px rgba(16, 185, 129, 0.1);
-    }
-
-    .shadow-emerald-hover {
-      transition: box-shadow 0.3s ease;
-    }
-
-    .shadow-emerald-hover:hover {
-      box-shadow:
-        0 10px 15px -3px rgba(16, 185, 129, 0.4),
-        0 4px 6px -2px rgba(16, 185, 129, 0.2);
-    }
-
-    /* Ensure elements are visible if animations fail or are disabled */
-    @media (prefers-reduced-motion: reduce) {
-      .hero-name,
-      .hero-role-badge,
-      .hero-description-paragraph,
-      .hero-image,
-      .hero-social-icon {
-        opacity: 1 !important;
-      }
-    }
-  </style>
-
-  <script>
-    import { scrollAnimationManager } from "../scripts/scroll-animations";
-    import { GSAPManager } from "../scripts/gsap-init";
-
-    async function initHeroScrollAnimation() {
-      try {
-        // Ensure GSAP is initialized
-        const gsapManager = GSAPManager.getInstance();
-        await gsapManager.initialize();
-
-        // Create scroll-triggered hero sequence animation
-        // Triggers when hero section is 50% visible in viewport
-        const heroScrollTrigger =
-          scrollAnimationManager.createScrollTriggeredHeroSequence(
-            "#hero-section",
-            {
-              name: "#hero-name",
-              role: ".hero-role-badge",
-              description: ".hero-description-paragraph",
-              image: "#hero-image",
-              social: ".hero-social-icon",
-            },
-            {
-              threshold: 0.5, // Activate at 50% viewport visibility
-              enablePerformanceMonitoring: true,
-            }
-          );
-
-        // Handle window resize to refresh ScrollTriggers
-        let resizeTimeout: number;
-        window.addEventListener("resize", () => {
-          clearTimeout(resizeTimeout);
-          resizeTimeout = window.setTimeout(() => {
-            scrollAnimationManager.refresh();
-          }, 250);
-        });
-      } catch (error) {
-        // Fallback: make elements visible if animation fails
-        const elements = document.querySelectorAll(
-          ".hero-name, .hero-role-badge, .hero-description-paragraph, .hero-image, .hero-social-icon"
-        );
-        elements.forEach((el) => {
-          (el as HTMLElement).style.opacity = "1";
-        });
-      }
-    }
-
-    // Initialize when DOM is ready
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initHeroScrollAnimation);
-    } else {
-      initHeroScrollAnimation();
-    }
-  </script>
-</Layout>
+  }
+</style>
