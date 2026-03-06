@@ -89,16 +89,6 @@ export const educationalInformation: EducationalInformation[] = [
 
 export const experienceInformation: ExperienceInformation[] = [
   {
-    image: "/images/experience/kbtg-logo.png",
-    link: "https://www.kbtg.tech/",
-    instituteName: "Kasikorn Business-Technology Group (KBTG)",
-    program: "AI Engineer (Apprenticeship)",
-    location: "Bangkok, Thailand",
-    duration: "Sep 2025 - Present",
-    calculatedDuration: parseDurationString("Sep 2025 - Present"),
-    description: "Waiting for onboarding.",
-  },
-  {
     image: "/images/experience/khuiai-logo.jpg",
     instituteName: "Khui AI",
     link: "https://www.khuiai.com/",
@@ -108,6 +98,17 @@ export const experienceInformation: ExperienceInformation[] = [
     calculatedDuration: parseDurationString("Aug 2025 - Present"),
     description:
       "I worked across frontend, backend, and AI engineering, developing a customizable layout system and building a mechanism for dynamically switching LLM model strategies to reduce hallucination and context loss, along with other features planned for future development.",
+  },
+  {
+    image: "/images/experience/kbtg-logo.png",
+    link: "https://www.kbtg.tech/",
+    instituteName: "Kasikorn Business-Technology Group (KBTG)",
+    program: "AI Engineer (Apprenticeship)",
+    location: "Bangkok, Thailand",
+    duration: "Sep 2025 - Feb 2026",
+    calculatedDuration: parseDurationString("Sep 2025 - Feb 2026"),
+    description:
+      "I researched on NEET group (Not in Education, Employment, or Training) in Thailand about their behavior and needs, and understood how to utilize AI to help them.",
   },
   {
     image: "/images/experience/lmwn-logo.jpg",
