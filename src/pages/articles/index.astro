@@ -47,23 +47,37 @@ function formatDate(dateString: string): string {
 }
 
 async function getMediumPosts(): Promise<MediumPost[]> {
-  const response = await fetch(MEDIUM_URL);
-  const data = await response.json();
-  const postResponse = data.items;
+  try {
+    const response = await fetch(MEDIUM_URL);
+    if (!response.ok) {
+      console.error("Failed to fetch Medium posts:", response.status);
+      return [];
+    }
 
-  const posts: MediumPost[] = postResponse.map((post: MediumResponse) => {
-    const image = extractPostImage(post.description);
-    return {
-      title: post.title,
-      date: post.pubDate,
-      link: post.guid,
-      author: post.author,
-      thumbnail: image,
-      excerpt: extractExcerpt(post.description),
-    };
-  });
+    const data = await response.json();
 
-  return posts;
+    if (!data || !data.items || !Array.isArray(data.items)) {
+      console.error("Invalid response structure from Medium API");
+      return [];
+    }
+
+    const posts: MediumPost[] = data.items.map((post: MediumResponse) => {
+      const image = extractPostImage(post.description);
+      return {
+        title: post.title,
+        date: post.pubDate,
+        link: post.guid,
+        author: post.author,
+        thumbnail: image,
+        excerpt: extractExcerpt(post.description),
+      };
+    });
+
+    return posts;
+  } catch (error) {
+    console.error("Error fetching Medium posts:", error);
+    return [];
+  }
 }
 
 const posts = await getMediumPosts();
