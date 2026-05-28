@@ -89,6 +89,17 @@ export const educationalInformation: EducationalInformation[] = [
 
 export const experienceInformation: ExperienceInformation[] = [
   {
+    image: "/images/experience/agoda-logo.png",
+    instituteName: "Agoda",
+    link: "https://www.agoda.com/",
+    program: "Full Stack Engineer",
+    location: "Bangkok, Thailand",
+    duration: "May 2026 - Present",
+    calculatedDuration: parseDurationString("May 2026 - Present"),
+    description:
+      "Developing an internal Slack Bot that integrates LLM, MCP, and Temporal.io workflow engine to create a semi-automated employee onboarding flow, reducing the onboarding process from 21 steps down to 3–5 steps.",
+  },
+  {
     image: "/images/experience/khuiai-logo.jpg",
     instituteName: "Khui AI",
     link: "https://www.khuiai.com/",
