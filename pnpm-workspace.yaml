@@ -1,3 +1,5 @@
+packages:
+  - "."
 neverBuiltDependencies:
   - "@tailwindcss/oxide"
   - core-js
