@@ -3,151 +3,203 @@ import FormalLayout from "../../layouts/FormalLayout.astro";
 import { projectInformation } from "../../constants/project.constant";
 ---
 
-<FormalLayout title="Projects | Teejuta Sriwaranon">
-  <div
-    class="formal-container"
-    style="padding-top: 2rem; padding-bottom: 3rem;"
-  >
-    <header style="margin-bottom: 2rem;">
-      <h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Projects</h1>
-      <p style="color: var(--color-text-muted); font-size: 0.875rem;">
-        A collection of my work and creations.
+<FormalLayout title="Work — RuffLogix">
+  <div class="projects-page page-wrap">
+
+    <!-- Page header -->
+    <header class="projects-header">
+      <p class="label-strong reveal" style="margin-bottom: 1rem;">Selected Work</p>
+      <h1 class="projects-title reveal d1">Projects &amp; Experiments</h1>
+      <p class="projects-sub reveal d2">
+        Systems built for performance, AI, and exploration.
       </p>
     </header>
 
-    {
-      projectInformation.length === 0 ? (
-        <p style="color: var(--color-text-muted);">
-          More projects coming soon!
-        </p>
-      ) : (
-        <div class="projects-grid">
-          {projectInformation.map((project) => (
-            <article class="formal-project">
-              <div class="project-header">
-                <h3 class="formal-project-title">{project.title}</h3>
-                <span class="formal-project-meta">
-                  {project.category} • {project.date}
-                </span>
+    <!-- Project grid -->
+    <div class="proj-grid">
+      {projectInformation.map((p, i) => (
+        <article class:list={['proj-card card reveal', `d${(i % 3) + 1}`]}>
+          <!-- Card header -->
+          <div class="proj-card-top">
+            <div class="proj-meta">
+              <span class="label proj-cat">{p.category}</span>
+              <span class="label proj-date">{p.date}</span>
+            </div>
+            <!-- External link indicator -->
+            {(p.githubLinks && p.githubLinks.length > 0) && (
+              <div class="proj-ext" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
               </div>
-              <p class="formal-project-desc">{project.description}</p>
-              <div class="formal-project-tags">
-                {project.tags.map((tag) => (
-                  <span class="formal-project-tag">{tag}</span>
-                ))}
-              </div>
-              <div class="project-links">
-                {project.githubLinks?.map((link) => (
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="project-link"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-                    </svg>
-                    {link.label}
-                  </a>
-                ))}
-                {project.articleLink && (
-                  <a
-                    href={project.articleLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="project-link"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                    Read Article
-                  </a>
-                )}
-                {project.infoLink && (
-                  <a
-                    href={project.infoLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="project-link"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                    View Live
-                  </a>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      )
-    }
+            )}
+          </div>
+
+          <!-- Title -->
+          <h2 class="proj-title">{p.title}</h2>
+
+          <!-- Description -->
+          <p class="proj-desc">{p.description}</p>
+
+          <!-- Tags -->
+          <div class="proj-tags">
+            {p.tags.map(t => <span class="tag">{t}</span>)}
+          </div>
+
+          <!-- Divider + links -->
+          <div class="proj-footer">
+            <div class="proj-links">
+              {p.githubLinks?.map(link => (
+                <a href={link.url} target="_blank" rel="noopener noreferrer" class="proj-link">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  {link.label}
+                </a>
+              ))}
+              {p.articleLink && (
+                <a href={p.articleLink} target="_blank" rel="noopener noreferrer" class="proj-link">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                  Article
+                </a>
+              )}
+              {p.infoLink && (
+                <a href={p.infoLink} target="_blank" rel="noopener noreferrer" class="proj-link">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                  Live Site
+                </a>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Empty state -->
+    {projectInformation.length === 0 && (
+      <div class="empty-state">
+        <p class="label">More projects coming soon</p>
+      </div>
+    )}
   </div>
 </FormalLayout>
 
 <style>
-  .projects-grid {
-    display: grid;
-    gap: 1rem;
-  }
+.projects-page {
+  padding-top: 5rem;
+  padding-bottom: 6rem;
+}
 
-  .project-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    margin-bottom: 0.75rem;
-  }
+/* Header */
+.projects-header {
+  margin-bottom: 4rem;
+}
+.projects-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-1);
+  margin-bottom: 0.75rem;
+}
+.projects-sub {
+  font-size: 1rem;
+  color: var(--text-2);
+  max-width: 48ch;
+  line-height: 1.65;
+}
 
-  .project-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--color-border);
-  }
+/* Grid */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1rem;
+}
 
-  .project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-    text-decoration: none;
-    transition: color 150ms ease;
-  }
+/* Card */
+.proj-card {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-height: 260px;
+}
+.proj-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.proj-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.proj-cat  { color: var(--accent); font-weight: 500; }
+.proj-date { color: var(--text-2); }
+.proj-ext {
+  color: var(--text-3);
+  transition: color var(--t-fast);
+}
+.proj-card:hover .proj-ext { color: var(--text-2); }
 
-  .project-link:hover {
-    color: var(--color-accent);
-  }
+.proj-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+  line-height: 1.35;
+}
+.proj-desc {
+  font-size: 0.875rem;
+  color: var(--text-2);
+  line-height: 1.7;
+  flex: 1;
+}
+.proj-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.proj-footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.proj-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+.proj-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--text-2);
+  font-weight: 500;
+  transition: color var(--t-fast);
+}
+.proj-link:hover { color: var(--text-1); }
+
+/* Empty */
+.empty-state {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj-card { padding: 1.25rem; }
+}
 </style>

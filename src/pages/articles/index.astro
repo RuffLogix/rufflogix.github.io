@@ -1,149 +1,165 @@
 ---
 import FormalLayout from "../../layouts/FormalLayout.astro";
 
-const MEDIUM_URL =
-  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
-
-interface MediumResponse {
-  title: string;
-  pubDate: string;
-  link: string;
-  guid: string;
-  author: string;
-  thumbnail: string;
-  description: string;
-}
+const MEDIUM_URL = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
 
 interface MediumPost {
   title: string;
-  date: string;
-  link: string;
+  pubDate: string;
+  guid: string;
   author: string;
-  thumbnail: string;
-  excerpt: string;
+  description: string;
 }
 
-function extractPostImage(postDescription: string) {
-  const regex = /<img[^>]+src="([^">]+)"/;
-  const match = postDescription.match(regex);
-  return match ? match[1] : null;
+function excerpt(html: string, max = 180) {
+  const t = html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+  return t.length > max ? t.slice(0, max) + '…' : t;
 }
 
-function extractExcerpt(html: string, maxLength: number = 200): string {
-  const text = html
-    .replace(/<[^>]*>/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-  return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+function fmtDate(s: string) {
+  return new Date(s).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-async function getMediumPosts(): Promise<MediumPost[]> {
-  try {
-    const response = await fetch(MEDIUM_URL);
-    if (!response.ok) {
-      console.error("Failed to fetch Medium posts:", response.status);
-      return [];
-    }
-
-    const data = await response.json();
-
-    if (!data || !data.items || !Array.isArray(data.items)) {
-      console.error("Invalid response structure from Medium API");
-      return [];
-    }
-
-    const posts: MediumPost[] = data.items.map((post: MediumResponse) => {
-      const image = extractPostImage(post.description);
-      return {
-        title: post.title,
-        date: post.pubDate,
-        link: post.guid,
-        author: post.author,
-        thumbnail: image,
-        excerpt: extractExcerpt(post.description),
-      };
-    });
-
-    return posts;
-  } catch (error) {
-    console.error("Error fetching Medium posts:", error);
-    return [];
+let posts: MediumPost[] = [];
+try {
+  const r = await fetch(MEDIUM_URL);
+  if (r.ok) {
+    const d = await r.json();
+    posts = d.items || [];
   }
-}
-
-const posts = await getMediumPosts();
+} catch { /* silent */ }
 ---
 
-<FormalLayout title="Posts | Teejuta Sriwaranon">
-  <div
-    class="formal-container"
-    style="padding-top: 2rem; padding-bottom: 3rem;"
-  >
-    <header style="margin-bottom: 2rem;">
-      <h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Posts</h1>
-      <p style="color: var(--color-text-muted); font-size: 0.875rem;">
-        Articles and thoughts from <a
-          href="https://medium.com/@rufflogix"
-          target="_blank"
-          rel="noopener noreferrer">@rufflogix</a
-        > on Medium
+<FormalLayout title="Writing — RuffLogix">
+  <div class="articles-page page-wrap">
+
+    <header class="articles-header">
+      <p class="label-strong reveal" style="margin-bottom: 1rem;">Writing</p>
+      <h1 class="articles-title reveal d1">Articles &amp; Notes</h1>
+      <p class="articles-sub reveal d2">
+        Technical writing published on
+        <a href="https://medium.com/@rufflogix" target="_blank" rel="noopener noreferrer"
+           class="medium-link">Medium @rufflogix</a>
       </p>
     </header>
 
-    <div class="formal-posts-list">
-      {
-        posts.length > 0 ? (
-          posts.map((post) => (
-            <article class="formal-post">
-              <h3 class="formal-post-title">
-                <a href={post.link} target="_blank" rel="noopener noreferrer">
-                  {post.title}
-                </a>
-              </h3>
-              <div class="formal-post-meta">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                  <line x1="16" y1="2" x2="16" y2="6" />
-                  <line x1="8" y1="2" x2="8" y2="6" />
-                  <line x1="3" y1="10" x2="21" y2="10" />
-                </svg>
-                <span>{formatDate(post.date)}</span>
+    {posts.length > 0 ? (
+      <div class="posts-list">
+        {posts.map((post, i) => (
+          <a href={post.guid} target="_blank" rel="noopener noreferrer"
+             class:list={['post-row reveal', `d${(i % 4) + 1}`]}>
+            <div class="post-row-inner">
+              <div class="post-meta-row">
+                <span class="label post-date">{fmtDate(post.pubDate)}</span>
               </div>
-              <p class="formal-post-excerpt">{post.excerpt}</p>
-            </article>
-          ))
-        ) : (
-          <p style="color: var(--color-text-muted);">
-            No posts available at the moment. Check back soon!
-          </p>
-        )
-      }
-    </div>
+              <h2 class="post-title">{post.title}</h2>
+              <p class="post-excerpt">{excerpt(post.description)}</p>
+            </div>
+            <div class="post-arrow-wrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state reveal">
+        <p class="label">No posts available — check back soon.</p>
+        <a href="https://medium.com/@rufflogix" target="_blank" rel="noopener noreferrer"
+           class="btn btn-ghost" style="margin-top: 1.5rem;">
+          Visit Medium
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </a>
+      </div>
+    )}
   </div>
 </FormalLayout>
 
 <style>
-  .formal-posts-list {
-    display: flex;
-    flex-direction: column;
-  }
+.articles-page {
+  padding-top: 5rem;
+  padding-bottom: 6rem;
+}
+
+.articles-header { margin-bottom: 4rem; }
+.articles-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-1);
+  margin-bottom: 0.75rem;
+}
+.articles-sub {
+  font-size: 1rem;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+.medium-link {
+  color: var(--accent);
+  transition: opacity var(--t-fast);
+}
+.medium-link:hover { opacity: 0.7; }
+
+.posts-list { display: flex; flex-direction: column; }
+
+.post-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: all var(--t-fast);
+  cursor: pointer;
+}
+.post-row:first-child { border-top: 1px solid var(--border); }
+.post-row:hover .post-title { color: var(--text-1); }
+.post-row:hover .post-arrow-wrap { opacity: 1; transform: translateX(0); }
+
+.post-row-inner { flex: 1; }
+.post-meta-row { margin-bottom: 0.5rem; }
+.post-date { color: var(--text-3); }
+
+.post-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-1);
+  line-height: 1.45;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+  transition: color var(--t-fast);
+}
+.post-excerpt {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.post-arrow-wrap {
+  flex-shrink: 0;
+  color: var(--text-3);
+  opacity: 0.4;
+  transform: translateX(-4px);
+  transition: all var(--t-mid) var(--expo);
+  margin-top: 0.2rem;
+}
+
+.empty-state {
+  padding: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media (max-width: 640px) {
+  .post-row { padding: 1.35rem 0; }
+}
 </style>
