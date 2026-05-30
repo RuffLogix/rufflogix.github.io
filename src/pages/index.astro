@@ -2,7 +2,8 @@
 import FormalLayout from "../layouts/FormalLayout.astro";
 import { projectInformation } from "../constants/project.constant.ts";
 
-const MEDIUM_URL = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
+const MEDIUM_URL =
+  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
 
 interface MediumPost {
   title: string;
@@ -12,12 +13,19 @@ interface MediumPost {
 }
 
 function excerpt(html: string, max = 130) {
-  const t = html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-  return t.length > max ? t.slice(0, max) + '…' : t;
+  const t = html
+    .replace(/<[^>]*>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return t.length > max ? t.slice(0, max) + "…" : t;
 }
 
 function fmtDate(s: string) {
-  return new Date(s).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  return new Date(s).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 }
 
 let posts: MediumPost[] = [];
@@ -25,24 +33,38 @@ try {
   const r = await fetch(MEDIUM_URL);
   const d = await r.json();
   posts = d.items?.slice(0, 3) || [];
-} catch { /* silent */ }
+} catch {
+  /* silent */
+}
 
 const featured = projectInformation.slice(0, 3);
 
 const focusAreas = [
-  'AI Systems',
-  'Systems Programming',
-  'Software Architecture',
-  'Experimental Interfaces',
-  'Research Engineering',
-  'High-Performance Computing',
+  "AI Systems",
+  "Systems Programming",
+  "Software Architecture",
+  "Experimental Interfaces",
+  "Research Engineering",
+  "High-Performance Computing",
 ];
 
 const philosophy = [
-  { word: 'Precision',    desc: 'Every abstraction earns its place. Every line justifies itself.' },
-  { word: 'Scalability',  desc: 'Systems designed to bend without breaking under real-world pressure.' },
-  { word: 'Exploration',  desc: 'The frontier matters. Running experiments where answers are unknown.' },
-  { word: 'Craftsmanship',desc: 'Software as a discipline — executed with the rigour of a craft.' },
+  {
+    word: "Precision",
+    desc: "Every abstraction earns its place. Every line justifies itself.",
+  },
+  {
+    word: "Scalability",
+    desc: "Systems designed to bend without breaking under real-world pressure.",
+  },
+  {
+    word: "Exploration",
+    desc: "The frontier matters. Running experiments where answers are unknown.",
+  },
+  {
+    word: "Craftsmanship",
+    desc: "Software as a discipline — executed with the rigour of a craft.",
+  },
 ];
 ---
 
@@ -74,18 +96,44 @@ const philosophy = [
       <div class="hero-cta hero-anim ha4">
         <a href="/projects" class="btn btn-solid">
           View Projects
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line><polyline
+              points="12 5 19 12 12 19"></polyline>
           </svg>
         </a>
-        <a href="https://github.com/RuffLogix" target="_blank" rel="noopener noreferrer"
-           class="btn btn-ghost">
+        <a
+          href="https://github.com/RuffLogix"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-ghost"
+        >
           GitHub
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+            ></path>
+            <polyline points="15 3 21 3 21 9"></polyline><line
+              x1="10"
+              y1="14"
+              x2="21"
+              y2="3"></line>
           </svg>
         </a>
       </div>
@@ -106,19 +154,31 @@ const philosophy = [
         <p class="label-strong" style="margin-bottom: 1.25rem;">About</p>
         <p class="about-text">
           Independent software engineer and AI researcher based in Bangkok.
-          Currently at <strong>Agoda</strong>, building LLM-powered systems with MCP and Temporal.io.
-          Formerly at KBTG, LINE MAN Wongnai, Looloo Technology, and Khui AI —
-          across federated learning, speech AI, backend systems, and smart contracts.
+          Currently at <strong>Agoda</strong>, building LLM-powered systems with
+          MCP and Temporal.io. Formerly at KBTG, LINE MAN Wongnai, Looloo
+          Technology, and Khui AI — across federated learning, speech AI,
+          backend systems, and smart contracts.
         </p>
         <p class="about-text" style="margin-top: 0.9rem;">
-          Computer Engineering student at <strong>Chulalongkorn University</strong>.
-          Super AI Engineer Season 5 · iGEM 2024 Silver · IOI Thailand 2020/2021.
+          Computer Engineering student at <strong
+            >Chulalongkorn University</strong
+          >. Super AI Engineer Season 5 · iGEM 2024 Silver · TOI Thailand
+          2020/2021.
         </p>
         <a href="/about" class="about-more">
           Full background
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line><polyline
+              points="12 5 19 12 12 19"></polyline>
           </svg>
         </a>
       </div>
@@ -126,7 +186,7 @@ const philosophy = [
       <div class="focus-areas reveal d2">
         <p class="label-strong" style="margin-bottom: 1.25rem;">Focus Areas</p>
         <div class="focus-tags">
-          {focusAreas.map(area => <span class="tag">{area}</span>)}
+          {focusAreas.map((area) => <span class="tag">{area}</span>)}
         </div>
       </div>
     </div>
@@ -140,57 +200,114 @@ const philosophy = [
       <p class="label-strong">Selected Work</p>
       <a href="/projects" class="section-link">
         All projects
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="5" y1="12" x2="19" y2="12"></line><polyline
+            points="12 5 19 12 12 19"></polyline>
         </svg>
       </a>
     </div>
 
     <div class="bento-grid">
-      {featured.map((p, i) => (
-        <article class:list={['bento-card card reveal', { 'bento-wide': i === 0 }, `d${i + 1}`]}>
-          <div class="bento-top">
-            <span class="bento-cat label">{p.category}</span>
-            <span class="bento-date label">{p.date}</span>
-          </div>
-          <h3 class="bento-title">{p.title}</h3>
-          <p class="bento-desc">{p.description}</p>
-          <div class="bento-tags">
-            {p.tags.map(t => <span class="tag">{t}</span>)}
-          </div>
-          <div class="bento-actions">
-            {p.githubLinks?.map(link => (
-              <a href={link.url} target="_blank" rel="noopener noreferrer" class="bento-link">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                </svg>
-                {link.label}
-              </a>
-            ))}
-            {p.articleLink && (
-              <a href={p.articleLink} target="_blank" rel="noopener noreferrer" class="bento-link">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-                Article
-              </a>
-            )}
-            {p.infoLink && (
-              <a href={p.infoLink} target="_blank" rel="noopener noreferrer" class="bento-link">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-                Live
-              </a>
-            )}
-          </div>
-        </article>
-      ))}
+      {
+        featured.map((p, i) => (
+          <article
+            class:list={[
+              "bento-card card reveal",
+              { "bento-wide": i === 0 },
+              `d${i + 1}`,
+            ]}
+          >
+            <div class="bento-top">
+              <span class="bento-cat label">{p.category}</span>
+              <span class="bento-date label">{p.date}</span>
+            </div>
+            <h3 class="bento-title">{p.title}</h3>
+            <p class="bento-desc">{p.description}</p>
+            <div class="bento-tags">
+              {p.tags.map((t) => (
+                <span class="tag">{t}</span>
+              ))}
+            </div>
+            <div class="bento-actions">
+              {p.githubLinks?.map((link) => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="bento-link"
+                >
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                  </svg>
+                  {link.label}
+                </a>
+              ))}
+              {p.articleLink && (
+                <a
+                  href={p.articleLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="bento-link"
+                >
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  Article
+                </a>
+              )}
+              {p.infoLink && (
+                <a
+                  href={p.infoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="bento-link"
+                >
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  Live
+                </a>
+              )}
+            </div>
+          </article>
+        ))
+      }
     </div>
   </section>
 
@@ -198,14 +315,18 @@ const philosophy = [
        RESEARCH PHILOSOPHY
        ═══════════════════════════════════════════ -->
   <section class="philosophy-section page-wrap">
-    <p class="label-strong reveal" style="margin-bottom: 3rem;">Research Philosophy</p>
+    <p class="label-strong reveal" style="margin-bottom: 3rem;">
+      Research Philosophy
+    </p>
     <div class="philosophy-grid">
-      {philosophy.map(({ word, desc }, i) => (
-        <div class:list={['phil-item reveal', `d${i + 1}`]}>
-          <h3 class="phil-word">{word}</h3>
-          <p class="phil-desc">{desc}</p>
-        </div>
-      ))}
+      {
+        philosophy.map(({ word, desc }, i) => (
+          <div class:list={["phil-item reveal", `d${i + 1}`]}>
+            <h3 class="phil-word">{word}</h3>
+            <p class="phil-desc">{desc}</p>
+          </div>
+        ))
+      }
     </div>
 
     <!-- Cinematic quote -->
@@ -219,411 +340,557 @@ const philosophy = [
   <!-- ═══════════════════════════════════════════
        WRITING
        ═══════════════════════════════════════════ -->
-  {posts.length > 0 && (
-    <section class="writing-section page-wrap">
-      <div class="section-header reveal">
-        <p class="label-strong">Writing</p>
-        <a href="/articles" class="section-link">
-          All posts
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-          </svg>
-        </a>
-      </div>
-
-      <div class="posts-list">
-        {posts.map((post, i) => (
-          <a href={post.guid} target="_blank" rel="noopener noreferrer"
-             class:list={['post-row reveal', `d${i + 1}`]}>
-            <div class="post-row-left">
-              <span class="post-date label">{fmtDate(post.pubDate)}</span>
-              <h3 class="post-title">{post.title}</h3>
-              <p class="post-excerpt">{excerpt(post.description)}</p>
-            </div>
-            <svg class="post-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  {
+    posts.length > 0 && (
+      <section class="writing-section page-wrap">
+        <div class="section-header reveal">
+          <p class="label-strong">Writing</p>
+          <a href="/articles" class="section-link">
+            All posts
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <>
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </>
             </svg>
           </a>
-        ))}
-      </div>
-    </section>
-  )}
+        </div>
+
+        <div class="posts-list">
+          {posts.map((post, i) => (
+            <a
+              href={post.guid}
+              target="_blank"
+              rel="noopener noreferrer"
+              class:list={["post-row reveal", `d${i + 1}`]}
+            >
+              <div class="post-row-left">
+                <span class="post-date label">{fmtDate(post.pubDate)}</span>
+                <h3 class="post-title">{post.title}</h3>
+                <p class="post-excerpt">{excerpt(post.description)}</p>
+              </div>
+              <svg
+                class="post-arrow"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
 </FormalLayout>
 
 <style>
-/* ── HERO ─────────────────────────────────────────────────── */
-.hero {
-  position: relative;
-  min-height: calc(100svh - var(--nav-h));
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.hero-ambient {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.6;
-}
-.g1 {
-  width: 60vw; height: 60vw;
-  top: -20%; left: 10%;
-  background: radial-gradient(ellipse, rgba(80, 120, 200, 0.07) 0%, transparent 70%);
-  animation: drift 18s ease-in-out infinite;
-}
-.g2 {
-  width: 50vw; height: 50vw;
-  top: 20%; right: -10%;
-  background: radial-gradient(ellipse, rgba(140, 80, 200, 0.05) 0%, transparent 70%);
-  animation: drift 24s ease-in-out infinite reverse;
-}
-.g3 {
-  width: 40vw; height: 40vw;
-  bottom: -10%; left: 30%;
-  background: radial-gradient(ellipse, rgba(60, 180, 140, 0.04) 0%, transparent 70%);
-  animation: drift 20s ease-in-out infinite 4s;
-}
-@keyframes drift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%       { transform: translate(3%, 2%) scale(1.04); }
-  66%       { transform: translate(-2%, 3%) scale(0.97); }
-}
-
-.hero-inner {
-  position: relative;
-  z-index: 1;
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-  width: 100%;
-}
-
-.hero-label {
-  margin-bottom: 2rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  color: var(--text-2);         /* stronger than default text-3 for hero identity */
-}
-
-.hero-headline {
-  font-size: clamp(3rem, 9vw, 8rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.02;
-  color: var(--text-1);
-  margin-bottom: 2rem;
-}
-.hero-headline-dim {
-  color: var(--text-2);
-  font-weight: 500;
-}
-
-.hero-sub {
-  font-size: clamp(1rem, 2vw, 1.15rem);
-  color: var(--text-2);
-  line-height: 1.7;
-  max-width: 52ch;
-  margin-bottom: 2.5rem;
-}
-
-.hero-cta {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.hero-scroll {
-  margin-top: 5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-.scroll-line {
-  width: 32px;
-  height: 1px;
-  background: var(--border-hover);
-  position: relative;
-  overflow: hidden;
-}
-.scroll-line::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: var(--text-2);
-  animation: scan 2.4s ease-in-out infinite;
-}
-@keyframes scan {
-  0%   { left: -100%; }
-  100% { left: 100%; }
-}
-
-/* ── ABOUT STRIP ──────────────────────────────────────────── */
-.about-strip {
-  padding: 5rem 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.about-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 4rem;
-  align-items: start;
-}
-.about-text {
-  font-size: 0.95rem;
-  color: var(--text-2);
-  line-height: 1.75;
-}
-.about-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-top: 1.5rem;
-  font-size: 0.8rem;
-  color: var(--text-3);
-  transition: color var(--t-fast);
-}
-.about-more:hover { color: var(--text-1); }
-.about-more svg { transition: transform var(--t-fast); }
-.about-more:hover svg { transform: translateX(3px); }
-
-.focus-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-/* ── WORK ─────────────────────────────────────────────────── */
-.work-section { padding: 5rem 0; }
-
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2.5rem;
-}
-.section-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.78rem;
-  color: var(--text-2);
-  transition: color var(--t-fast);
-}
-.section-link:hover { color: var(--text-1); }
-.section-link svg { transition: transform var(--t-fast); }
-.section-link:hover svg { transform: translateX(3px); }
-
-/* Bento grid */
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
-.bento-wide { grid-column: 1 / -1; }
-
-.bento-card {
-  padding: 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-.bento-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.bento-cat  { color: var(--accent); font-weight: 500; }
-.bento-date { color: var(--text-2); }
-
-.bento-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--text-1);
-  line-height: 1.35;
-}
-.bento-wide .bento-title { font-size: 1.4rem; }
-
-.bento-desc {
-  font-size: 0.875rem;
-  color: var(--text-2);
-  line-height: 1.7;
-  flex: 1;
-}
-.bento-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: auto;
-}
-.bento-actions {
-  display: flex;
-  gap: 1.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border);
-  margin-top: 0.5rem;
-}
-.bento-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.78rem;
-  color: var(--text-2);
-  transition: color var(--t-fast);
-}
-.bento-link:hover { color: var(--text-1); }
-
-/* ── PHILOSOPHY ───────────────────────────────────────────── */
-.philosophy-section {
-  padding: 5rem 0;
-  border-top: 1px solid var(--border);
-}
-
-.philosophy-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* top rule anchors the columns visually */
-  border-top: 1px solid var(--border-hover);
-  margin-bottom: 3.5rem;
-}
-
-/* All columns: top padding creates breathing room from the anchor rule */
-.phil-item {
-  padding: 2rem 2.5rem 2.5rem 0;
-}
-
-/* Columns 2–4: left border as separator + matching left padding */
-.phil-item + .phil-item {
-  border-left: 1px solid var(--border);
-  padding-left: 2.5rem;
-}
-
-/* Last column: remove right padding so it sits flush */
-.phil-item:last-child {
-  padding-right: 0;
-}
-
-.phil-word {
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--text-1);
-  margin-bottom: 0.75rem;
-}
-.phil-desc {
-  font-size: 0.875rem;
-  color: var(--text-2);
-  line-height: 1.7;
-}
-.phil-rule { display: none; }   /* no longer needed — top-border handles alignment */
-
-.phil-quote {
-  max-width: 620px;
-  font-size: clamp(1.05rem, 2.5vw, 1.4rem);
-  font-weight: 400;
-  color: var(--text-2);
-  line-height: 1.6;
-  padding-left: 1.5rem;
-  border-left: 2px solid var(--border-hover);
-}
-.phil-quote em { color: var(--text-1); font-style: italic; }
-.phil-quote-mark { display: none; }
-
-/* ── WRITING ──────────────────────────────────────────────── */
-.writing-section { padding: 5rem 0; border-top: 1px solid var(--border); }
-.posts-list { display: flex; flex-direction: column; }
-
-.post-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border);
-  transition: all var(--t-fast);
-  cursor: pointer;
-}
-.post-row:first-child { border-top: 1px solid var(--border); }
-.post-row:hover .post-title { color: var(--text-1); }
-.post-row:hover .post-arrow  { transform: translateX(4px); opacity: 1; }
-
-.post-row-left { flex: 1; }
-.post-date { display: block; margin-bottom: 0.4rem; }
-.post-title {
-  font-size: 0.97rem;
-  font-weight: 500;
-  color: var(--text-2);
-  line-height: 1.45;
-  margin-bottom: 0.4rem;
-  transition: color var(--t-fast);
-}
-.post-excerpt {
-  font-size: 0.82rem;
-  color: var(--text-3);
-  line-height: 1.6;
-}
-.post-arrow {
-  flex-shrink: 0;
-  color: var(--text-3);
-  opacity: 0.5;
-  margin-top: 0.15rem;
-  transition: all var(--t-mid) var(--expo);
-}
-
-/* ── RESPONSIVE ───────────────────────────────────────────── */
-.br-lg { display: block; }
-
-@media (max-width: 900px) {
-  .philosophy-grid {
-    grid-template-columns: repeat(2, 1fr);
+  /* ── HERO ─────────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    min-height: calc(100svh - var(--nav-h));
+    display: flex;
+    align-items: center;
+    overflow: hidden;
   }
-  /* In 2-col layout, reset borders and re-apply them for 2 columns */
+
+  .hero-ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+  }
+  .g1 {
+    width: 60vw;
+    height: 60vw;
+    top: -20%;
+    left: 10%;
+    background: radial-gradient(
+      ellipse,
+      rgba(80, 120, 200, 0.07) 0%,
+      transparent 70%
+    );
+    animation: drift 18s ease-in-out infinite;
+  }
+  .g2 {
+    width: 50vw;
+    height: 50vw;
+    top: 20%;
+    right: -10%;
+    background: radial-gradient(
+      ellipse,
+      rgba(140, 80, 200, 0.05) 0%,
+      transparent 70%
+    );
+    animation: drift 24s ease-in-out infinite reverse;
+  }
+  .g3 {
+    width: 40vw;
+    height: 40vw;
+    bottom: -10%;
+    left: 30%;
+    background: radial-gradient(
+      ellipse,
+      rgba(60, 180, 140, 0.04) 0%,
+      transparent 70%
+    );
+    animation: drift 20s ease-in-out infinite 4s;
+  }
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(3%, 2%) scale(1.04);
+    }
+    66% {
+      transform: translate(-2%, 3%) scale(0.97);
+    }
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    width: 100%;
+  }
+
+  .hero-label {
+    margin-bottom: 2rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--text-2); /* stronger than default text-3 for hero identity */
+  }
+
+  .hero-headline {
+    font-size: clamp(3rem, 9vw, 8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: var(--text-1);
+    margin-bottom: 2rem;
+  }
+  .hero-headline-dim {
+    color: var(--text-2);
+    font-weight: 500;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--text-2);
+    line-height: 1.7;
+    max-width: 52ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-scroll {
+    margin-top: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .scroll-line {
+    width: 32px;
+    height: 1px;
+    background: var(--border-hover);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--text-2);
+    animation: scan 2.4s ease-in-out infinite;
+  }
+  @keyframes scan {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
+  /* ── ABOUT STRIP ──────────────────────────────────────────── */
+  .about-strip {
+    padding: 5rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text {
+    font-size: 0.95rem;
+    color: var(--text-2);
+    line-height: 1.75;
+  }
+  .about-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--text-3);
+    transition: color var(--t-fast);
+  }
+  .about-more:hover {
+    color: var(--text-1);
+  }
+  .about-more svg {
+    transition: transform var(--t-fast);
+  }
+  .about-more:hover svg {
+    transform: translateX(3px);
+  }
+
+  .focus-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* ── WORK ─────────────────────────────────────────────────── */
+  .work-section {
+    padding: 5rem 0;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+  }
+  .section-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    color: var(--text-2);
+    transition: color var(--t-fast);
+  }
+  .section-link:hover {
+    color: var(--text-1);
+  }
+  .section-link svg {
+    transition: transform var(--t-fast);
+  }
+  .section-link:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* Bento grid */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .bento-wide {
+    grid-column: 1 / -1;
+  }
+
+  .bento-card {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .bento-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .bento-cat {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .bento-date {
+    color: var(--text-2);
+  }
+
+  .bento-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-1);
+    line-height: 1.35;
+  }
+  .bento-wide .bento-title {
+    font-size: 1.4rem;
+  }
+
+  .bento-desc {
+    font-size: 0.875rem;
+    color: var(--text-2);
+    line-height: 1.7;
+    flex: 1;
+  }
+  .bento-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+  .bento-actions {
+    display: flex;
+    gap: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.5rem;
+  }
+  .bento-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    color: var(--text-2);
+    transition: color var(--t-fast);
+  }
+  .bento-link:hover {
+    color: var(--text-1);
+  }
+
+  /* ── PHILOSOPHY ───────────────────────────────────────────── */
+  .philosophy-section {
+    padding: 5rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* top rule anchors the columns visually */
+    border-top: 1px solid var(--border-hover);
+    margin-bottom: 3.5rem;
+  }
+
+  /* All columns: top padding creates breathing room from the anchor rule */
   .phil-item {
     padding: 2rem 2.5rem 2.5rem 0;
-    border-left: none;
   }
+
+  /* Columns 2–4: left border as separator + matching left padding */
   .phil-item + .phil-item {
     border-left: 1px solid var(--border);
     padding-left: 2.5rem;
   }
-  /* Row 2 items get a top border to separate the rows */
-  .phil-item:nth-child(3),
-  .phil-item:nth-child(4) {
-    border-top: 1px solid var(--border);
-    padding-top: 2rem;
-  }
-  /* Col 2 of row 2 keeps its left border */
-  .phil-item:nth-child(4) {
-    border-left: 1px solid var(--border);
-  }
-  .bento-grid { grid-template-columns: 1fr; }
-  .bento-wide { grid-column: auto; }
-}
 
-@media (max-width: 640px) {
-  .hero-headline { font-size: clamp(2.4rem, 12vw, 3.5rem); }
-  .about-grid    { grid-template-columns: 1fr; gap: 2.5rem; }
-  .br-lg         { display: none; }
-  .philosophy-grid { grid-template-columns: 1fr; }
-  /* In 1-col layout, every item except first gets a top border */
-  .phil-item {
-    padding: 1.75rem 0 1.75rem 0;
-    border-left: none !important;
+  /* Last column: remove right padding so it sits flush */
+  .phil-item:last-child {
+    padding-right: 0;
   }
-  .phil-item + .phil-item {
+
+  .phil-word {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-1);
+    margin-bottom: 0.75rem;
+  }
+  .phil-desc {
+    font-size: 0.875rem;
+    color: var(--text-2);
+    line-height: 1.7;
+  }
+  .phil-rule {
+    display: none;
+  } /* no longer needed — top-border handles alignment */
+
+  .phil-quote {
+    max-width: 620px;
+    font-size: clamp(1.05rem, 2.5vw, 1.4rem);
+    font-weight: 400;
+    color: var(--text-2);
+    line-height: 1.6;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--border-hover);
+  }
+  .phil-quote em {
+    color: var(--text-1);
+    font-style: italic;
+  }
+  .phil-quote-mark {
+    display: none;
+  }
+
+  /* ── WRITING ──────────────────────────────────────────────── */
+  .writing-section {
+    padding: 5rem 0;
     border-top: 1px solid var(--border);
-    border-left: none;
-    padding-left: 0;
   }
-  .bento-card { padding: 1.25rem; }
-}
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: all var(--t-fast);
+    cursor: pointer;
+  }
+  .post-row:first-child {
+    border-top: 1px solid var(--border);
+  }
+  .post-row:hover .post-title {
+    color: var(--text-1);
+  }
+  .post-row:hover .post-arrow {
+    transform: translateX(4px);
+    opacity: 1;
+  }
+
+  .post-row-left {
+    flex: 1;
+  }
+  .post-date {
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .post-title {
+    font-size: 0.97rem;
+    font-weight: 500;
+    color: var(--text-2);
+    line-height: 1.45;
+    margin-bottom: 0.4rem;
+    transition: color var(--t-fast);
+  }
+  .post-excerpt {
+    font-size: 0.82rem;
+    color: var(--text-3);
+    line-height: 1.6;
+  }
+  .post-arrow {
+    flex-shrink: 0;
+    color: var(--text-3);
+    opacity: 0.5;
+    margin-top: 0.15rem;
+    transition: all var(--t-mid) var(--expo);
+  }
+
+  /* ── RESPONSIVE ───────────────────────────────────────────── */
+  .br-lg {
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    .philosophy-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .phil-item {
+      padding: 2rem 2rem 2rem 0;
+      border-left: none;
+    }
+    .phil-item + .phil-item {
+      border-left: 1px solid var(--border);
+      padding-left: 2rem;
+    }
+    .phil-item:nth-child(3),
+    .phil-item:nth-child(4) {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+    .phil-item:nth-child(4) {
+      border-left: 1px solid var(--border);
+    }
+    .bento-grid {
+      grid-template-columns: 1fr;
+    }
+    .bento-wide {
+      grid-column: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-headline {
+      font-size: clamp(1.75rem, 8vw, 2.6rem);
+    }
+    .hero-inner {
+      padding-top: 3.5rem;
+      padding-bottom: 3.5rem;
+    }
+    .hero-scroll {
+      margin-top: 2.5rem;
+    }
+    .hero-sub {
+      font-size: 0.95rem;
+    }
+    .br-lg {
+      display: none;
+    }
+    .about-strip {
+      padding: 3rem 0;
+    }
+    .work-section,
+    .philosophy-section,
+    .writing-section {
+      padding: 3rem 0;
+    }
+    .philosophy-grid {
+      grid-template-columns: 1fr;
+    }
+    .phil-item {
+      padding: 1.5rem 0;
+      border-left: none !important;
+    }
+    .phil-item + .phil-item {
+      border-top: 1px solid var(--border);
+      border-left: none;
+      padding-left: 0;
+    }
+    .bento-card {
+      padding: 1.25rem;
+    }
+    .section-header {
+      margin-bottom: 1.75rem;
+    }
+  }
 </style>

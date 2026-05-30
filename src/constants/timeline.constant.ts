@@ -12,10 +12,12 @@ import { techStackData } from "./techstack.constant.ts";
 export const personalInfo: PersonalInfo = {
   name: "RuffLogix",
   title: "Computer Engineering Student & AI Enthusiast",
-  email: "teejuta@ruffblitz.com",
+  email: "teejuta.sriwaranon@gmail.com",
   location: "Bangkok, Thailand",
   website: "https://rufflogix.github.io",
   github: "https://github.com/RuffLogix",
+  kaggle: "https://www.kaggle.com/teejutasriwaranon",
+  codeforces: "https://codeforces.com/profile/RuffLogix",
 };
 
 export const getCVAwards = () => {

@@ -13,15 +13,57 @@ import { techStackData, achievements } from "../../constants/techstack.constant"
 
     <!-- Page header -->
     <header class="about-header">
-      <p class="label-strong reveal" style="margin-bottom: 1rem;">Background</p>
-      <h1 class="about-title reveal d1">
-        Software engineer,<br />
-        <span class="about-title-dim">AI researcher.</span>
-      </h1>
-      <p class="about-intro reveal d2">
-        Building at the intersection of systems programming, machine intelligence,
-        and experimental interfaces. Based in Bangkok, Thailand.
-      </p>
+      <div class="about-header-grid">
+        <!-- Left: text -->
+        <div class="about-header-text">
+          <p class="label-strong reveal" style="margin-bottom: 1.25rem;">Background</p>
+          <h1 class="about-title reveal d1">
+            Software engineer,<br />
+            <span class="about-title-dim">AI researcher.</span>
+          </h1>
+          <p class="about-intro reveal d2">
+            Building at the intersection of systems programming, machine intelligence,
+            and experimental interfaces. Based in Bangkok, Thailand.
+          </p>
+
+          <!-- Quick stats row -->
+          <div class="about-stats reveal d3">
+            <div class="stat-item">
+              <span class="stat-number">8+</span>
+              <span class="stat-label label">Internships</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">3+</span>
+              <span class="stat-label label">Years building</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">6</span>
+              <span class="stat-label label">Major awards</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: portrait -->
+        <div class="about-photo-wrap reveal d2">
+          <div class="about-photo-frame">
+            <img
+              src="/images/latest-profile.jpeg"
+              alt="RuffLogix — Teejuta Sriwaranon"
+              class="about-photo"
+              width="533"
+              height="800"
+              loading="eager"
+            />
+            <!-- Subtle bottom fade so photo blends into page -->
+            <div class="about-photo-fade" aria-hidden="true"></div>
+          </div>
+          <!-- Floating caption badge -->
+          <div class="about-photo-badge">
+            <span class="badge-dot"></span>
+            <span class="badge-text label">Full Stack Engineer @ Agoda</span>
+          </div>
+        </div>
+      </div>
     </header>
 
     <!-- ── EXPERIENCE ──────────────────────────────────────────── -->
@@ -156,6 +198,18 @@ import { techStackData, achievements } from "../../constants/techstack.constant"
             </svg>
             LinkedIn
           </a>
+          <a href={personalInfo.kaggle} target="_blank" rel="noopener noreferrer" class="contact-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.285.18.046.149.034.255-.036.315l-6.555 6.344 6.836 8.507c.095.104.117.208.07.336"/>
+            </svg>
+            Kaggle
+          </a>
+          <a href={personalInfo.codeforces} target="_blank" rel="noopener noreferrer" class="contact-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M4.5 7.5C5.328 7.5 6 8.172 6 9v10.5c0 .828-.672 1.5-1.5 1.5h-3C.672 21 0 20.328 0 19.5V9c0-.828.672-1.5 1.5-1.5h3zm9-4.5c.828 0 1.5.672 1.5 1.5v15c0 .828-.672 1.5-1.5 1.5h-3c-.828 0-1.5-.672-1.5-1.5v-15c0-.828.672-1.5 1.5-1.5h3zm9 7.5c.828 0 1.5.672 1.5 1.5v7.5c0 .828-.672 1.5-1.5 1.5h-3c-.828 0-1.5-.672-1.5-1.5V12c0-.828.672-1.5 1.5-1.5h3z"/>
+            </svg>
+            Codeforces
+          </a>
         </div>
       </div>
     </section>
@@ -169,10 +223,24 @@ import { techStackData, achievements } from "../../constants/techstack.constant"
   padding-bottom: 6rem;
 }
 
-/* Header */
+/* ── HEADER ───────────────────────────────────────────────── */
 .about-header { margin-bottom: 5rem; }
+
+.about-header-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about-header-text {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.5rem;
+}
+
 .about-title {
-  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.08;
@@ -180,11 +248,107 @@ import { techStackData, achievements } from "../../constants/techstack.constant"
   margin-bottom: 1.25rem;
 }
 .about-title-dim { color: var(--text-2); font-weight: 500; }
+
 .about-intro {
   font-size: 1rem;
   color: var(--text-2);
   max-width: 52ch;
   line-height: 1.75;
+  margin-bottom: 2.5rem;
+}
+
+/* Stats row */
+.about-stats {
+  display: flex;
+  gap: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.stat-number {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--text-1);
+  line-height: 1;
+}
+.stat-label { color: var(--text-3); }
+
+/* Photo */
+.about-photo-wrap {
+  position: relative;
+  align-self: start;
+}
+.about-photo-frame {
+  position: relative;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-3);
+  /* subtle inner shadow for depth */
+  box-shadow: 0 0 0 1px var(--border) inset;
+}
+.about-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* slight desaturation in dark mode for tonal cohesion */
+  filter: saturate(0.88) contrast(1.02);
+  transition: filter var(--t-slow);
+}
+[data-theme="light"] .about-photo {
+  filter: saturate(1) contrast(1);
+}
+/* Bottom gradient fade blends photo into bg */
+.about-photo-fade {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 35%;
+  background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+  pointer-events: none;
+}
+[data-theme="light"] .about-photo-fade {
+  background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+}
+
+/* Floating badge */
+.about-photo-badge {
+  position: absolute;
+  bottom: -0.75rem;
+  left: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  background: color-mix(in srgb, var(--bg-2) 90%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-hover);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
+  flex-shrink: 0;
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(74, 222, 128, 0.6); }
+  50%       { opacity: 0.7; box-shadow: 0 0 12px rgba(74, 222, 128, 0.8); }
+}
+.badge-text {
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--text-1);
+  text-transform: none;
 }
 
 /* Sections */
@@ -319,15 +483,44 @@ import { techStackData, achievements } from "../../constants/techstack.constant"
 }
 
 /* Responsive */
+@media (max-width: 960px) {
+  .about-header-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .about-photo-wrap {
+    order: -1;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 860px) {
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+@media (max-width: 768px) {
+  .tl-item  { grid-template-columns: 110px 1fr; gap: 1.25rem; }
+  .ach-item { grid-template-columns: 80px 1fr; gap: 1.25rem; }
+}
+
 @media (max-width: 640px) {
-  .tl-item  { grid-template-columns: 1fr; gap: 0.75rem; }
-  .tl-left  { display: none; }
-  .ach-item { grid-template-columns: 60px 1fr; gap: 1rem; }
-  .skills-grid { grid-template-columns: 1fr; }
-  .about-title { font-size: clamp(2rem, 10vw, 3rem); }
+  .about-page    { padding-top: 3rem; padding-bottom: 4rem; }
+  .about-header  { margin-bottom: 3rem; }
+  .section       { padding: 2.5rem 0; }
+
+  .tl-item       { grid-template-columns: 1fr; gap: 0.35rem; }
+  .tl-left       { padding-top: 0; }
+  .tl-duration   { display: block; margin-bottom: 0.5rem; }
+
+  .ach-item      { grid-template-columns: 56px 1fr; gap: 0.75rem; }
+  .skills-grid   { grid-template-columns: 1fr; }
+  .about-title   { font-size: clamp(1.8rem, 9vw, 2.8rem); }
+  .about-intro   { font-size: 0.92rem; }
+  .about-stats   { gap: 1.25rem; flex-wrap: wrap; }
+  .stat-number   { font-size: 1.35rem; }
+  .about-photo-wrap { max-width: 240px; margin: 0 auto; }
+  .contact-links { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .contact-link  { width: 100%; justify-content: flex-start; }
 }
 </style>

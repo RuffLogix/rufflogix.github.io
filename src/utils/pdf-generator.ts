@@ -13,6 +13,8 @@ export interface PersonalInfo {
 	website?: string;
 	linkedin?: string;
 	github?: string;
+	kaggle?: string;
+	codeforces?: string;
 }
 
 export interface ProjectInfo {

@@ -52,6 +52,118 @@ export const projectInformation: ProjectInformation[] = [
       },
     ],
   },
+  {
+    title: "Thai RAG System",
+    category: "AI / Machine Learning",
+    date: "2026",
+    description:
+      "A Retrieval-Augmented Generation (RAG) system customized for the Thai language.",
+    tags: ["Python", "AI", "NLP"],
+    role: "Personal Project",
+    image: "/images/rufflogix-logo.jpg", // placeholder
+    githubLinks: [
+      {
+        label: "Repository",
+        url: "https://github.com/RuffLogix/thai-rag-system",
+      },
+    ],
+  },
+  {
+    title: "TA Beam Adventure",
+    category: "Game Development",
+    date: "2025",
+    description:
+      "An RPG-style game developed in Java as a university project, featuring object-oriented programming principles and engaging gameplay mechanics.",
+    tags: ["Java", "OOP", "Game Development"],
+    role: "University Project",
+    image: "/images/rufflogix-logo.jpg", // placeholder
+    githubLinks: [
+      {
+        label: "Repository",
+        url: "https://github.com/RuffLogix/ta-beam-adventure",
+      },
+    ],
+  },
+  {
+    title: "Thai License Plate Generator",
+    category: "Web Development",
+    date: "2024",
+    description:
+      "A web application that creates custom Thai license plates based on official naming conventions.",
+    tags: ["JavaScript", "Web"],
+    role: "Personal Project",
+    image: "/images/rufflogix-logo.jpg",
+    githubLinks: [
+      {
+        label: "Repository",
+        url: "https://github.com/RuffLogix/license-plate-generator",
+      },
+    ],
+  },
+  {
+    title: "Line Bot integrated with RAG System",
+    category: "AI / Chatbot",
+    date: "2023",
+    description:
+      "Individual Study Project (2023/1) - A Line Bot that integrates a Retrieval-Augmented Generation (RAG) system for enhanced conversational capabilities.",
+    tags: ["Python", "LangChain", "ChromaDB", "Research"],
+    role: "University Project",
+    image: "/images/rufflogix-logo.jpg",
+    githubLinks: [
+      {
+        label: "Repository",
+        url: "https://github.com/RuffLogix/indiv-2023-1",
+      },
+    ],
+  },
+  {
+    title: "CU Stock Blitz",
+    category: "Web Development",
+    date: "2023",
+    description:
+      '"Thinc. 10 Days Project" - A fast-paced stock-simulated trading platform developed during the 10-day hackathon project at Thinc.',
+    tags: ["TypeScript", "React", "Supabase", "Web Development"],
+    role: "Hackathon Project",
+    image: "/images/rufflogix-logo.jpg", // placeholder
+    githubLinks: [
+      {
+        label: "Repository",
+        url: "https://github.com/RuffLogix/cu-stock-blitz",
+      },
+    ],
+  },
+  {
+    title: "TUSCO Q&A Platform",
+    category: "Web Development",
+    date: "2022",
+    description:
+      "A Q&A platform system developed for Thailand Upper Southern Computing Olympiad.",
+    tags: ["TypeScript", "React", "Framer Motion", "Web Development"],
+    role: "Project",
+    image: "/images/rufflogix-logo.jpg",
+    githubLinks: [
+      {
+        label: "Repository",
+        url: "https://github.com/RuffLogix/tusco-qna",
+      },
+    ],
+  },
+  {
+    title: "BM Announcement System",
+    category: "Web Development",
+    date: "2021",
+    description:
+      "A PHP-based GPA announcement and communication system in Benjamarachutit School.",
+    tags: ["PHP", "SQL", "System"],
+    role: "Project",
+    image: "/images/rufflogix-logo.jpg", // placeholder
+    githubLinks: [
+      {
+        label: "Repository",
+        url: "https://github.com/RuffLogix/GPA_announcement",
+      },
+    ],
+  },
 
   // Sample Project Entries
 
@@ -141,4 +253,8 @@ export const projectInformation: ProjectInformation[] = [
   //     { label: "CLI Tool", url: "#" },
   //   ],
   // },
-];
+].sort((a, b) => {
+  const dateA = new Date(a.date);
+  const dateB = new Date(b.date);
+  return dateB.getTime() - dateA.getTime();
+});
