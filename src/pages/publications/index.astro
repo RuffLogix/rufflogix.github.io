@@ -1,0 +1,388 @@
+---
+import FormalLayout from "../../layouts/FormalLayout.astro";
+import { publicationInformation } from "../../constants/publication.constant";
+
+function isSelf(idx: number, self?: number | number[]) {
+  if (self === undefined) return false;
+  return Array.isArray(self) ? self.includes(idx) : self === idx;
+}
+---
+
+<FormalLayout title="Publications — RuffLogix">
+  <div class="pubs-page page-wrap">
+    <!-- Page header -->
+    <header class="pubs-header">
+      <p class="label-strong reveal" style="margin-bottom: 1rem;">Research</p>
+      <h1 class="pubs-title reveal d1">Publications</h1>
+      <p class="pubs-sub reveal d2">
+        Peer-reviewed work in deep learning, medical imaging, and applied AI.
+      </p>
+      <p class="pubs-count label reveal d3">
+        {String(publicationInformation.length).padStart(2, "0")} entries
+      </p>
+    </header>
+
+    <!-- Publication index -->
+    <ol class="pubs-index">
+      {
+        publicationInformation.map((p, i) => (
+          <li class:list={["pub-row reveal", `d${(i % 4) + 1}`]}>
+            <div class="pub-head">
+              <span class="pub-num">{String(i + 1).padStart(2, "0")}</span>
+              <span class="pub-meta">
+                <span class="label pub-type">{p.type}</span>
+                <span class="pub-sep" aria-hidden="true">
+                  /
+                </span>
+                <span class="label pub-dim">{p.venue}</span>
+                <span class="pub-sep" aria-hidden="true">
+                  /
+                </span>
+                <span class="label pub-dim">{p.date}</span>
+              </span>
+            </div>
+
+            <h2 class="pub-title">
+              {p.doiLink ? (
+                <a
+                  href={p.doiLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="pub-title-link"
+                >
+                  {p.title}
+                  <span class="pub-title-arrow" aria-hidden="true">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7" />
+                      <polyline points="7 7 17 7 17 17" />
+                    </svg>
+                  </span>
+                </a>
+              ) : (
+                p.title
+              )}
+            </h2>
+
+            <p class="pub-authors">
+              {p.authors.map((a, idx) => (
+                <>
+                  <span
+                    class:list={[
+                      "pub-author",
+                      { self: isSelf(idx, p.selfAuthorIndex) },
+                    ]}
+                  >
+                    {a}
+                  </span>
+                  {idx < p.authors.length - 1 && (
+                    <span class="pub-author-sep">, </span>
+                  )}
+                </>
+              ))}
+            </p>
+
+            {p.abstract && <p class="pub-abstract">{p.abstract}</p>}
+
+            <div class="pub-foot">
+              <div class="pub-tags">
+                {p.tags.map((t) => (
+                  <span class="tag">{t}</span>
+                ))}
+              </div>
+
+              <div class="pub-links">
+                {p.doi && (
+                  <span class="pub-doi">
+                    <span class="pub-doi-label">DOI</span>
+                    {p.doiLink ? (
+                      <a
+                        href={p.doiLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="pub-doi-link"
+                      >
+                        {p.doi}
+                      </a>
+                    ) : (
+                      <span class="pub-doi-link">{p.doi}</span>
+                    )}
+                  </span>
+                )}
+                {p.pdfLink && (
+                  <a
+                    href={p.pdfLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pub-link"
+                  >
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                    PDF
+                  </a>
+                )}
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <!-- Empty state -->
+    {
+      publicationInformation.length === 0 && (
+        <div class="empty-state">
+          <p class="label">Publications coming soon</p>
+        </div>
+      )
+    }
+  </div>
+</FormalLayout>
+
+<style>
+  .pubs-page {
+    padding-top: 5rem;
+    padding-bottom: 6rem;
+  }
+
+  /* Header */
+  .pubs-header {
+    margin-bottom: 2.5rem;
+  }
+  .pubs-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text-1);
+    margin-bottom: 0.75rem;
+  }
+  .pubs-sub {
+    font-size: 1rem;
+    color: var(--text-2);
+    max-width: 52ch;
+    line-height: 1.65;
+  }
+  .pubs-count {
+    margin-top: 1.1rem;
+    color: var(--text-3);
+  }
+
+  /* ── Index list — single flush-left edge ─────────────────── */
+  .pubs-index {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .pub-row {
+    position: relative;
+    padding: 1.7rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Accent marker in left gutter, only on hover */
+  .pub-row::before {
+    content: "";
+    position: absolute;
+    left: -1rem;
+    top: 1.7rem;
+    bottom: 1.7rem;
+    width: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform var(--t-mid) var(--expo);
+  }
+  .pub-row:hover::before {
+    transform: scaleY(1);
+  }
+
+  .pub-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .pub-num {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-3);
+    transition: color var(--t-fast);
+  }
+  .pub-row:hover .pub-num {
+    color: var(--accent);
+  }
+  .pub-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .pub-type {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .pub-dim {
+    color: var(--text-3);
+  }
+  .pub-sep {
+    color: var(--border-hover);
+    font-size: 0.72rem;
+  }
+
+  .pub-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-1);
+    line-height: 1.32;
+    margin-bottom: 0.6rem;
+    max-width: 62ch;
+  }
+  .pub-title-link {
+    transition: color var(--t-fast);
+  }
+  .pub-row:hover .pub-title-link {
+    color: var(--accent);
+  }
+  .pub-title-arrow {
+    display: inline-flex;
+    vertical-align: -2px;
+    margin-left: 0.3rem;
+    color: var(--text-3);
+    opacity: 0;
+    transform: translate(-3px, 3px);
+    transition: all var(--t-mid) var(--expo);
+  }
+  .pub-row:hover .pub-title-arrow {
+    opacity: 1;
+    transform: none;
+    color: var(--accent);
+  }
+
+  .pub-authors {
+    font-size: 0.85rem;
+    color: var(--text-3);
+    line-height: 1.7;
+    margin-bottom: 0.7rem;
+  }
+  .pub-author.self {
+    color: var(--text-1);
+    font-weight: 600;
+  }
+
+  .pub-abstract {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    line-height: 1.65;
+    max-width: 68ch;
+    margin-bottom: 1rem;
+  }
+
+  .pub-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+  }
+  .pub-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .pub-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+  }
+
+  .pub-doi {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.74rem;
+  }
+  .pub-doi-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 0.12rem 0.4rem;
+  }
+  .pub-doi-link {
+    color: var(--text-2);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    transition: color var(--t-fast);
+  }
+  a.pub-doi-link:hover {
+    color: var(--text-1);
+  }
+
+  .pub-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.74rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+    color: var(--text-3);
+    transition: color var(--t-fast);
+  }
+  .pub-link:hover {
+    color: var(--text-1);
+  }
+
+  /* Empty */
+  .empty-state {
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .pubs-page {
+      padding-top: 3rem;
+      padding-bottom: 4rem;
+    }
+    .pubs-header {
+      margin-bottom: 1.75rem;
+    }
+    .pub-row::before {
+      left: -0.7rem;
+    }
+    .pub-title {
+      font-size: 1.12rem;
+    }
+    .pub-foot {
+      gap: 0.7rem 1rem;
+    }
+  }
+</style>
