@@ -12,7 +12,7 @@ const links = [
   <div class="nav-inner">
     <a href="/" class="nav-logo">RuffLogix</a>
 
-    <nav class="nav-links" aria-label="Main navigation">
+    <nav id="mobile-nav-links" class="nav-links" aria-label="Main navigation">
       {links.map(({ href, label }) => {
         const active = path === href || (href !== '/' && path.startsWith(href));
         return (
@@ -48,6 +48,41 @@ const links = [
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
+
+      <!-- Hamburger (mobile only) -->
+      <button
+        id="mobile-menu-btn"
+        class="hamburger-btn"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav-links"
+      >
+        <span class="hb-line"></span>
+        <span class="hb-line"></span>
+        <span class="hb-line"></span>
+      </button>
     </div>
   </div>
 </header>
+
+<script>
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const navLinks = document.getElementById('mobile-nav-links');
+
+  menuBtn?.addEventListener('click', () => {
+    const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', String(!isOpen));
+    menuBtn.classList.toggle('is-open', !isOpen);
+    navLinks?.classList.toggle('is-open', !isOpen);
+    document.body.classList.toggle('menu-open', !isOpen);
+  });
+
+  navLinks?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      menuBtn?.setAttribute('aria-expanded', 'false');
+      menuBtn?.classList.remove('is-open');
+      navLinks.classList.remove('is-open');
+      document.body.classList.remove('menu-open');
+    });
+  });
+</script>
