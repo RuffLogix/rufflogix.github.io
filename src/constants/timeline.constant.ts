@@ -118,8 +118,8 @@ export const experienceInformation: ExperienceInformation[] = [
     instituteName: "Kasikorn Business-Technology Group (KBTG)",
     program: "AI Engineer (Apprenticeship)",
     location: "Bangkok, Thailand",
-    duration: "Sep 2025 - Feb 2026",
-    calculatedDuration: parseDurationString("Sep 2025 - Feb 2026"),
+    duration: "Sep 2025 - Present",
+    calculatedDuration: parseDurationString("Sep 2025 - Present"),
     description:
       "I researched on NEET group (Not in Education, Employment, or Training) in Thailand about their behavior and needs, and understood how to utilize AI to help them.",
   },
