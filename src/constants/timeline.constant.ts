@@ -110,7 +110,7 @@ export const experienceInformation: ExperienceInformation[] = [
     duration: "Aug 2025 - Present",
     calculatedDuration: parseDurationString("Aug 2025 - Present"),
     description:
-      "I worked across frontend, backend, and AI engineering, developing a customizable layout system and building a mechanism for dynamically switching LLM model strategies to reduce hallucination and context loss, along with other features planned for future development.",
+      "Worked across frontend, backend, mobile, and AI engineering to develop a customizable layout system and an adaptive LLM strategy-switching mechanism to reduce hallucination and context loss. Developed cross-platform mobile applications using Expo, and designed and implemented LLM training, fine-tuning, and deployment workflows, alongside additional features planned for future development.",
   },
   {
     image: "/images/experience/kbtg-logo.png",
@@ -121,7 +121,7 @@ export const experienceInformation: ExperienceInformation[] = [
     duration: "Sep 2025 - Present",
     calculatedDuration: parseDurationString("Sep 2025 - Present"),
     description:
-      "I researched on NEET group (Not in Education, Employment, or Training) in Thailand about their behavior and needs, and understood how to utilize AI to help them.",
+      "I researched the NEET (Not in Education, Employment, or Training) group in Thailand to understand their behaviors and needs, and explored how AI could be utilized to support them. I also developed a mobile application using Flutter and implemented a real-time ASR (Automatic Speech Recognition) and Machine Translation pipeline for medical discussions.",
   },
   {
     image: "/images/experience/lmwn-logo.jpg",
