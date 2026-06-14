@@ -103,6 +103,11 @@ export const techStackData: TechStack[] = [
         icon: "🌿",
         description: "Web Framework for Rust",
       },
+      {
+        name: "Elysia",
+        icon: "🦊",
+        description: "Scalable Backend Applications",
+      },
     ],
   },
   {
@@ -164,6 +169,11 @@ export const techStackData: TechStack[] = [
         description: "Workflow Orchestration, DAGs",
       },
       {
+        name: "Google GCP",
+        icon: "☁️",
+        description: "Cloud Infrastructure, Deployment, Managed Services",
+      },
+      {
         name: "Git/GitHub",
         icon: "📝",
         description: "Version Control, Collaboration",
@@ -187,6 +197,11 @@ export const techStackData: TechStack[] = [
         name: "Flutter",
         icon: "🐦",
         description: "Mobile App Development",
+      },
+      {
+        name: "Expo",
+        icon: "📦",
+        description: "React Native Tooling, Rapid App Development",
       },
     ],
   },
@@ -289,7 +304,7 @@ export const certifications = achievements.slice(0, 3).map((achievement) => ({
 
 // Flatten all technologies for marquee display
 const allTechnologies: Technology[] = techStackData.flatMap(
-  (category) => category.technologies
+  (category) => category.technologies,
 );
 
 // Organize technologies into 3 rows for marquee display
