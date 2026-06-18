@@ -289,7 +289,7 @@ export const achievements: Achievement[] = [
     emoji: "🥉",
     title: "16th Thailand Olympiad in Informatics",
     description:
-      "Silver Medal in 16th National Programming Competition, showcasing algorithmic problem-solving abilities",
+      "Bronze Medal in 16th National Programming Competition, showcasing algorithmic problem-solving abilities",
     link: "https://www.posn.or.th/projects/academic-olympiad/oi/alumni/",
     year: "2020",
   },
