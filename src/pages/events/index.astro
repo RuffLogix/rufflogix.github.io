@@ -1,0 +1,239 @@
+---
+import FormalLayout from "../../layouts/FormalLayout.astro";
+import { events } from "../../constants/event.constant";
+
+// Most recent first. Supports year ranges like "2022–2025" by sorting on the
+// latest 4-digit year found in the string.
+const latestYear = (y: string) =>
+  Math.max(...(y.match(/\d{4}/g)?.map(Number) ?? [0]));
+const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year));
+---
+
+<FormalLayout title="Events — RuffLogix">
+  <div class="events-page page-wrap">
+    <!-- Page header -->
+    <header class="events-header">
+      <p class="label-strong reveal" style="margin-bottom: 1rem;">
+        Participation
+      </p>
+      <h1 class="events-title reveal d1">Events &amp; Competitions</h1>
+      <p class="events-sub reveal d2">
+        Competitions, camps, and programs I've taken part in or hosted.
+      </p>
+    </header>
+
+    <!-- Compact event list -->
+    <ol class="event-list">
+      {
+        sorted.map((ev, i) => {
+          const Tag = ev.link ? "a" : "div";
+          return (
+            <li class:list={["event-row reveal", `d${(i % 4) + 1}`]}>
+              <Tag
+                class="event-link"
+                href={ev.link ?? undefined}
+                target={ev.link ? "_blank" : undefined}
+                rel={ev.link ? "noopener noreferrer" : undefined}
+              >
+                <span class="event-year">{ev.year}</span>
+
+                <span class="event-main">
+                  <span class="event-name">
+                    <span class="event-emoji" aria-hidden="true">
+                      {ev.emoji}
+                    </span>
+                    {ev.title}
+                    {ev.link && (
+                      <svg
+                        class="event-ext"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <line x1="7" y1="17" x2="17" y2="7" />
+                        <polyline points="7 7 17 7 17 17" />
+                      </svg>
+                    )}
+                  </span>
+                  <span class="event-sub label">
+                    {ev.type}
+                    {ev.organization && (
+                      <>
+                        <span class="event-dot" aria-hidden="true">·</span>
+                        {ev.organization}
+                      </>
+                    )}
+                  </span>
+                </span>
+
+                {(ev.award ?? ev.role) && (
+                  <span
+                    class:list={["event-award", { "is-role": !ev.award && ev.role }]}
+                  >
+                    {ev.award ?? ev.role}
+                  </span>
+                )}
+              </Tag>
+            </li>
+          );
+        })
+      }
+    </ol>
+
+    <!-- Empty state -->
+    {
+      events.length === 0 && (
+        <div class="empty-state">
+          <p class="label">Events coming soon</p>
+        </div>
+      )
+    }
+  </div>
+</FormalLayout>
+
+<style>
+  .events-page {
+    padding-top: 5rem;
+    padding-bottom: 6rem;
+  }
+
+  /* Header */
+  .events-header {
+    margin-bottom: 2rem;
+  }
+  .events-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text-1);
+    margin-bottom: 0.75rem;
+  }
+  .events-sub {
+    font-size: 1rem;
+    color: var(--text-2);
+    max-width: 50ch;
+    line-height: 1.65;
+  }
+
+  /* ── Compact list ─────────────────────────────────────────── */
+  .event-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+  }
+  .event-row {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .event-link {
+    display: grid;
+    grid-template-columns: 74px 1fr auto;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1rem 0;
+    transition: color var(--t-fast);
+  }
+
+  .event-year {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-3);
+    white-space: nowrap;
+    transition: color var(--t-fast);
+  }
+  a.event-link:hover .event-year {
+    color: var(--accent);
+  }
+
+  .event-main {
+    min-width: 0;
+  }
+  .event-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--text-1);
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+  .event-emoji {
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .event-ext {
+    color: var(--text-3);
+    opacity: 0;
+    flex-shrink: 0;
+    transition: all var(--t-mid) var(--expo);
+  }
+  a.event-link:hover .event-name {
+    color: var(--accent);
+  }
+  a.event-link:hover .event-ext {
+    opacity: 1;
+    transform: translate(1px, -1px);
+  }
+  .event-sub {
+    display: block;
+    color: var(--text-3);
+    margin-top: 0.2rem;
+  }
+  .event-dot {
+    margin: 0 0.4rem;
+    color: var(--border-hover);
+  }
+
+  .event-award {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    padding: 0.2rem 0.55rem;
+    border: 1px solid var(--border-hover);
+    border-radius: 999px;
+    background: var(--surface);
+    white-space: nowrap;
+  }
+  /* Hosting / organizer role badge — accent-tinted to distinguish from awards */
+  .event-award.is-role {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
+  /* Empty */
+  .empty-state {
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .events-page {
+      padding-top: 3rem;
+      padding-bottom: 4rem;
+    }
+    .event-link {
+      grid-template-columns: 1fr auto;
+      gap: 0.75rem 1rem;
+      padding: 0.9rem 0;
+    }
+    .event-year {
+      grid-column: 1 / -1;
+      order: -1;
+    }
+    .event-award {
+      align-self: start;
+    }
+  }
+</style>

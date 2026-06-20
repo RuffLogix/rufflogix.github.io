@@ -1,0 +1,206 @@
+import type { EventInformation } from "../types/event.d.ts";
+
+/**
+ * Events, competitions, camps, and programs participated in.
+ * Single source of truth — `achievements` in techstack.constant.ts is derived
+ * from this list for backward compatibility (CV export, legacy components).
+ * Ordered most recent first.
+ */
+export const events: EventInformation[] = [
+  {
+    emoji: "🧑‍🏫",
+    title: "TUSCO Computer Olympiad",
+    type: "Competition",
+    role: "Host ×5",
+    description:
+      "Founded and hosted a Computer Olympiad competition for upper-south Thailand students — 5 editions across 2022–2025.",
+    year: "2022–2025",
+    location: "Upper-South Thailand",
+    link: "https://www.facebook.com/TUSCO2022",
+  },
+  {
+    emoji: "💻",
+    title: "Super AI Engineer Season 5",
+    organization: "AIAT",
+    type: "Program",
+    award: "Research Track",
+    description:
+      "Super AI Engineering Research track, focusing on medical AI applications.",
+    year: "2025",
+    location: "Thailand",
+  },
+  {
+    emoji: "🏆",
+    title: "Stupid Hackathon #9",
+    organization: "Stupid Hackathon Thailand",
+    type: "Hackathon",
+    award: "1st Place",
+    description:
+      'Themed "Brain Rot" — built the most-talked-about project, ranked first by live audience engagement.',
+    year: "2025",
+    location: "Bangkok, Thailand",
+    link: "https://medium.com/@rufflogix/stupid-hackathon-9-%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%A7%E0%B8%A3%E0%B8%A3%E0%B8%93%E0%B8%A8%E0%B8%B4%E0%B8%A5%E0%B8%9B%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%88%E0%B8%A7%E0%B8%9A%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B8%A8%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B8%84%E0%B8%93%E0%B8%99%E0%B8%B2-e74070419b20",
+  },
+  {
+    emoji: "🍈",
+    title: "Durian Hackathon 2025",
+    organization: "Prince of Songkla University",
+    type: "Hackathon",
+    award: "Top 5",
+    description:
+      "Applied machine learning to classify durian fruit conditions; placed 5th of 20 teams.",
+    year: "2025",
+    location: "Phuket, Thailand",
+    link: "https://medium.com/@rufflogix/%E0%B9%80%E0%B8%A5%E0%B9%88%E0%B8%B2%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%9A%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B9%8C-durian-hackathon-2025-936819573ad2",
+  },
+  {
+    emoji: "🥈",
+    title: "iGEM 2024",
+    organization: "iGEM Foundation",
+    type: "Competition",
+    award: "Silver Medal",
+    description:
+      "Silver Medal in the International Genetically Engineered Machine competition for an innovative synthetic biology project.",
+    year: "2024",
+    location: "Paris, France",
+    link: "https://teams.igem.org/5251",
+  },
+  {
+    emoji: "🥉",
+    title: "AIHack Thailand 2024",
+    organization: "Chulalongkorn Business School",
+    type: "Hackathon",
+    award: "3rd Place — AUC Track",
+    description:
+      "Built ML models to predict customer loan defaults; 3rd place in the AUC tournament track.",
+    year: "2024",
+    location: "Bangkok, Thailand",
+    link: "https://medium.com/@rufflogix/%E0%B9%80%E0%B8%A5%E0%B9%88%E0%B8%B2%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%9A%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B9%8C-aihack-thailand-2024-cbs-23d5569baa17",
+  },
+  {
+    emoji: "🛠️",
+    title: "Stupid Hackathon #8",
+    organization: "Stupid Hackathon Thailand",
+    type: "Hackathon",
+    award: "Participant",
+    year: "2024",
+    location: "Chulalongkorn University, Bangkok",
+  },
+  {
+    emoji: "⚙️",
+    title: "TESA Top Gun Rally 2024",
+    organization: "Thai Embedded Systems Association",
+    type: "Competition",
+    award: "5th Overall",
+    description:
+      "Embedded-systems rally applying machine learning on resource-constrained devices; ranked 5th overall.",
+    year: "2024",
+    location: "Chonburi, Thailand",
+    link: "https://medium.com/@rufflogix/%E0%B9%80%E0%B8%A5%E0%B9%88%E0%B8%B2%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%9A%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B9%8C-tesa-top-gun-rally-2024-kusrc-%E0%B9%83%E0%B8%99%E0%B8%A1%E0%B8%B8%E0%B8%A1%E0%B8%99%E0%B8%B1%E0%B8%81-machine-learning-95fd0e53bcf5",
+  },
+  {
+    emoji: "🥈",
+    title: "Super AI Engineer Season 3",
+    organization: "AIAT",
+    type: "Competition",
+    award: "Silver Medal",
+    description:
+      "Silver Medal in the AI Engineering competition, demonstrating advanced machine learning and AI development skills.",
+    year: "2023",
+    location: "Thailand",
+    link: "https://superai.aiat.or.th/2022/hall-of-fame-2022/silver-medal/",
+  },
+  {
+    emoji: "🛠️",
+    title: "Stupid Hackathon #7",
+    organization: "Stupid Hackathon Thailand",
+    type: "Hackathon",
+    award: "Participant",
+    year: "2023",
+    location: "KX Center, Bangkok",
+  },
+  {
+    emoji: "🧑‍🏫",
+    title: "Sriyapai School Computer Olympiad",
+    organization: "Sriyapai School",
+    type: "Competition",
+    role: "Host",
+    description:
+      "Hosted a Computer Olympiad competition for Sriyapai School students.",
+    year: "2022",
+    location: "Surat Thani, Thailand",
+    link: "https://www.facebook.com/profile.php?id=100076757115003",
+  },
+  {
+    emoji: "🥉",
+    title: "5th Creative AI Camp by CP ALL",
+    organization: "CP ALL",
+    type: "Camp",
+    award: "Participant",
+    description:
+      "Creative AI camp focused on innovative applications of AI technology — built a parking occupancy detection project using YOLOv3 and OpenCV.",
+    year: "2022",
+    location: "Thailand",
+    link: "https://www.cpall.co.th/news/organization/creative-ai-camp-by-cp-all-5th",
+  },
+  {
+    emoji: "🛒",
+    title: "Shopee Code League",
+    organization: "Shopee",
+    type: "Competition",
+    award: "Participant",
+    year: "2022",
+  },
+  {
+    emoji: "🥈",
+    title: "17th Thailand Olympiad in Informatics",
+    organization: "POSN",
+    type: "Competition",
+    award: "Silver Medal",
+    description:
+      "Silver Medal in the 17th national programming competition, showcasing algorithmic problem-solving abilities.",
+    year: "2021",
+    location: "Thailand",
+    link: "https://www.posn.or.th/projects/academic-olympiad/oi/alumni/",
+  },
+  {
+    emoji: "🏆",
+    title: "Our Marscraft",
+    type: "Competition",
+    award: "1st Place",
+    year: "2021",
+    link: "https://www.facebook.com/photo/?fbid=404314554744338&set=a.466199242209921",
+  },
+  {
+    emoji: "🧪",
+    title: "TMLCC — Thailand Machine Learning for Chemistry Competition",
+    type: "Competition",
+    award: "Participant",
+    description:
+      "Applied machine learning to predict chemical properties for the Thailand ML for Chemistry challenge.",
+    year: "2021",
+    link: "https://devpost.com/software/project-3pajg1yn8zec?ref_content=my-projects-tab&ref_feature=my_projects",
+  },
+  {
+    emoji: "📚",
+    title: "Peer-Tutoring Program for POSN Olympiad at Benjamarachutit School",
+    type: "Program",
+    role: "Head & Host",
+    description:
+      "Founded and led a program where senior students tutor juniors to prepare for the POSN (สอวน.) academic olympiad — serving as organizer, instructor, and coordinator.",
+    year: "2021",
+    location: "Thailand",
+  },
+  {
+    emoji: "🥉",
+    title: "16th Thailand Olympiad in Informatics",
+    organization: "POSN",
+    type: "Competition",
+    award: "Bronze Medal",
+    description:
+      "Bronze Medal in the 16th national programming competition, showcasing algorithmic problem-solving abilities.",
+    year: "2020",
+    location: "Thailand",
+    link: "https://www.posn.or.th/projects/academic-olympiad/oi/alumni/",
+  },
+];

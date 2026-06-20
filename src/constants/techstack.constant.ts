@@ -1,3 +1,5 @@
+import { events } from "./event.constant";
+
 export interface TechStack {
   category: string;
   technologies: Technology[];
@@ -245,55 +247,15 @@ export interface Achievement {
   year?: string;
 }
 
-export const achievements: Achievement[] = [
-  {
-    emoji: "💻",
-    title: "Super AI Engineer Season 5",
-    description:
-      "Super AI Engineering Research track, focusing on medical AI applications",
-    year: "2025",
-  },
-  {
-    emoji: "🥈",
-    title: "iGEM 2024 Silver Medal",
-    description:
-      "Silver Medal in International Genetically Engineered Machine Competition for innovative synthetic biology project",
-    link: "https://teams.igem.org/5251",
-    year: "2024",
-  },
-  {
-    emoji: "🥈",
-    title: "Super AI Engineer Season 3",
-    description:
-      "Silver Medal in AI Engineering Competition, demonstrating advanced machine learning and AI development skills",
-    link: "https://superai.aiat.or.th/2022/hall-of-fame-2022/silver-medal/",
-    year: "2023",
-  },
-  {
-    emoji: "🥉",
-    title: "5th Creative AI Camp by CPALL",
-    description:
-      "Participated in a creative AI camp focused on innovative applications of AI technology, developing a parking occupancy detection project using YOLOv3 and OpenCV.",
-    link: "https://www.cpall.co.th/news/organization/creative-ai-camp-by-cp-all-5th",
-    year: "2022",
-  },
-  {
-    emoji: "🥈",
-    title: "17th Thailand Olympiad in Informatics",
-    description:
-      "Silver Medal in 17th National Programming Competition, showcasing algorithmic problem-solving abilities",
-    link: "https://www.posn.or.th/projects/academic-olympiad/oi/alumni/",
-    year: "2021",
-  },
-  {
-    emoji: "🥉",
-    title: "16th Thailand Olympiad in Informatics",
-    description:
-      "Bronze Medal in 16th National Programming Competition, showcasing algorithmic problem-solving abilities",
-    link: "https://www.posn.or.th/projects/academic-olympiad/oi/alumni/",
-    year: "2020",
-  },
-];
+// Derived from the events list (single source of truth in event.constant.ts)
+// for backward compatibility with the CV export and legacy components.
+export const achievements: Achievement[] = events.map((event) => ({
+  emoji: event.emoji,
+  title: event.award ? `${event.title} — ${event.award}` : event.title,
+  description: event.description,
+  link: event.link,
+  year: event.year,
+}));
 
 // Keep the old certifications for backward compatibility
 export const certifications = achievements.slice(0, 3).map((achievement) => ({
