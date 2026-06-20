@@ -1,15 +1,10 @@
 import type {
   EducationalInformation,
   ExperienceInformation,
-  CVConfig,
 } from "../types/timeline.d.ts";
 import { parseDurationString } from "../utils/duration.ts";
-import type { PersonalInfo } from "../utils/pdf-generator.ts";
-import { achievements } from "./techstack.constant.ts";
-import { projectInformation } from "./project.constant.ts";
-import { techStackData } from "./techstack.constant.ts";
 
-export const personalInfo: PersonalInfo = {
+export const personalInfo = {
   name: "RuffLogix",
   title: "Computer Engineering Student & AI Enthusiast",
   email: "teejuta.sriwaranon@gmail.com",
@@ -18,51 +13,6 @@ export const personalInfo: PersonalInfo = {
   github: "https://github.com/RuffLogix",
   kaggle: "https://www.kaggle.com/teejutasriwaranon",
   codeforces: "https://codeforces.com/profile/RuffLogix",
-};
-
-export const getCVAwards = () => {
-  return achievements.slice(0, 5).map((achievement) => ({
-    title: achievement.title,
-    description: achievement.description,
-    details: [
-      achievement.description +
-        (achievement.year ? ` (${achievement.year})` : ""),
-    ],
-  }));
-};
-
-export const getCVProjects = () => {
-  return projectInformation.slice(0, 4).map((project) => ({
-    title: `${project.title} (${project.category})`,
-    description: project.description,
-    details: [
-      project.description,
-      `Technologies used: ${project.tags.join(", ")}.`,
-    ],
-  }));
-};
-
-export const getCVSkills = () => {
-  const allSkills: string[] = [];
-
-  techStackData.forEach((category) => {
-    category.technologies.forEach((tech) => {
-      if (tech.name.includes("/")) {
-        const splitTechs = tech.name.split("/").map((t) => t.trim());
-        allSkills.push(...splitTechs);
-      } else {
-        allSkills.push(tech.name);
-      }
-    });
-  });
-
-  return [...new Set(allSkills)].sort();
-};
-
-export const cvConfig: CVConfig = {
-  fileName: "RuffLogix_CV.pdf",
-  downloadPath: "",
-  lastUpdated: "October 2025",
 };
 
 export const educationalInformation: EducationalInformation[] = [

@@ -18,9 +18,3 @@ export interface ExperienceInformation {
 	calculatedDuration: string;
 	description: string;
 }
-
-export interface CVConfig {
-	fileName: string;
-	downloadPath: string;
-	lastUpdated: string;
-}

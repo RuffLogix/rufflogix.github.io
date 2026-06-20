@@ -1,5 +1,3 @@
-import { events } from "./event.constant";
-
 export interface TechStack {
   category: string;
   technologies: Technology[];
@@ -239,69 +237,3 @@ export const techStackData: TechStack[] = [
   },
 ];
 
-export interface Achievement {
-  emoji: string;
-  title: string;
-  description: string;
-  link?: string;
-  year?: string;
-}
-
-// Derived from the events list (single source of truth in event.constant.ts)
-// for backward compatibility with the CV export and legacy components.
-export const achievements: Achievement[] = events.map((event) => ({
-  emoji: event.emoji,
-  title: event.award ? `${event.title} — ${event.award}` : event.title,
-  description: event.description,
-  link: event.link,
-  year: event.year,
-}));
-
-// Keep the old certifications for backward compatibility
-export const certifications = achievements.slice(0, 3).map((achievement) => ({
-  name: achievement.title,
-  badge: achievement.emoji,
-  description: achievement.description,
-}));
-
-// Flatten all technologies for marquee display
-const allTechnologies: Technology[] = techStackData.flatMap(
-  (category) => category.technologies,
-);
-
-// Organize technologies into 3 rows for marquee display
-export const marqueeRows: Technology[][] = [
-  // Row 1: Programming Languages + Some Web Tech (moving left)
-  [
-    ...(techStackData.find((cat) => cat.category === "Programming Languages")
-      ?.technologies || []),
-    ...(techStackData
-      .find((cat) => cat.category === "Web Technologies")
-      ?.technologies.slice(0, 3) || []),
-    ...(techStackData
-      .find((cat) => cat.category === "Databases & Tools")
-      ?.technologies.slice(0, 2) || []),
-  ],
-  // Row 2: ML/AI + Cloud & DevOps + Remaining Web Tech (moving right)
-  [
-    ...(techStackData.find((cat) => cat.category === "Machine Learning & AI")
-      ?.technologies || []),
-    ...(techStackData.find((cat) => cat.category === "Cloud & DevOps")
-      ?.technologies || []),
-    ...(techStackData
-      .find((cat) => cat.category === "Web Technologies")
-      ?.technologies.slice(3) || []),
-  ],
-  // Row 3: Mobile Development + Remaining Databases & Tools (moving left)
-  [
-    ...(techStackData.find((cat) => cat.category === "Mobile Development")
-      ?.technologies || []),
-    ...(techStackData
-      .find((cat) => cat.category === "Databases & Tools")
-      ?.technologies.slice(2) || []),
-    // Add some programming languages again for balance
-    ...(techStackData
-      .find((cat) => cat.category === "Programming Languages")
-      ?.technologies.slice(0, 2) || []),
-  ],
-];

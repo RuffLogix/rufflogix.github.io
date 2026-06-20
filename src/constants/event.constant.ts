@@ -1,10 +1,8 @@
 import type { EventInformation } from "../types/event.d.ts";
 
 /**
- * Events, competitions, camps, and programs participated in.
- * Single source of truth — `achievements` in techstack.constant.ts is derived
- * from this list for backward compatibility (CV export, legacy components).
- * Ordered most recent first.
+ * Events, competitions, camps, and programs — participated in or hosted.
+ * Rendered by the /events page; ordered most recent first.
  */
 export const events: EventInformation[] = [
   {
