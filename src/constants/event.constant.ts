@@ -52,6 +52,18 @@ export const events: EventInformation[] = [
     link: "https://medium.com/@rufflogix/%E0%B9%80%E0%B8%A5%E0%B9%88%E0%B8%B2%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%9A%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B9%8C-durian-hackathon-2025-936819573ad2",
   },
   {
+    emoji: "🥉",
+    title: "BDI Hackathon 2025: AI & Data Innovation for Smart Tourism",
+    organization: "Big Data Institute",
+    type: "Hackathon",
+    award: "3rd Place",
+    description:
+      "Built an AI & data-driven solution for smart tourism; placed 3rd.",
+    year: "2025",
+    location: "Thailand",
+    link: "https://www.facebook.com/share/p/1D51RxiE5q/",
+  },
+  {
     emoji: "🥈",
     title: "iGEM 2024",
     organization: "iGEM Foundation",
