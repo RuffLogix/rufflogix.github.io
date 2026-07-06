@@ -2,6 +2,82 @@ import type { ProjectInformation } from "../types/project.d.ts";
 
 export const projectInformation: ProjectInformation[] = [
   {
+    title: "RuffBlitz School — Block-Based LMS",
+    category: "Web Development",
+    date: "2026",
+    description:
+      'A learning management platform where courses are assembled from composable "blocks" — Lego-like pieces (text, video, quizzes, code, and more) that instructors snap together to build lessons. Aimed at flexible, hands-on course authoring.',
+    tags: ["Next", "TypeScript", "LMS", "EdTech"],
+    role: "Personal Project",
+    image: "/images/rufflogix-logo.jpg",
+    infoLink: "https://www.school.ruffblitz.com/",
+  },
+  {
+    title: "Online Judge / Grader for LMS",
+    category: "Web Development",
+    date: "2026",
+    description:
+      "A self-hostable online judge embedded in the RuffBlitz LMS for programming and algorithms courses. Compiles and runs Python/C/C++ through a sandboxed execution engine (Judge0 → isolate) driven by horizontally-scaled judge workers, with role-based access (admin/staff/student), group-gated problem visibility, ICPC/IOI-style contests with scoreboard freeze, subtasks and testlib checkers. Built on Next.js + Elysia (Bun), PostgreSQL/Drizzle, and Redis/BullMQ.",
+    tags: ["Elysia", "Bun", "Next", "PostgreSQL", "Redis", "Judge0"],
+    role: "Personal Project",
+    image: "/images/rufflogix-logo.jpg",
+  },
+  {
+    title: "Urine Color Classifier",
+    category: "AI / Machine Learning",
+    date: "2026",
+    description:
+      "A lightweight ordinal image classifier that grades urine color on a 5-point scale (Clear → Very Dark) as a coarse hydration proxy, built for CPU inference. Treats the ordered classes as ordinal regression (class-weighted CE + Squared-EMD loss), with color-preserving augmentation, effective-number class balancing, and a held-out + 5-fold stratified protocol. Reaches QWK 0.963 on the test set with 100% adjacent accuracy — every error is off-by-one — while a trivial color+GBM baseline matches ~98% of it, making the efficiency case for tiny deployment. Not a diagnostic tool.",
+    tags: ["PyTorch", "Computer Vision", "Ordinal Regression", "CNN"],
+    role: "Research Project",
+    image: "/images/rufflogix-logo.jpg",
+  },
+  {
+    title: "Thai Disaster AI Agent (NSC 2026)",
+    category: "AI / Machine Learning",
+    date: "2026",
+    description:
+      "NSC 2026 project advised by Prof. Peerapon Vateekul. A Thai-language conversational AI agent for disaster and environmental intelligence, delivered via LINE. Unifies fragmented government open data into one chat interface: a Vertex AI RAG Engine (Gemini 2.5 Flash-Lite + Typhoon 2.1) over DDPM/HII/DMR documents, live environment tools (Google Flood Hub, Air Quality API, Air4Thai, RID, TMD, GISTDA), and geospatial analysis via Google Earth Engine (AlphaEarth & Dynamic World) for flood, landslide, and burn-scar mapping — answering in under 8s (p95) with map widgets and official citations.",
+    tags: ["Vertex AI", "Gemini", "RAG", "Earth Engine", "LINE", "PyThaiNLP"],
+    role: "NSC 2026 Project",
+    image: "/images/rufflogix-logo.jpg",
+  },
+  {
+    title: "Medical Event Captioning (BRIDGE-AI Declaration 2026)",
+    category: "AI / Machine Learning",
+    date: "2026",
+    description:
+      "Live Thai ⇄ English medical event captioning shown on a conference monitor, tuned for medical vocabulary and Thai/English code-switching on stage. Streaming ASR with Google Chirp 3 (Speech v2) handles English clinical terms embedded in Thai speech natively, with WebRTC VAD segmentation, PyThaiNLP normalization, clinical-term masking around Google Translate, and a browser display over WebSocket offering live language swap and downloadable section transcripts with LLM summaries. Local Whisper/Typhoon/Qwen3 backends remain as offline fallbacks.",
+    tags: [
+      "ASR",
+      "Chirp 3",
+      "Google Cloud",
+      "Translation",
+      "WebSocket",
+      "PyThaiNLP",
+    ],
+    role: "Personal Project",
+    image: "/images/rufflogix-logo.jpg",
+  },
+  {
+    title: "Simple Pose Estimation",
+    category: "AI / Machine Learning",
+    date: "2026",
+    description:
+      'A lightweight pose-estimation demo built on MediaPipe, used to power a playful "six-seven" gesture counter. Explores real-time body-landmark tracking from a webcam feed.',
+    tags: ["Python", "MediaPipe", "Computer Vision"],
+    role: "KBTG Side Project",
+    image: "/images/rufflogix-logo.jpg",
+    articleLink:
+      "https://medium.com/@rufflogix/mediapipe-%E0%B8%97%E0%B8%B3-six-seven-counter-%E0%B8%97%E0%B8%B3%E0%B9%84%E0%B8%A1-d3fbfae98c6b",
+    githubLinks: [
+      {
+        label: "Repository",
+        url: "https://github.com/RuffLogix/simple-pose-estimation",
+      },
+    ],
+  },
+  {
     title: "Conway's Game of Life Simulator",
     category: "Game Development",
     date: "November 2025",
