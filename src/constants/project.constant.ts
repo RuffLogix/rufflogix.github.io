@@ -27,8 +27,8 @@ export const projectInformation: ProjectInformation[] = [
     category: "AI / Machine Learning",
     date: "2026",
     description:
-      "A lightweight ordinal image classifier that grades urine color on a 5-point scale (Clear → Very Dark) as a coarse hydration proxy, built for CPU inference. Treats the ordered classes as ordinal regression (class-weighted CE + Squared-EMD loss), with color-preserving augmentation, effective-number class balancing, and a held-out + 5-fold stratified protocol. Reaches QWK 0.963 on the test set with 100% adjacent accuracy — every error is off-by-one — while a trivial color+GBM baseline matches ~98% of it, making the efficiency case for tiny deployment. Not a diagnostic tool.",
-    tags: ["PyTorch", "Computer Vision", "Ordinal Regression", "CNN"],
+      "A lightweight ordinal image classifier that grades urine color on a 5-point scale (Clear → Very Dark) as a coarse hydration proxy, built for CPU inference. Treats the ordered classes as ordinal regression (class-weighted CE + Squared-EMD loss), with color-preserving augmentation, effective-number class balancing, and a held-out + 5-fold stratified protocol. Reaches QWK 0.963 on the test set with 100% adjacent accuracy — every error is off-by-one — while a trivial color+GBM baseline matches ~98% of it, making the efficiency case for tiny deployment. Delivered as a LINE chatbot via the LINE SDK and Messaging API, so users get a hydration reading by sending a photo in chat. Not a diagnostic tool.",
+    tags: ["PyTorch", "Computer Vision", "Ordinal Regression", "CNN", "LINE"],
     role: "Research Project",
     image: "/images/rufflogix-logo.jpg",
   },
