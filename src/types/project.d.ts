@@ -5,6 +5,7 @@ export interface ProjectInformation {
 	description: string;
 	tags: string[];
 	role: string;
+	status?: string;
 	image: string;
 	infoLink?: string;
 	articleLink?: string;

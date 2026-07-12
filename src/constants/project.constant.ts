@@ -40,6 +40,7 @@ export const projectInformation: ProjectInformation[] = [
       "NSC 2026 project advised by Prof. Peerapon Vateekul. A Thai-language conversational AI agent for disaster and environmental intelligence, delivered via LINE. Unifies fragmented government open data into one chat interface: a Vertex AI RAG Engine (Gemini 2.5 Flash-Lite + Typhoon 2.1) over DDPM/HII/DMR documents, live environment tools (Google Flood Hub, Air Quality API, Air4Thai, RID, TMD, GISTDA), and geospatial analysis via Google Earth Engine (AlphaEarth & Dynamic World) for flood, landslide, and burn-scar mapping — answering in under 8s (p95) with map widgets and official citations.",
     tags: ["Vertex AI", "Gemini", "RAG", "Earth Engine", "LINE", "PyThaiNLP"],
     role: "NSC 2026 Project",
+    status: "In Progress",
     image: "/images/rufflogix-logo.jpg",
   },
   {
@@ -57,6 +58,7 @@ export const projectInformation: ProjectInformation[] = [
       "PyThaiNLP",
     ],
     role: "Personal Project",
+    status: "In Progress",
     image: "/images/rufflogix-logo.jpg",
   },
   {

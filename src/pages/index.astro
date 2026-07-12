@@ -238,6 +238,9 @@ const philosophy = [
                         <div class="bento-top">
                             <span class="bento-cat label">{p.category}</span>
                             <span class="bento-date label">{p.date}</span>
+                            {p.status && (
+                                <span class="bento-status">{p.status}</span>
+                            )}
                         </div>
                         <h3 class="bento-title">{p.title}</h3>
                         <p class="bento-desc">{p.description}</p>
@@ -652,7 +655,7 @@ const philosophy = [
     .bento-top {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        gap: 0.5rem;
     }
     .bento-cat {
         color: var(--accent);
@@ -660,6 +663,38 @@ const philosophy = [
     }
     .bento-date {
         color: var(--text-2);
+        margin-left: auto;
+    }
+    .bento-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35em;
+        padding: 0.1rem 0.5rem;
+        border-radius: 999px;
+        font-size: 0.62rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 12%, transparent);
+        border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    }
+    .bento-status::before {
+        content: "";
+        width: 0.4em;
+        height: 0.4em;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: bento-pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes bento-pulse {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.3;
+        }
     }
 
     .bento-title {
