@@ -32,4 +32,30 @@ export const publicationInformation: PublicationInformation[] = [
     doi: "10.1109/ACCESS.2026.3702327",
     doiLink: "https://ieeexplore.ieee.org/document/11557298",
   },
+  {
+    title:
+      "Fine-Grained Formal Verification of an Asynchronous Speaker Diarization Pipeline Using Hierarchical Timed Colored Petri Nets",
+    authors: [
+      "Teejuta Sriwaranon",
+      "Nuengwong Tuaycharoen",
+      "Wiwat Vatanawood",
+    ],
+    selfAuthorIndex: 0,
+    venue:
+      "2026 23rd International Joint Conference on Computer Science and Software Engineering (JCSSE)",
+    date: "June 2026",
+    type: "Conference Paper",
+    abstract:
+      "A fine-grained hierarchical Timed Colored Petri Net (HTCPN) model of an asynchronous speaker diarization pipeline that exposes three generalizable structural deadlock patterns in concurrent AI pipelines. Seven correctness properties are verified, including a novel attribution consistency property, showing that sub-module decomposition is necessary for complete pipeline verification.",
+    tags: [
+      "Formal Verification",
+      "Hierarchical Petri Nets",
+      "Speaker Diarization",
+      "Reachability Analysis",
+      "Deadlock Freedom",
+      "Liveness",
+    ],
+    doi: "10.1109/JCSSE68839.2026.11597080",
+    doiLink: "https://ieeexplore.ieee.org/document/11597080",
+  },
 ];

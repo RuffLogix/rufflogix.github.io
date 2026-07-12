@@ -44,10 +44,10 @@ export const experienceInformation: ExperienceInformation[] = [
     image: "/images/experience/agoda-logo.png",
     instituteName: "Agoda",
     link: "https://www.agoda.com/",
-    program: "Full Stack Engineer",
+    program: "Full Stack Engineer (Internship)",
     location: "Bangkok, Thailand",
-    duration: "May 2026 - Present",
-    calculatedDuration: parseDurationString("May 2026 - Present"),
+    duration: "May 2026 - Jul 2026",
+    calculatedDuration: parseDurationString("May 2026 - Jul 2026"),
     description:
       "Building a framework that bridges LLMs and Temporal.io through MCP, exposing predefined Temporal workflows as tools any LLM can invoke. Applied it to an internal Slack Bot for semi-automated employee onboarding, reducing the process from 21 steps down to 3–5.",
   },
