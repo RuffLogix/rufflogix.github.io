@@ -41,17 +41,6 @@ export const educationalInformation: EducationalInformation[] = [
 
 export const experienceInformation: ExperienceInformation[] = [
   {
-    image: "/images/experience/agoda-logo.png",
-    instituteName: "Agoda",
-    link: "https://www.agoda.com/",
-    program: "Full Stack Engineer (Internship)",
-    location: "Bangkok, Thailand",
-    duration: "May 2026 - Jul 2026",
-    calculatedDuration: parseDurationString("May 2026 - Jul 2026"),
-    description:
-      "Building a framework that bridges LLMs and Temporal.io through MCP, exposing predefined Temporal workflows as tools any LLM can invoke. Applied it to an internal Slack Bot for semi-automated employee onboarding, reducing the process from 21 steps down to 3–5.",
-  },
-  {
     image: "/images/experience/khuiai-logo.jpg",
     instituteName: "Khui AI",
     link: "https://www.khuiai.com/",
@@ -72,6 +61,17 @@ export const experienceInformation: ExperienceInformation[] = [
     calculatedDuration: parseDurationString("Sep 2025 - Present"),
     description:
       "I researched the NEET (Not in Education, Employment, or Training) group in Thailand to understand their behaviors and needs, and explored how AI could be utilized to support them. I also developed a mobile application using Flutter and implemented a real-time ASR (Automatic Speech Recognition) and Machine Translation pipeline for medical discussions.",
+  },
+  {
+    image: "/images/experience/agoda-logo.png",
+    instituteName: "Agoda",
+    link: "https://www.agoda.com/",
+    program: "Full Stack Engineer (Internship)",
+    location: "Bangkok, Thailand",
+    duration: "May 2026 - Jul 2026",
+    calculatedDuration: parseDurationString("May 2026 - Jul 2026"),
+    description:
+      "Building a framework that bridges LLMs and Temporal.io through MCP, exposing predefined Temporal workflows as tools any LLM can invoke. Applied it to an internal Slack Bot for semi-automated employee onboarding, reducing the process from 21 steps down to 3–5.",
   },
   {
     image: "/images/experience/lmwn-logo.jpg",
