@@ -57,8 +57,9 @@ export const projectInformation: ProjectInformation[] = [
       "WebSocket",
       "PyThaiNLP",
     ],
+    articleLink:
+      "https://www.linkedin.com/posts/teejuta-sriwaranon_on-20-21-july-2026-i-had-the-opportunity-ugcPost-7485333153671180288--In3/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAADEO7JoBnMXo_k1FDcEtmEB62kpr3yfFrqg",
     role: "Personal Project",
-    status: "In Progress",
     image: "/images/rufflogix-logo.jpg",
   },
   {
