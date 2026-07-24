@@ -13,6 +13,7 @@ export const personalInfo = {
   github: "https://github.com/RuffLogix",
   kaggle: "https://www.kaggle.com/teejutasriwaranon",
   codeforces: "https://codeforces.com/profile/RuffLogix",
+  scholar: "https://scholar.google.com/citations?user=OtfB_T4AAAAJ&hl=th",
 };
 
 export const educationalInformation: EducationalInformation[] = [
