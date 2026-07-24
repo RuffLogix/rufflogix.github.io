@@ -31,6 +31,8 @@ export const projectInformation: ProjectInformation[] = [
     tags: ["PyTorch", "Computer Vision", "Ordinal Regression", "CNN", "LINE"],
     role: "Research Project",
     image: "/images/rufflogix-logo.jpg",
+    articleLink:
+      "https://www.linkedin.com/posts/teejuta-sriwaranon_an-ai-system-our-team-built-for-urinalysis-ugcPost-7486049083208396800-KuVj/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAADEO7JoBnMXo_k1FDcEtmEB62kpr3yfFrqg",
   },
   {
     title: "Thai Disaster AI Agent (NSC 2026)",
@@ -40,8 +42,9 @@ export const projectInformation: ProjectInformation[] = [
       "NSC 2026 project advised by Prof. Peerapon Vateekul. A Thai-language conversational AI agent for disaster and environmental intelligence, delivered via LINE. Unifies fragmented government open data into one chat interface: a Vertex AI RAG Engine (Gemini 2.5 Flash-Lite + Typhoon 2.1) over DDPM/HII/DMR documents, live environment tools (Google Flood Hub, Air Quality API, Air4Thai, RID, TMD, GISTDA), and geospatial analysis via Google Earth Engine (AlphaEarth & Dynamic World) for flood, landslide, and burn-scar mapping — answering in under 8s (p95) with map widgets and official citations.",
     tags: ["Vertex AI", "Gemini", "RAG", "Earth Engine", "LINE", "PyThaiNLP"],
     role: "NSC 2026 Project",
-    status: "In Progress",
     image: "/images/rufflogix-logo.jpg",
+    articleLink:
+      "https://www.linkedin.com/posts/teejuta-sriwaranon_nsc2026-aiagent-llm-ugcPost-7486051525434200064-T6D8/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAADEO7JoBnMXo_k1FDcEtmEB62kpr3yfFrqg",
   },
   {
     title: "Medical Event Captioning (BRIDGE-AI Declaration 2026)",
