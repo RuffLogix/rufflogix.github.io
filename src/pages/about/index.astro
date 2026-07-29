@@ -126,9 +126,10 @@ import { techStackData } from "../../constants/techstack.constant";
               </div>
               <p class="tl-desc">{edu.description}</p>
               {edu.coursework && (
-                <div class="skill-tags" style="margin-bottom: 0.75rem;">
-                  {edu.coursework.map(c => <span class="tag">{c}</span>)}
-                </div>
+                <p class="tl-coursework">
+                  <span class="tl-coursework-label label">Selected coursework</span>
+                  {edu.coursework.join(" · ")}
+                </p>
               )}
               <span class="tl-location label">{edu.location}</span>
             </div>
@@ -413,6 +414,19 @@ import { techStackData } from "../../constants/techstack.constant";
   margin-bottom: 0.75rem;
 }
 .tl-location { color: var(--text-3); font-size: 0.68rem; }
+
+.tl-coursework {
+  font-size: 0.8rem;
+  color: var(--text-3);
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+  max-width: 62ch;
+}
+.tl-coursework-label {
+  display: block;
+  color: var(--text-2);
+  margin-bottom: 0.25rem;
+}
 
 /* Skills */
 .skills-grid {
