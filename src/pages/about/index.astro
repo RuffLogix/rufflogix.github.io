@@ -125,6 +125,11 @@ import { techStackData } from "../../constants/techstack.constant";
                 </div>
               </div>
               <p class="tl-desc">{edu.description}</p>
+              {edu.coursework && (
+                <div class="skill-tags" style="margin-bottom: 0.75rem;">
+                  {edu.coursework.map(c => <span class="tag">{c}</span>)}
+                </div>
+              )}
               <span class="tl-location label">{edu.location}</span>
             </div>
           </div>

@@ -6,6 +6,7 @@ export interface EducationalInformation {
 	duration: string;
 	calculatedDuration: string;
 	description: string;
+	coursework?: string[];
 }
 
 export interface ExperienceInformation {
