@@ -9,13 +9,21 @@ export interface EducationalInformation {
 	coursework?: string[];
 }
 
+export interface ExperiencePosition {
+	program: string;
+	duration: string;
+	calculatedDuration: string;
+	description: string;
+}
+
 export interface ExperienceInformation {
 	image: string;
 	instituteName: string;
 	link?: string;
-	program: string;
+	program?: string;
 	location: string;
 	duration: string;
 	calculatedDuration: string;
-	description: string;
+	description?: string;
+	positions?: ExperiencePosition[];
 }

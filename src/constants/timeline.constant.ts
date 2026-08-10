@@ -58,12 +58,25 @@ export const experienceInformation: ExperienceInformation[] = [
     image: "/images/experience/khuiai-logo.jpg",
     instituteName: "Khui AI",
     link: "https://www.khuiai.com/",
-    program: "Software Engineer Pro Max (Part-time)",
     location: "Bangkok, Thailand",
     duration: "Aug 2025 - Present",
     calculatedDuration: parseDurationString("Aug 2025 - Present"),
-    description:
-      "Worked across frontend, backend, mobile, and AI engineering to develop a customizable layout system and an adaptive LLM strategy-switching mechanism to reduce hallucination and context loss. Developed cross-platform mobile applications using Expo, and designed and implemented LLM training, fine-tuning, and deployment workflows, alongside additional features planned for future development.",
+    positions: [
+      {
+        program: "Software Engineer Pro Max (Full-time)",
+        duration: "Aug 2026 - Present",
+        calculatedDuration: parseDurationString("Aug 2026 - Present"),
+        description:
+          "Worked across frontend, backend, mobile, and AI engineering to develop a customizable layout system and an adaptive LLM strategy-switching mechanism to reduce hallucination and context loss. Developed cross-platform mobile applications using Expo, and designed and implemented LLM training, fine-tuning, and deployment workflows, alongside additional features planned for future development.",
+      },
+      {
+        program: "Software Engineer Pro Max (Part-time)",
+        duration: "Aug 2025 - Jul 2026",
+        calculatedDuration: parseDurationString("Aug 2025 - Jul 2026"),
+        description:
+          "Worked across frontend, backend, mobile, and AI engineering to develop a customizable layout system and an adaptive LLM strategy-switching mechanism to reduce hallucination and context loss. Developed cross-platform mobile applications using Expo, and designed and implemented LLM training, fine-tuning, and deployment workflows, alongside additional features planned for future development.",
+      },
+    ],
   },
   {
     image: "/images/experience/kbtg-logo.png",
@@ -113,12 +126,25 @@ export const experienceInformation: ExperienceInformation[] = [
     image: "/images/experience/looloo-logo.png",
     instituteName: "Looloo Technology",
     link: "https://aimet.tech",
-    program: "Machine Learning Engineer (Internship & Part-time)",
     location: "Bangkok, Thailand",
     duration: "Jun 2024 - Dec 2024",
     calculatedDuration: parseDurationString("Jun 2024 - Dec 2024"),
-    description:
-      "I experimented with voice activity detection and speaker diarization models, integrating them into an automatic speech recognition (ASR) pipeline. I deployed AI services using the Gradio framework and Docker, ensuring scalable and user-friendly interfaces. Additionally, I scraped and preprocessed audio data and implemented audio enhancement modules to improve input quality for downstream tasks.",
+    positions: [
+      {
+        program: "Machine Learning Engineer (Part-time)",
+        duration: "Aug 2024 - Dec 2024",
+        calculatedDuration: parseDurationString("Aug 2024 - Dec 2024"),
+        description:
+          "I deployed AI services using the Gradio framework and Docker, ensuring scalable and user-friendly interfaces. I also scraped and preprocessed audio data and implemented audio enhancement modules to improve input quality for downstream tasks.",
+      },
+      {
+        program: "Machine Learning Engineer (Internship)",
+        duration: "Jun 2024 - Aug 2024",
+        calculatedDuration: parseDurationString("Jun 2024 - Aug 2024"),
+        description:
+          "I experimented with voice activity detection and speaker diarization models, integrating them into an automatic speech recognition (ASR) pipeline.",
+      },
+    ],
   },
   {
     image: "/images/experience/kbtg-logo.png",

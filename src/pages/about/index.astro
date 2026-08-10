@@ -94,10 +94,24 @@ import { techStackData } from "../../constants/techstack.constant";
                       </a>
                     ) : exp.instituteName}
                   </h3>
-                  <p class="tl-role">{exp.program}</p>
+                  {!exp.positions && <p class="tl-role">{exp.program}</p>}
                 </div>
               </div>
-              <p class="tl-desc">{exp.description}</p>
+
+              {exp.positions ? (
+                <div class="tl-positions">
+                  {exp.positions.map((pos) => (
+                    <div class="tl-position">
+                      <p class="tl-position-role">{pos.program}</p>
+                      <span class="tl-position-duration label">{pos.duration}</span>
+                      <p class="tl-desc">{pos.description}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p class="tl-desc">{exp.description}</p>
+              )}
+
               <span class="tl-location label">{exp.location}</span>
             </div>
           </div>
@@ -414,6 +428,58 @@ import { techStackData } from "../../constants/techstack.constant";
   margin-bottom: 0.75rem;
 }
 .tl-location { color: var(--text-3); font-size: 0.68rem; }
+
+/* Nested positions within one company — dot + connector rail */
+.tl-positions {
+  display: flex;
+  flex-direction: column;
+  margin: 0.1rem 0 0.85rem;
+}
+
+.tl-position {
+  position: relative;
+  padding-left: 1.4rem;
+  padding-bottom: 1.5rem;
+}
+.tl-position:last-child { padding-bottom: 0; }
+
+/* node */
+.tl-position::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.32rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-3);
+}
+/* rail connecting this node to the next */
+.tl-position::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 1.05rem;
+  bottom: 0.15rem;
+  width: 1px;
+  background: var(--border);
+}
+.tl-position:last-child::after { display: none; }
+
+.tl-position-role {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-1);
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+.tl-position-duration {
+  display: block;
+  color: var(--text-3);
+  font-size: 0.66rem;
+  margin: 0.15rem 0 0.5rem;
+}
+.tl-position .tl-desc { margin-bottom: 0; }
 
 .tl-coursework {
   font-size: 0.8rem;
