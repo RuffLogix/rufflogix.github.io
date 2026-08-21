@@ -27,17 +27,62 @@ export const educationalInformation: EducationalInformation[] = [
     description:
       "Currently pursuing a Bachelor's degree in Computer Engineering. Developing expertise in software development, artificial intelligence, and algorithm design while maintaining strong academic performance.",
     coursework: [
-      "Algorithm Design",
-      "Operating Systems",
-      "Distributed Systems",
-      "Database Systems",
-      "Computer Networks",
-      "Software Engineering",
-      "High Performance Architecture",
-      "Formal Verification",
-      "Pattern Recognition",
-      "Data Mining",
-      "Computer Graphics",
+      {
+        area: "Systems & Architecture",
+        courses: [
+          "Operating Systems",
+          "Distributed Systems",
+          "Computer Networks",
+          "Computer System Architecture",
+          "High Performance Architecture",
+          "Embedded Systems Lab",
+          "Hardware Synthesis Lab",
+          "Digital Computer Logic",
+          "Digital Logic Lab",
+        ],
+      },
+      {
+        area: "AI, Data & Graphics",
+        courses: [
+          "Pattern Recognition",
+          "Data Mining",
+          "Digital Imaging",
+          "Computer Graphics",
+          "Database Systems",
+          "Statistics for Physical Science",
+        ],
+      },
+      {
+        area: "Theory & Mathematics",
+        courses: [
+          "Algorithm Design",
+          "Data Structures",
+          "Discrete Structures",
+          "Formal Verification",
+          "Computer Engineering Mathematics I",
+          "Computer Engineering Mathematics II",
+        ],
+      },
+      {
+        area: "Software Engineering",
+        courses: [
+          "Software Engineering",
+          "Software Engineering Lab",
+          "Programming Methodology",
+          "Computer Programming",
+          "Computer Engineering Essentials",
+          "Game Programming",
+          "Design Thinking",
+        ],
+      },
+      {
+        area: "Research & Independent Study",
+        courses: [
+          "Individual Study I",
+          "Individual Study II",
+          "Advanced Topics in Computer Engineering VII",
+        ],
+      },
     ],
   },
   {

@@ -140,10 +140,17 @@ import { techStackData } from "../../constants/techstack.constant";
               </div>
               <p class="tl-desc">{edu.description}</p>
               {edu.coursework && (
-                <p class="tl-coursework">
+                <div class="tl-coursework">
                   <span class="tl-coursework-label label">Selected coursework</span>
-                  {edu.coursework.join(" · ")}
-                </p>
+                  <div class="cw-grid">
+                    {edu.coursework.map((group) => (
+                      <div class="cw-group">
+                        <span class="cw-area label">{group.area}</span>
+                        <p class="cw-courses">{group.courses.join(" · ")}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
               <span class="tl-location label">{edu.location}</span>
             </div>
@@ -482,16 +489,37 @@ import { techStackData } from "../../constants/techstack.constant";
 .tl-position .tl-desc { margin-bottom: 0; }
 
 .tl-coursework {
-  font-size: 0.8rem;
-  color: var(--text-3);
-  line-height: 1.8;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.9rem;
   max-width: 62ch;
 }
 .tl-coursework-label {
   display: block;
   color: var(--text-2);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.cw-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 2rem;
+}
+.cw-area {
+  display: block;
+  color: var(--text-3);
+  font-size: 0.64rem;
+  margin-bottom: 0.3rem;
+}
+.cw-courses {
+  font-size: 0.78rem;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .cw-grid {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
 }
 
 /* Skills */

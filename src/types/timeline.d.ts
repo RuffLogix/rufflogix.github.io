@@ -1,3 +1,8 @@
+export interface CourseworkArea {
+	area: string;
+	courses: string[];
+}
+
 export interface EducationalInformation {
 	image: string;
 	instituteName: string;
@@ -6,7 +11,7 @@ export interface EducationalInformation {
 	duration: string;
 	calculatedDuration: string;
 	description: string;
-	coursework?: string[];
+	coursework?: CourseworkArea[];
 }
 
 export interface ExperiencePosition {
