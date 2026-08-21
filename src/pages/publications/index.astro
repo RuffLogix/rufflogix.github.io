@@ -160,8 +160,8 @@ function isSelf(idx: number, self?: number | number[]) {
 
 <style>
   .pubs-page {
-    padding-top: 5rem;
-    padding-bottom: 6rem;
+    padding-top: var(--sp-section);
+    padding-bottom: calc(var(--sp-section) + 1rem);
   }
 
   /* Header */
@@ -368,10 +368,6 @@ function isSelf(idx: number, self?: number | number[]) {
 
   /* Responsive */
   @media (max-width: 640px) {
-    .pubs-page {
-      padding-top: 3rem;
-      padding-bottom: 4rem;
-    }
     .pubs-header {
       margin-bottom: 1.75rem;
     }

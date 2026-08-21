@@ -226,8 +226,8 @@ import { techStackData } from "../../constants/techstack.constant";
 
 <style>
 .about-page {
-  padding-top: 5rem;
-  padding-bottom: 6rem;
+  padding-top: var(--sp-section);
+  padding-bottom: calc(var(--sp-section) + 1rem);
 }
 
 /* ── HEADER ───────────────────────────────────────────────── */
@@ -555,7 +555,6 @@ import { techStackData } from "../../constants/techstack.constant";
 }
 
 @media (max-width: 640px) {
-  .about-page    { padding-top: 3rem; padding-bottom: 4rem; }
   .about-header  { margin-bottom: 3rem; }
   .section       { padding: 2.5rem 0; }
 

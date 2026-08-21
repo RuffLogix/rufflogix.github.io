@@ -98,8 +98,8 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
 
 <style>
   .events-page {
-    padding-top: 5rem;
-    padding-bottom: 6rem;
+    padding-top: var(--sp-section);
+    padding-bottom: calc(var(--sp-section) + 1rem);
   }
 
   /* Header */
@@ -219,10 +219,6 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
 
   /* Responsive */
   @media (max-width: 640px) {
-    .events-page {
-      padding-top: 3rem;
-      padding-bottom: 4rem;
-    }
     .event-link {
       grid-template-columns: 1fr auto;
       gap: 0.75rem 1rem;

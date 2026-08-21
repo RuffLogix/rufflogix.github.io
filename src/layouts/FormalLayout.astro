@@ -32,12 +32,12 @@ const {
       rel="stylesheet"
     />
 
-    <meta name="theme-color" content="#090909" />
+    <meta name="theme-color" content="#0C0C0E" />
 
-    <!-- Critical CSS — prevent flash -->
+    <!-- Critical CSS — prevent flash. Must match --bg/--text-1 exactly. -->
     <style is:inline>
-      html { background: #090909; color: #EBEBEB; }
-      [data-theme="light"] { background: #F5F5F3; color: #0A0A0A; }
+      html { background: #0C0C0E; color: #F2F2F2; }
+      html[data-theme="light"] { background: #FFFFFF; color: #111111; }
     </style>
 
     <!-- Apply saved theme immediately, before paint -->
@@ -52,17 +52,11 @@ const {
   </head>
 
   <body>
-    <a
-      href="#main"
-      class="sr-only"
-      style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);"
-    >
-      Skip to main content
-    </a>
+    <a href="#main" class="skip-link">Skip to main content</a>
 
     <FormalNavbar />
 
-    <main id="main" style="padding-top: var(--nav-h);">
+    <main id="main" tabindex="-1" style="padding-top: var(--nav-h);">
       <slot />
     </main>
 
@@ -80,6 +74,17 @@ const {
       html.setAttribute('data-theme', t);
       localStorage.setItem('theme', t);
       theme = t;
+
+      // Announce the destination, not the current state — that's what the click does
+      const next = t === 'dark' ? 'light' : 'dark';
+      const label = `Switch to ${next} theme`;
+      btn?.setAttribute('aria-pressed', String(t === 'light'));
+      btn?.setAttribute('aria-label', label);
+      btn?.setAttribute('title', label);
+
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute('content', t === 'dark' ? '#0C0C0E' : '#FFFFFF');
     };
     apply(theme);
     btn?.addEventListener('click', () => apply(theme === 'dark' ? 'light' : 'dark'));

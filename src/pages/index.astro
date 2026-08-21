@@ -428,11 +428,7 @@ const philosophy = [
     height: 60vw;
     top: -20%;
     left: 10%;
-    background: radial-gradient(
-      ellipse,
-      rgba(80, 120, 200, 0.07) 0%,
-      transparent 70%
-    );
+    background: radial-gradient(ellipse, var(--glow-1) 0%, transparent 70%);
     animation: drift 18s ease-in-out infinite;
   }
   .g2 {
@@ -440,11 +436,7 @@ const philosophy = [
     height: 50vw;
     top: 20%;
     right: -10%;
-    background: radial-gradient(
-      ellipse,
-      rgba(140, 80, 200, 0.05) 0%,
-      transparent 70%
-    );
+    background: radial-gradient(ellipse, var(--glow-2) 0%, transparent 70%);
     animation: drift 24s ease-in-out infinite reverse;
   }
   .g3 {
@@ -452,11 +444,7 @@ const philosophy = [
     height: 40vw;
     bottom: -10%;
     left: 30%;
-    background: radial-gradient(
-      ellipse,
-      rgba(60, 180, 140, 0.04) 0%,
-      transparent 70%
-    );
+    background: radial-gradient(ellipse, var(--glow-3) 0%, transparent 70%);
     animation: drift 20s ease-in-out infinite 4s;
   }
   @keyframes drift {
@@ -488,7 +476,11 @@ const philosophy = [
   }
 
   .hero-headline {
-    font-size: clamp(3rem, 9vw, 8rem);
+    /* One continuous ramp. A separate mobile clamp used to collide with this
+       one at 640px and snap the headline down ~16px. The 6.25rem ceiling is
+       the largest size that still keeps "Software Engineering" on one line
+       inside the 1032px content column. */
+    font-size: clamp(2.1rem, 0.3rem + 7.7vw, 6.25rem);
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.02;
@@ -548,8 +540,8 @@ const philosophy = [
 
   /* ── ABOUT STRIP ──────────────────────────────────────────── */
   .about-strip {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: var(--sp-section);
+    padding-bottom: var(--sp-section);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
   }
@@ -591,8 +583,8 @@ const philosophy = [
 
   /* ── WORK ─────────────────────────────────────────────────── */
   .work-section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: var(--sp-section);
+    padding-bottom: var(--sp-section);
   }
 
   .section-header {
@@ -724,8 +716,8 @@ const philosophy = [
 
   /* ── PHILOSOPHY ───────────────────────────────────────────── */
   .philosophy-section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: var(--sp-section);
+    padding-bottom: var(--sp-section);
     border-top: 1px solid var(--border);
   }
 
@@ -788,8 +780,8 @@ const philosophy = [
 
   /* ── WRITING ──────────────────────────────────────────────── */
   .writing-section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: var(--sp-section);
+    padding-bottom: var(--sp-section);
     border-top: 1px solid var(--border);
   }
   .posts-list {
@@ -887,9 +879,6 @@ const philosophy = [
   }
 
   @media (max-width: 640px) {
-    .hero-headline {
-      font-size: clamp(1.75rem, 8vw, 2.6rem);
-    }
     .hero-inner {
       padding-top: 3.5rem;
       padding-bottom: 3.5rem;
@@ -902,16 +891,6 @@ const philosophy = [
     }
     .br-lg {
       display: none;
-    }
-    .about-strip {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
-    }
-    .work-section,
-    .philosophy-section,
-    .writing-section {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
     }
     .philosophy-grid {
       grid-template-columns: 1fr;

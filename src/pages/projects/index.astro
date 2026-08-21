@@ -4,6 +4,17 @@ import { projectInformation } from "../../constants/project.constant";
 
 const primaryLink = (p: (typeof projectInformation)[number]) =>
   p.githubLinks?.[0]?.url ?? p.infoLink ?? p.articleLink ?? null;
+
+// Categories in first-appearance order, each with its own count.
+const categories = [...new Set(projectInformation.map((p) => p.category))].map(
+  (name) => ({
+    name,
+    count: projectInformation.filter((p) => p.category === name).length,
+  }),
+);
+
+const total = projectInformation.length;
+const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
 <FormalLayout title="Work — RuffLogix">
@@ -17,10 +28,30 @@ const primaryLink = (p: (typeof projectInformation)[number]) =>
       <p class="projects-sub reveal d2">
         Systems built for performance, AI, and exploration.
       </p>
-      <p class="projects-count label reveal d3">
-        {String(projectInformation.length).padStart(2, "0")} entries
-      </p>
     </header>
+
+    <!-- Category filter -->
+    <div class="proj-filter reveal d3">
+      <div class="filter-chips" role="group" aria-label="Filter projects by category">
+        <button
+          type="button"
+          class="chip is-active"
+          data-filter="all"
+          aria-pressed="true"
+        >
+          All <span class="chip-count">{pad(total)}</span>
+        </button>
+        {categories.map(({ name, count }) => (
+          <button type="button" class="chip" data-filter={name} aria-pressed="false">
+            {name} <span class="chip-count">{pad(count)}</span>
+          </button>
+        ))}
+      </div>
+
+      <p class="projects-count label" id="proj-count" aria-live="polite">
+        {pad(total)} entries
+      </p>
+    </div>
 
     <!-- Project index -->
     <ol class="proj-index">
@@ -28,7 +59,10 @@ const primaryLink = (p: (typeof projectInformation)[number]) =>
         projectInformation.map((p, i) => {
           const href = primaryLink(p);
           return (
-            <li class:list={["proj-row reveal", `d${(i % 4) + 1}`]}>
+            <li
+              class:list={["proj-row reveal", `d${(i % 4) + 1}`]}
+              data-category={p.category}
+            >
               <a
                 class="proj-main"
                 href={href ?? undefined}
@@ -160,9 +194,17 @@ const primaryLink = (p: (typeof projectInformation)[number]) =>
       }
     </ol>
 
-    <!-- Empty state -->
+    <!-- No matches for the active filter -->
+    <div class="empty-state" id="proj-empty" hidden>
+      <p class="label">No projects in this category</p>
+      <button type="button" class="btn btn-ghost" data-filter-reset>
+        Show all projects
+      </button>
+    </div>
+
+    <!-- Nothing published at all -->
     {
-      projectInformation.length === 0 && (
+      total === 0 && (
         <div class="empty-state">
           <p class="label">More projects coming soon</p>
         </div>
@@ -171,15 +213,56 @@ const primaryLink = (p: (typeof projectInformation)[number]) =>
   </div>
 </FormalLayout>
 
+<script>
+  const chips = Array.from(
+    document.querySelectorAll<HTMLButtonElement>(".chip[data-filter]"),
+  );
+  const rows = Array.from(
+    document.querySelectorAll<HTMLLIElement>(".proj-row[data-category]"),
+  );
+  const countEl = document.getElementById("proj-count");
+  const emptyEl = document.getElementById("proj-empty");
+  const resetBtn = document.querySelector<HTMLButtonElement>("[data-filter-reset]");
+
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  function applyFilter(filter: string) {
+    let shown = 0;
+
+    rows.forEach((row) => {
+      const match = filter === "all" || row.dataset.category === filter;
+      row.hidden = !match;
+      if (match) shown++;
+    });
+
+    chips.forEach((chip) => {
+      const active = chip.dataset.filter === filter;
+      chip.classList.toggle("is-active", active);
+      chip.setAttribute("aria-pressed", String(active));
+    });
+
+    if (countEl) countEl.textContent = `${pad(shown)} ${shown === 1 ? "entry" : "entries"}`;
+    if (emptyEl) emptyEl.hidden = shown > 0;
+  }
+
+  chips.forEach((chip) =>
+    chip.addEventListener("click", () => applyFilter(chip.dataset.filter ?? "all")),
+  );
+  resetBtn?.addEventListener("click", () => {
+    applyFilter("all");
+    chips[0]?.focus();
+  });
+</script>
+
 <style>
   .projects-page {
-    padding-top: 5rem;
-    padding-bottom: 6rem;
+    padding-top: var(--sp-section);
+    padding-bottom: calc(var(--sp-section) + 1rem);
   }
 
   /* Header */
   .projects-header {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
   .projects-title {
     font-size: clamp(2rem, 5vw, 3.5rem);
@@ -196,8 +279,63 @@ const primaryLink = (p: (typeof projectInformation)[number]) =>
     line-height: 1.65;
   }
   .projects-count {
-    margin-top: 1.1rem;
     color: var(--text-3);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Filter bar ──────────────────────────────────────────── */
+  .proj-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.34rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    color: var(--text-2);
+    transition:
+      border-color var(--t-fast),
+      color var(--t-fast),
+      background var(--t-fast);
+  }
+  .chip:hover {
+    border-color: var(--border-hover);
+    color: var(--text-1);
+    background: var(--surface-hover);
+  }
+  .chip.is-active {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+  }
+
+  .chip-count {
+    font-size: 0.62rem;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .chip.is-active .chip-count {
+    color: inherit;
+    opacity: 0.7;
   }
 
   /* ── Index list — single flush-left edge ─────────────────── */
@@ -366,18 +504,24 @@ const primaryLink = (p: (typeof projectInformation)[number]) =>
 
   /* Empty */
   .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
     padding: 4rem 0;
     text-align: center;
+  }
+  .empty-state[hidden] {
+    display: none;
   }
 
   /* Responsive */
   @media (max-width: 640px) {
-    .projects-page {
-      padding-top: 3rem;
-      padding-bottom: 4rem;
-    }
     .projects-header {
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .proj-filter {
+      gap: 0.85rem;
     }
     .proj-row::before {
       left: -0.7rem;

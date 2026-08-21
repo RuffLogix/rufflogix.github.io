@@ -106,8 +106,8 @@ try {
 
 <style>
 .articles-page {
-  padding-top: 5rem;
-  padding-bottom: 6rem;
+  padding-top: var(--sp-section);
+  padding-bottom: calc(var(--sp-section) + 1rem);
 }
 
 .articles-header { margin-bottom: 4rem; }
@@ -199,7 +199,6 @@ try {
 }
 
 @media (max-width: 640px) {
-  .articles-page   { padding-top: 3rem; padding-bottom: 4rem; }
   .articles-header { margin-bottom: 2.5rem; }
   .post-row { padding: 1.25rem 0; gap: 1rem; }
   .post-title { font-size: 0.95rem; }
