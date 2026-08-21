@@ -9,6 +9,8 @@ interface MediumPost {
   guid: string;
   author: string;
   description: string;
+  content?: string;
+  thumbnail?: string;
 }
 
 function excerpt(html: string, max = 180) {
@@ -18,6 +20,12 @@ function excerpt(html: string, max = 180) {
 
 function fmtDate(s: string) {
   return new Date(s).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function firstImage(post: MediumPost) {
+  if (post.thumbnail) return post.thumbnail;
+  const match = (post.content || post.description || '').match(/<img[^>]+src="([^"]+)"/);
+  return match ? match[1] : null;
 }
 
 let posts: MediumPost[] = [];
@@ -45,9 +53,22 @@ try {
 
     {posts.length > 0 ? (
       <div class="posts-list">
-        {posts.map((post, i) => (
+        {posts.map((post, i) => {
+          const image = firstImage(post);
+          return (
           <a href={post.guid} target="_blank" rel="noopener noreferrer"
              class:list={['post-row reveal', `d${(i % 4) + 1}`]}>
+            {image && (
+              <div class="post-thumb-wrap">
+                <img
+                  src={image}
+                  alt=""
+                  loading="lazy"
+                  class="post-thumb"
+                  onerror="this.closest('.post-thumb-wrap').remove()"
+                />
+              </div>
+            )}
             <div class="post-row-inner">
               <div class="post-meta-row">
                 <span class="label post-date">{fmtDate(post.pubDate)}</span>
@@ -63,7 +84,8 @@ try {
               </svg>
             </div>
           </a>
-        ))}
+          );
+        })}
       </div>
     ) : (
       <div class="empty-state reveal">
@@ -124,6 +146,23 @@ try {
 .post-row:hover .post-title { color: var(--text-1); }
 .post-row:hover .post-arrow-wrap { opacity: 1; transform: translateX(0); }
 
+.post-thumb-wrap {
+  flex-shrink: 0;
+  width: 140px;
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--border);
+}
+.post-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--t-mid) var(--expo);
+}
+.post-row:hover .post-thumb { transform: scale(1.04); }
+
 .post-row-inner { flex: 1; }
 .post-meta-row { margin-bottom: 0.5rem; }
 .post-date { color: var(--text-3); }
@@ -165,5 +204,6 @@ try {
   .post-row { padding: 1.25rem 0; gap: 1rem; }
   .post-title { font-size: 0.95rem; }
   .post-arrow-wrap { flex-shrink: 0; }
+  .post-thumb-wrap { width: 84px; }
 }
 </style>
