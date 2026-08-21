@@ -71,7 +71,7 @@ export const projectInformation: ProjectInformation[] = [
     description:
       'A lightweight pose-estimation demo built on MediaPipe, used to power a playful "six-seven" gesture counter. Explores real-time body-landmark tracking from a webcam feed.',
     tags: ["Python", "MediaPipe", "Computer Vision"],
-    role: "KBTG Side Project",
+    role: "Personal Project",
     image: "/images/rufflogix-logo.jpg",
     articleLink:
       "https://medium.com/@rufflogix/mediapipe-%E0%B8%97%E0%B8%B3-six-seven-counter-%E0%B8%97%E0%B8%B3%E0%B9%84%E0%B8%A1-d3fbfae98c6b",
