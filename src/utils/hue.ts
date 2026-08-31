@@ -93,6 +93,3 @@ export function sectionHue(pathname: string): Hue {
     .sort((a, b) => b.length - a.length)[0];
   return SECTION_HUE[match ?? "/"];
 }
-
-/** Cycle the five hues across an ordered list (focus areas, philosophy, …). */
-export const cycleHue = (i: number): Hue => HUES[i % HUES.length];

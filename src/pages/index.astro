@@ -2,7 +2,7 @@
 import FormalLayout from "../layouts/FormalLayout.astro";
 import { projectInformation } from "../constants/project.constant.ts";
 import { publicationInformation } from "../constants/publication.constant.ts";
-import { cycleHue, projectHue, publicationHue } from "../utils/hue.ts";
+import { projectHue, publicationHue } from "../utils/hue.ts";
 import { decodeEntities } from "../utils/html.ts";
 
 const MEDIUM_URL =
@@ -215,11 +215,7 @@ const philosophy = [
         <p class="label-strong" style="margin-bottom: 1.25rem;">Focus Areas</p>
         <div class="focus-tags">
           {
-            focusAreas.map((area, i) => (
-              <span class="tag tag-hue" data-hue={cycleHue(i)}>
-                {area}
-              </span>
-            ))
+            focusAreas.map((area) => <span class="tag">{area}</span>)
           }
         </div>
       </div>
@@ -418,7 +414,7 @@ const philosophy = [
     <div class="philosophy-grid">
       {
         philosophy.map(({ word, desc }, i) => (
-          <div class:list={["phil-item reveal", `d${i + 1}`]} data-hue={cycleHue(i)}>
+          <div class:list={["phil-item reveal", `d${i + 1}`]}>
             <h3 class="phil-word">{word}</h3>
             <p class="phil-desc">{desc}</p>
           </div>
@@ -676,17 +672,6 @@ const philosophy = [
     flex-wrap: wrap;
     gap: 0.5rem;
   }
-  /* Focus areas cycle the categorical hues so the block reads as a set */
-  .tag-hue {
-    color: var(--hue);
-    border-color: var(--hue-line);
-    background: var(--hue-soft);
-  }
-  .tag-hue:hover {
-    border-color: var(--hue);
-    color: var(--hue);
-  }
-
   /* ── WORK ─────────────────────────────────────────────────── */
   .work-section {
     padding-top: var(--sp-section);
@@ -884,12 +869,9 @@ const philosophy = [
     margin-bottom: 3.5rem;
   }
 
-  /* All columns: top padding creates breathing room from the anchor rule.
-     Each column overdraws the shared rule in its own hue. */
+  /* All columns: top padding creates breathing room from the anchor rule */
   .phil-item {
     padding: 2rem 2.5rem 2.5rem 0;
-    border-top: 2px solid var(--hue);
-    margin-top: -1px;
   }
 
   /* Columns 2–4: left border as separator + matching left padding */
@@ -1013,9 +995,11 @@ const philosophy = [
       border-left: 1px solid var(--border);
       padding-left: 2rem;
     }
+    /* Second row needs its own rule — the grid only draws one at the top */
     .phil-item:nth-child(3),
     .phil-item:nth-child(4) {
       padding-top: 2rem;
+      border-top: 1px solid var(--border);
     }
     .phil-item:nth-child(4) {
       border-left: 1px solid var(--border);
@@ -1058,6 +1042,7 @@ const philosophy = [
     }
     .phil-item + .phil-item {
       border-left: none;
+      border-top: 1px solid var(--border);
       padding-left: 0;
     }
     .bento-card {
