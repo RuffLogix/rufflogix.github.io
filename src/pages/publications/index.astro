@@ -545,13 +545,15 @@ const areas = [
   }
 
   /* ── BibTeX ──────────────────────────────────────────────── */
+  /* Styled like the rest of the entry: hairlines and mono text, no filled
+     panel — the page has no other boxed surface to match. */
   .pub-cite {
-    margin-top: 1rem;
+    margin-top: 0.9rem;
   }
   .pub-cite-toggle {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.45rem;
     cursor: pointer;
     color: var(--text-3);
     list-style: none;
@@ -563,7 +565,6 @@ const areas = [
   .pub-cite-toggle::before {
     content: "+";
     font-family: var(--font-mono);
-    color: var(--hue);
   }
   .pub-cite[open] .pub-cite-toggle::before {
     content: "−";
@@ -573,39 +574,32 @@ const areas = [
   }
 
   .cite-box {
-    position: relative;
-    margin-top: 0.7rem;
-    border: 1px solid var(--border);
-    border-left: 2px solid var(--hue-line, var(--border));
-    border-radius: var(--r-sm);
-    background: var(--surface);
+    margin-top: 0.8rem;
+    padding-left: 1.1rem;
+    border-left: 1px solid var(--border);
   }
   .cite-pre {
     margin: 0;
-    padding: 0.9rem 1rem;
     /* Long DOIs and titles scroll rather than stretching the page */
     overflow-x: auto;
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    line-height: 1.65;
-    color: var(--text-2);
+    line-height: 1.7;
+    color: var(--text-3);
     white-space: pre;
   }
   .cite-copy {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    display: inline-block;
+    margin-top: 0.7rem;
+    padding: 0;
     cursor: pointer;
+    background: none;
+    border: none;
     color: var(--text-3);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--r-sm);
-    padding: 0.2rem 0.55rem;
-    transition: all var(--t-fast);
+    transition: color var(--t-fast);
   }
   .cite-copy:hover {
     color: var(--text-1);
-    border-color: var(--border-hover);
   }
 
   /* Empty */
@@ -628,11 +622,8 @@ const areas = [
     .pub-foot {
       gap: 0.7rem 1rem;
     }
-    /* Overlaying the button would cover the first line of a narrow entry */
-    .cite-copy {
-      position: static;
-      display: block;
-      margin: 0 0.5rem 0.5rem auto;
+    .cite-box {
+      padding-left: 0.8rem;
     }
   }
 </style>
