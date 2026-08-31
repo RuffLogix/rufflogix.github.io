@@ -6,6 +6,7 @@ import {
   personalInfo,
 } from "../../constants/timeline.constant";
 import { techStackData } from "../../constants/techstack.constant";
+import { orgHue, skillHue } from "../../utils/hue";
 ---
 
 <FormalLayout title="About — RuffLogix">
@@ -58,7 +59,7 @@ import { techStackData } from "../../constants/techstack.constant";
             <div class="about-photo-fade" aria-hidden="true"></div>
           </div>
           <!-- Floating caption badge -->
-          <div class="about-photo-badge">
+          <div class="about-photo-badge" data-hue={orgHue("Khui AI")}>
             <span class="badge-dot"></span>
             <span class="badge-text label">Software Engineer @ Khui AI</span>
           </div>
@@ -72,7 +73,8 @@ import { techStackData } from "../../constants/techstack.constant";
 
       <div class="timeline">
         {experienceInformation.map((exp, i) => (
-          <div class:list={['tl-item reveal', `d${(i % 4) + 1}`]}>
+          <div class:list={['tl-item reveal', `d${(i % 4) + 1}`]}
+               data-hue={orgHue(exp.instituteName)}>
             <div class="tl-left">
               <span class="tl-duration label">{exp.duration}</span>
             </div>
@@ -125,7 +127,8 @@ import { techStackData } from "../../constants/techstack.constant";
 
       <div class="timeline">
         {educationalInformation.map((edu, i) => (
-          <div class:list={['tl-item reveal', `d${(i % 4) + 1}`]}>
+          <div class:list={['tl-item reveal', `d${(i % 4) + 1}`]}
+               data-hue={orgHue(edu.instituteName)}>
             <div class="tl-left">
               <span class="tl-duration label">{edu.duration}</span>
             </div>
@@ -165,8 +168,9 @@ import { techStackData } from "../../constants/techstack.constant";
 
       <div class="skills-grid">
         {techStackData.map((cat, i) => (
-          <div class:list={['skill-block reveal', `d${(i % 4) + 1}`]}>
-            <h3 class="skill-cat" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; color: var(--text-1); margin-bottom: 0.9rem;">
+          <div class:list={['skill-block reveal', `d${(i % 4) + 1}`]}
+               data-hue={skillHue(cat.category)}>
+            <h3 class="skill-cat">
               {cat.category}
             </h3>
             <div class="skill-tags">
@@ -349,8 +353,8 @@ import { techStackData } from "../../constants/techstack.constant";
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #4ade80;
-  box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
+  background: var(--hue);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--hue) 60%, transparent);
   flex-shrink: 0;
   animation: pulse-dot 2.4s ease-in-out infinite;
 }
@@ -386,7 +390,7 @@ import { techStackData } from "../../constants/techstack.constant";
 
 .tl-left { padding-top: 0.15rem; }
 .tl-duration {
-  color: var(--text-2);
+  color: var(--hue);
   font-size: 0.68rem;
   line-height: 1.5;
 }
@@ -406,7 +410,8 @@ import { techStackData } from "../../constants/techstack.constant";
   padding: 2px;
   flex-shrink: 0;
   margin-top: 2px;
-  border: 1px solid var(--border);
+  /* the ring carries the org's hue, so each logo is colour-anchored */
+  border: 1px solid var(--hue-line, var(--border));
 }
 .tl-name {
   font-size: 0.95rem;
@@ -422,7 +427,7 @@ import { techStackData } from "../../constants/techstack.constant";
   color: var(--text-1);
   transition: color var(--t-fast);
 }
-.tl-link:hover { color: var(--accent); }
+.tl-link:hover { color: var(--hue); }
 .tl-role {
   font-size: 0.82rem;
   color: var(--text-2);
@@ -528,7 +533,15 @@ import { techStackData } from "../../constants/techstack.constant";
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
-.skill-block { }
+.skill-cat {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--hue);
+  margin-bottom: 0.9rem;
+}
 .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
 /* Contact */

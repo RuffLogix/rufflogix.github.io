@@ -1,31 +1,16 @@
 ---
 import FormalLayout from "../../layouts/FormalLayout.astro";
 import { publicationInformation } from "../../constants/publication.constant";
+import { publicationHue } from "../../utils/hue";
 
 function isSelf(idx: number, self?: number | number[]) {
   if (self === undefined) return false;
   return Array.isArray(self) ? self.includes(idx) : self === idx;
 }
 
-/** Venue kinds, ordered by how the legend should read. */
-const VENUE_KINDS = [
-  { key: "journal", label: "Journal" },
-  { key: "conference", label: "Conference" },
-  { key: "preprint", label: "Preprint" },
-] as const;
-
-/** Map a free-text `type` onto one of the venue kinds above. */
-function venueKind(type: string) {
-  const t = type.toLowerCase();
-  if (t.includes("journal")) return "journal";
-  if (t.includes("preprint") || t.includes("arxiv")) return "preprint";
-  if (t.includes("conference") || t.includes("workshop")) return "conference";
-  return "other";
-}
-
-// Only show legend entries that actually appear in the list.
-const usedKinds = new Set(publicationInformation.map((p) => venueKind(p.type)));
-const legendKinds = VENUE_KINDS.filter((k) => usedKinds.has(k.key));
+// Legend entries are derived from the entries themselves, so a new venue
+// type shows up in the key automatically.
+const venueTypes = [...new Set(publicationInformation.map((p) => p.type))];
 
 const areas = [
   ...new Set(publicationInformation.map((p) => p.area).filter(Boolean)),
@@ -54,10 +39,10 @@ const areas = [
           <dl class="legend-group">
             <dt class="legend-term label">Venue</dt>
             <dd class="legend-def">
-              {legendKinds.map((k) => (
-                <span class="legend-item" data-kind={k.key}>
+              {venueTypes.map((t) => (
+                <span class="legend-item" data-hue={publicationHue(t)}>
                   <span class="legend-dot" aria-hidden="true" />
-                  {k.label}
+                  {t}
                 </span>
               ))}
             </dd>
@@ -83,7 +68,7 @@ const areas = [
         publicationInformation.map((p, i) => (
           <li
             class:list={["pub-row reveal", `d${(i % 4) + 1}`]}
-            data-kind={venueKind(p.type)}
+            data-hue={publicationHue(p.type)}
           >
             <div class="pub-head">
               <span class="pub-num">{String(i + 1).padStart(2, "0")}</span>
@@ -256,43 +241,12 @@ const areas = [
     color: var(--text-3);
   }
 
-  /* ── Venue colours ───────────────────────────────────────────
-     Muted enough to sit beside the grey palette, but distinct from
-     each other and from --accent. Contrast checked against both
-     --bg values (>=4.5:1 in light, >=8:1 in dark). */
-  .pubs-page {
-    --kind-journal: #d9a05b;
-    --kind-conference: #7fa8d9;
-    --kind-preprint: #6fbf9a;
-    --kind-other: var(--text-2);
-  }
-  :global([data-theme="light"]) .pubs-page {
-    --kind-journal: #92651c;
-    --kind-conference: #2f6496;
-    --kind-preprint: #2c7757;
-  }
-
-  /* Every element that carries data-kind resolves its own --kind-c,
-     so descendants can just use var(--kind-c). */
-  [data-kind="journal"] {
-    --kind-c: var(--kind-journal);
-  }
-  [data-kind="conference"] {
-    --kind-c: var(--kind-conference);
-  }
-  [data-kind="preprint"] {
-    --kind-c: var(--kind-preprint);
-  }
-  [data-kind="other"] {
-    --kind-c: var(--kind-other);
-  }
-
   .legend-dot {
     width: 0.45rem;
     height: 0.45rem;
     flex-shrink: 0;
     border-radius: 50%;
-    background: var(--kind-c, var(--text-3));
+    background: var(--hue);
   }
 
   /* ── Legend ──────────────────────────────────────────────── */
@@ -327,7 +281,7 @@ const areas = [
     font-family: var(--font-mono);
     font-size: 0.68rem;
     letter-spacing: 0.03em;
-    color: var(--kind-c, var(--text-2));
+    color: var(--hue);
   }
   .legend-area {
     color: var(--text-2);
@@ -355,7 +309,7 @@ const areas = [
     top: 1.7rem;
     bottom: 1.7rem;
     width: 2px;
-    background: var(--kind-c, var(--accent));
+    background: var(--hue);
     border-radius: 2px;
     transform: scaleY(0);
     transform-origin: top;
@@ -382,7 +336,7 @@ const areas = [
     transition: color var(--t-fast);
   }
   .pub-row:hover .pub-num {
-    color: var(--kind-c, var(--accent));
+    color: var(--hue);
   }
   .pub-meta {
     display: flex;
@@ -394,7 +348,7 @@ const areas = [
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    color: var(--kind-c, var(--accent));
+    color: var(--hue);
     font-weight: 500;
   }
   .pub-area {

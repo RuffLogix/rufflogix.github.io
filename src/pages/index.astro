@@ -1,6 +1,7 @@
 ---
 import FormalLayout from "../layouts/FormalLayout.astro";
 import { projectInformation } from "../constants/project.constant.ts";
+import { cycleHue, projectHue } from "../utils/hue.ts";
 
 const MEDIUM_URL =
   "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
@@ -188,7 +189,13 @@ const philosophy = [
       <div class="focus-areas reveal d2">
         <p class="label-strong" style="margin-bottom: 1.25rem;">Focus Areas</p>
         <div class="focus-tags">
-          {focusAreas.map((area) => <span class="tag">{area}</span>)}
+          {
+            focusAreas.map((area, i) => (
+              <span class="tag tag-hue" data-hue={cycleHue(i)}>
+                {area}
+              </span>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -227,6 +234,7 @@ const philosophy = [
               { "bento-wide": i === 0 },
               `d${i + 1}`,
             ]}
+            data-hue={projectHue(p.category)}
           >
             <div class="bento-top">
               <span class="bento-cat label">{p.category}</span>
@@ -324,7 +332,7 @@ const philosophy = [
     <div class="philosophy-grid">
       {
         philosophy.map(({ word, desc }, i) => (
-          <div class:list={["phil-item reveal", `d${i + 1}`]}>
+          <div class:list={["phil-item reveal", `d${i + 1}`]} data-hue={cycleHue(i)}>
             <h3 class="phil-word">{word}</h3>
             <p class="phil-desc">{desc}</p>
           </div>
@@ -582,6 +590,16 @@ const philosophy = [
     flex-wrap: wrap;
     gap: 0.5rem;
   }
+  /* Focus areas cycle the categorical hues so the block reads as a set */
+  .tag-hue {
+    color: var(--hue);
+    border-color: var(--hue-line);
+    background: var(--hue-soft);
+  }
+  .tag-hue:hover {
+    border-color: var(--hue);
+    color: var(--hue);
+  }
 
   /* ── WORK ─────────────────────────────────────────────────── */
   .work-section {
@@ -635,7 +653,7 @@ const philosophy = [
     gap: 0.5rem;
   }
   .bento-cat {
-    color: var(--accent);
+    color: var(--hue);
     font-weight: 500;
   }
   .bento-date {
@@ -652,16 +670,16 @@ const philosophy = [
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    color: var(--hue);
+    background: color-mix(in srgb, var(--hue) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--hue) 30%, transparent);
   }
   .bento-status::before {
     content: "";
     width: 0.4em;
     height: 0.4em;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--hue);
     animation: bento-pulse 1.8s ease-in-out infinite;
   }
   @keyframes bento-pulse {
@@ -731,9 +749,12 @@ const philosophy = [
     margin-bottom: 3.5rem;
   }
 
-  /* All columns: top padding creates breathing room from the anchor rule */
+  /* All columns: top padding creates breathing room from the anchor rule.
+     Each column overdraws the shared rule in its own hue. */
   .phil-item {
     padding: 2rem 2.5rem 2.5rem 0;
+    border-top: 2px solid var(--hue);
+    margin-top: -1px;
   }
 
   /* Columns 2–4: left border as separator + matching left padding */
@@ -859,7 +880,6 @@ const philosophy = [
     }
     .phil-item:nth-child(3),
     .phil-item:nth-child(4) {
-      border-top: 1px solid var(--border);
       padding-top: 2rem;
     }
     .phil-item:nth-child(4) {
@@ -902,7 +922,6 @@ const philosophy = [
       border-left: none !important;
     }
     .phil-item + .phil-item {
-      border-top: 1px solid var(--border);
       border-left: none;
       padding-left: 0;
     }

@@ -20,6 +20,14 @@
   --accent-dim:    rgba(158, 179, 200, 0.12);
   --accent-glow:   rgba(158, 179, 200, 0.06);
 
+  /* Categorical hues — see src/utils/hue.ts. Desaturated to sit beside the
+     grey palette; every value clears 7:1 on --bg. */
+  --hue-blue:      #7FA8D9;
+  --hue-green:     #6FBF9A;
+  --hue-orange:    #D9A05B;
+  --hue-purple:    #B39BD9;
+  --hue-red:       #E08A8A;
+
   /* Fonts */
   --font:      'Plus Jakarta Sans', 'Geist', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace;
@@ -70,6 +78,13 @@
   --accent-dim:    rgba(61, 106, 138, 0.10);
   --accent-glow:   rgba(61, 106, 138, 0.06);
 
+  /* The dark hues wash out on white — these are darkened to clear 4.5:1 */
+  --hue-blue:      #2F6496;
+  --hue-green:     #2C7757;
+  --hue-orange:    #92651C;
+  --hue-purple:    #63499B;
+  --hue-red:       #AF3A3A;
+
   /* Light needs a shorter, softer falloff — the dark-tuned shadow reads as dirt */
   --shadow-card: 0 14px 40px rgba(15, 23, 42, 0.10);
   --shadow-btn:  0 6px 20px rgba(15, 23, 42, 0.14);
@@ -78,6 +93,24 @@
   --glow-1: rgba(80, 120, 200, 0.13);
   --glow-2: rgba(140, 80, 200, 0.10);
   --glow-3: rgba(60, 180, 140, 0.09);
+}
+
+/* ── HUE RESOLUTION ──────────────────────────────────────────────
+   Anything carrying data-hue republishes that hue as --hue, so
+   descendants style against var(--hue) without knowing which one it
+   is. Unlabelled subtrees fall back to the neutral accent. */
+:root { --hue: var(--accent); }
+
+[data-hue="blue"]   { --hue: var(--hue-blue);   }
+[data-hue="green"]  { --hue: var(--hue-green);  }
+[data-hue="orange"] { --hue: var(--hue-orange); }
+[data-hue="purple"] { --hue: var(--hue-purple); }
+[data-hue="red"]    { --hue: var(--hue-red);    }
+
+/* Shorthands for the two tints every consumer ends up needing */
+[data-hue] {
+  --hue-soft: color-mix(in srgb, var(--hue) 12%, transparent);
+  --hue-line: color-mix(in srgb, var(--hue) 38%, transparent);
 }
 
 /* ── BASE ────────────────────────────────────────────────────── */
@@ -216,6 +249,8 @@ strong     { font-weight: 600; }
   transition: opacity var(--t-fast);
 }
 .nav-logo:hover { opacity: 0.55; }
+/* Carries the current section's hue — a quiet where-am-I cue */
+.nav-logo-dot { color: var(--hue); }
 
 .nav-links {
   position: absolute;
@@ -238,7 +273,7 @@ strong     { font-weight: 600; }
   position: absolute;
   bottom: -2px; left: 0; right: 0;
   height: 1px;
-  background: var(--text-1);
+  background: var(--hue);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--t-mid) var(--expo);

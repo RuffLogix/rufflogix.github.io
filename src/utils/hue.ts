@@ -46,6 +46,7 @@ export const projectHue = lookup({
 export const publicationHue = lookup({
   "Journal Article": "purple",
   "Conference Paper": "blue",
+  Preprint: "green",
 });
 
 export const eventHue = lookup({

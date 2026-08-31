@@ -1,6 +1,7 @@
 ---
 import FormalLayout from "../../layouts/FormalLayout.astro";
 import { projectInformation } from "../../constants/project.constant";
+import { projectHue } from "../../utils/hue";
 
 const primaryLink = (p: (typeof projectInformation)[number]) =>
   p.githubLinks?.[0]?.url ?? p.infoLink ?? p.articleLink ?? null;
@@ -42,7 +43,13 @@ const pad = (n: number) => String(n).padStart(2, "0");
           All <span class="chip-count">{pad(total)}</span>
         </button>
         {categories.map(({ name, count }) => (
-          <button type="button" class="chip" data-filter={name} aria-pressed="false">
+          <button
+            type="button"
+            class="chip"
+            data-filter={name}
+            data-hue={projectHue(name)}
+            aria-pressed="false"
+          >
             {name} <span class="chip-count">{pad(count)}</span>
           </button>
         ))}
@@ -62,6 +69,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
             <li
               class:list={["proj-row reveal", `d${(i % 4) + 1}`]}
               data-category={p.category}
+              data-hue={projectHue(p.category)}
             >
               <a
                 class="proj-main"
@@ -323,9 +331,9 @@ const pad = (n: number) => String(n).padStart(2, "0");
     background: var(--surface-hover);
   }
   .chip.is-active {
-    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
-    color: var(--accent);
+    border-color: color-mix(in srgb, var(--hue) 45%, transparent);
+    background: color-mix(in srgb, var(--hue) 12%, transparent);
+    color: var(--hue);
   }
 
   .chip-count {
@@ -360,7 +368,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
     top: 1.5rem;
     bottom: 1.5rem;
     width: 2px;
-    background: var(--accent);
+    background: var(--hue);
     border-radius: 2px;
     transform: scaleY(0);
     transform-origin: top;
@@ -388,7 +396,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
     transition: color var(--t-fast);
   }
   .proj-row:hover .proj-num {
-    color: var(--accent);
+    color: var(--hue);
   }
   .proj-meta {
     display: flex;
@@ -398,7 +406,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
     min-width: 0;
   }
   .proj-cat {
-    color: var(--accent);
+    color: var(--hue);
     font-weight: 500;
   }
   .proj-dim {
@@ -418,16 +426,16 @@ const pad = (n: number) => String(n).padStart(2, "0");
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    color: var(--hue);
+    background: color-mix(in srgb, var(--hue) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--hue) 30%, transparent);
   }
   .proj-status::before {
     content: "";
     width: 0.4em;
     height: 0.4em;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--hue);
     animation: proj-pulse 1.8s ease-in-out infinite;
   }
   @keyframes proj-pulse {
@@ -461,7 +469,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
     transition: color var(--t-fast);
   }
   .proj-row:hover .proj-title {
-    color: var(--accent);
+    color: var(--hue);
   }
   .proj-desc {
     font-size: 0.9rem;

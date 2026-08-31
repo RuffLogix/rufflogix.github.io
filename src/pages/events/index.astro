@@ -1,6 +1,7 @@
 ---
 import FormalLayout from "../../layouts/FormalLayout.astro";
 import { events } from "../../constants/event.constant";
+import { eventHue } from "../../utils/hue";
 
 // Most recent first. Supports year ranges like "2022–2025" by sorting on the
 // latest 4-digit year found in the string.
@@ -28,7 +29,10 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
         sorted.map((ev, i) => {
           const Tag = ev.link ? "a" : "div";
           return (
-            <li class:list={["event-row reveal", `d${(i % 4) + 1}`]}>
+            <li
+              class:list={["event-row reveal", `d${(i % 4) + 1}`]}
+              data-hue={eventHue(ev.type)}
+            >
               <Tag
                 class="event-link"
                 href={ev.link ?? undefined}
@@ -61,7 +65,7 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
                     )}
                   </span>
                   <span class="event-sub label">
-                    {ev.type}
+                    <span class="event-type">{ev.type}</span>
                     {ev.organization && (
                       <>
                         <span class="event-dot" aria-hidden="true">·</span>
@@ -149,7 +153,7 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
     transition: color var(--t-fast);
   }
   a.event-link:hover .event-year {
-    color: var(--accent);
+    color: var(--hue);
   }
 
   .event-main {
@@ -176,7 +180,7 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
     transition: all var(--t-mid) var(--expo);
   }
   a.event-link:hover .event-name {
-    color: var(--accent);
+    color: var(--hue);
   }
   a.event-link:hover .event-ext {
     opacity: 1;
@@ -186,6 +190,9 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
     display: block;
     color: var(--text-3);
     margin-top: 0.2rem;
+  }
+  .event-type {
+    color: var(--hue);
   }
   .event-dot {
     margin: 0 0.4rem;
@@ -206,9 +213,9 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
   }
   /* Hosting / organizer role badge — accent-tinted to distinguish from awards */
   .event-award.is-role {
-    color: var(--accent);
-    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    color: var(--hue);
+    border-color: color-mix(in srgb, var(--hue) 40%, transparent);
+    background: color-mix(in srgb, var(--hue) 10%, transparent);
   }
 
   /* Empty */
