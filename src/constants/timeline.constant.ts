@@ -6,7 +6,7 @@ import { parseDurationString } from "../utils/duration.ts";
 
 export const personalInfo = {
   name: "RuffLogix",
-  title: "Computer Engineering Student & AI Enthusiast",
+  title: "Software Engineer & AI Researcher",
   email: "teejuta.sriwaranon@gmail.com",
   location: "Bangkok, Thailand",
   website: "https://rufflogix.github.io",
