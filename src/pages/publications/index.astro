@@ -1,7 +1,9 @@
 ---
 import FormalLayout from "../../layouts/FormalLayout.astro";
 import { publicationInformation } from "../../constants/publication.constant";
+import { personalInfo } from "../../constants/timeline.constant";
 import { publicationHue } from "../../utils/hue";
+import { toBibtex } from "../../utils/citation";
 
 function isSelf(idx: number, self?: number | number[]) {
   if (self === undefined) return false;
@@ -30,6 +32,48 @@ const areas = [
       <p class="pubs-count label reveal d3">
         {String(publicationInformation.length).padStart(2, "0")} entries
       </p>
+
+      <!-- Profile and bulk-citation links, where academic readers expect them -->
+      <div class="pubs-actions reveal d3">
+        <a
+          href={personalInfo.scholar}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="pubs-action"
+        >
+          Google Scholar
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="7" y1="17" x2="17" y2="7" />
+            <polyline points="7 7 17 7 17 17" />
+          </svg>
+        </a>
+        <a href="/rufflogix.bib" download class="pubs-action">
+          Download BibTeX
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 3v12" />
+            <polyline points="7 10 12 15 17 10" />
+            <path d="M5 21h14" />
+          </svg>
+        </a>
+      </div>
     </header>
 
     <!-- Legend — venue kind by colour, research area by name -->
@@ -128,19 +172,16 @@ const areas = [
 
             <p class="pub-authors">
               {p.authors.map((a, idx) => (
-                <>
-                  <span
-                    class:list={[
-                      "pub-author",
-                      { self: isSelf(idx, p.selfAuthorIndex) },
-                    ]}
-                  >
-                    {a}
-                  </span>
-                  {idx < p.authors.length - 1 && (
-                    <span class="pub-author-sep">, </span>
-                  )}
-                </>
+                // The comma sits inside the span so the gap between authors is
+                // the markup's own whitespace, not whitespace plus a comma.
+                <span
+                  class:list={[
+                    "pub-author",
+                    { self: isSelf(idx, p.selfAuthorIndex) },
+                  ]}
+                >
+                  {idx < p.authors.length - 1 ? `${a},` : a}
+                </span>
               ))}
             </p>
 
@@ -196,6 +237,14 @@ const areas = [
                 )}
               </div>
             </div>
+
+            <details class="pub-cite">
+              <summary class="pub-cite-toggle label">BibTeX</summary>
+              <div class="cite-box">
+                <pre class="cite-pre">{toBibtex(p)}</pre>
+                <button type="button" class="cite-copy label">Copy</button>
+              </div>
+            </details>
           </li>
         ))
       }
@@ -239,6 +288,31 @@ const areas = [
   .pubs-count {
     margin-top: 1.1rem;
     color: var(--text-3);
+  }
+
+  .pubs-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    margin-top: 1.4rem;
+    margin-bottom: 1.75rem;
+  }
+  .pubs-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    color: var(--text-2);
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    transition: all var(--t-fast);
+  }
+  .pubs-action:hover {
+    color: var(--text-1);
+    border-color: var(--border-hover);
   }
 
   .legend-dot {
@@ -470,6 +544,70 @@ const areas = [
     color: var(--text-1);
   }
 
+  /* ── BibTeX ──────────────────────────────────────────────── */
+  .pub-cite {
+    margin-top: 1rem;
+  }
+  .pub-cite-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    color: var(--text-3);
+    list-style: none;
+    transition: color var(--t-fast);
+  }
+  .pub-cite-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .pub-cite-toggle::before {
+    content: "+";
+    font-family: var(--font-mono);
+    color: var(--hue);
+  }
+  .pub-cite[open] .pub-cite-toggle::before {
+    content: "−";
+  }
+  .pub-cite-toggle:hover {
+    color: var(--text-1);
+  }
+
+  .cite-box {
+    position: relative;
+    margin-top: 0.7rem;
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--hue-line, var(--border));
+    border-radius: var(--r-sm);
+    background: var(--surface);
+  }
+  .cite-pre {
+    margin: 0;
+    padding: 0.9rem 1rem;
+    /* Long DOIs and titles scroll rather than stretching the page */
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1.65;
+    color: var(--text-2);
+    white-space: pre;
+  }
+  .cite-copy {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
+    color: var(--text-3);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 0.2rem 0.55rem;
+    transition: all var(--t-fast);
+  }
+  .cite-copy:hover {
+    color: var(--text-1);
+    border-color: var(--border-hover);
+  }
+
   /* Empty */
   .empty-state {
     padding: 4rem 0;
@@ -490,5 +628,41 @@ const areas = [
     .pub-foot {
       gap: 0.7rem 1rem;
     }
+    /* Overlaying the button would cover the first line of a narrow entry */
+    .cite-copy {
+      position: static;
+      display: block;
+      margin: 0 0.5rem 0.5rem auto;
+    }
   }
 </style>
+
+<script>
+  const RESET_MS = 1600;
+
+  document.querySelectorAll<HTMLButtonElement>(".cite-copy").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const pre = btn.closest(".cite-box")?.querySelector("pre");
+      const bibtex = pre?.textContent;
+      if (!pre || !bibtex) return;
+
+      try {
+        await navigator.clipboard.writeText(bibtex);
+        btn.textContent = "Copied";
+      } catch {
+        // Clipboard API is unavailable outside a secure context — select the
+        // entry instead so the keyboard shortcut still works.
+        const range = document.createRange();
+        range.selectNodeContents(pre);
+        const selection = window.getSelection();
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+        btn.textContent = "Selected";
+      }
+
+      window.setTimeout(() => {
+        btn.textContent = "Copy";
+      }, RESET_MS);
+    });
+  });
+</script>

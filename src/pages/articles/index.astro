@@ -1,5 +1,6 @@
 ---
 import FormalLayout from "../../layouts/FormalLayout.astro";
+import { decodeEntities } from "../../utils/html";
 
 const MEDIUM_URL = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
 
@@ -14,7 +15,7 @@ interface MediumPost {
 }
 
 function excerpt(html: string, max = 180) {
-  const t = html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+  const t = decodeEntities(html.replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ').trim();
   return t.length > max ? t.slice(0, max) + '…' : t;
 }
 
@@ -73,7 +74,7 @@ try {
               <div class="post-meta-row">
                 <span class="label post-date">{fmtDate(post.pubDate)}</span>
               </div>
-              <h2 class="post-title">{post.title}</h2>
+              <h2 class="post-title">{decodeEntities(post.title)}</h2>
               <p class="post-excerpt">{excerpt(post.description)}</p>
             </div>
             <div class="post-arrow-wrap">

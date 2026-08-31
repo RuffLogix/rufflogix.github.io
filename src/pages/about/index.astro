@@ -6,7 +6,14 @@ import {
   personalInfo,
 } from "../../constants/timeline.constant";
 import { techStackData } from "../../constants/techstack.constant";
+import { publicationInformation } from "../../constants/publication.constant";
+import { events } from "../../constants/event.constant";
 import { orgHue, skillHue } from "../../utils/hue";
+
+// Stats are counted from the same data the rest of the site renders, so they
+// can't drift out of date the way hand-written numbers do.
+const PODIUM = /\b(1st|2nd|3rd|gold|silver|bronze)\b/i;
+const podiumFinishes = events.filter((e) => e.award && PODIUM.test(e.award)).length;
 ---
 
 <FormalLayout title="About — RuffLogix">
@@ -23,23 +30,24 @@ import { orgHue, skillHue } from "../../utils/hue";
             <span class="about-title-dim">AI researcher.</span>
           </h1>
           <p class="about-intro reveal d2">
-            Building at the intersection of systems programming, machine intelligence,
-            and experimental interfaces. Based in Bangkok, Thailand.
+            Publishing on computer graphics, medical imaging AI, and formal
+            verification — and building the production systems those ideas run
+            on. Based in Bangkok, Thailand.
           </p>
 
           <!-- Quick stats row -->
           <div class="about-stats reveal d3">
             <div class="stat-item">
-              <span class="stat-number">10</span>
+              <span class="stat-number">{publicationInformation.length}</span>
+              <span class="stat-label label">Publications</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">{experienceInformation.length}</span>
               <span class="stat-label label">Roles held</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">3+</span>
-              <span class="stat-label label">Years building</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">6</span>
-              <span class="stat-label label">Major awards</span>
+              <span class="stat-number">{podiumFinishes}</span>
+              <span class="stat-label label">Podium finishes</span>
             </div>
           </div>
         </div>
