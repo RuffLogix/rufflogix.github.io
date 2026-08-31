@@ -6,6 +6,30 @@ function isSelf(idx: number, self?: number | number[]) {
   if (self === undefined) return false;
   return Array.isArray(self) ? self.includes(idx) : self === idx;
 }
+
+/** Venue kinds, ordered by how the legend should read. */
+const VENUE_KINDS = [
+  { key: "journal", label: "Journal" },
+  { key: "conference", label: "Conference" },
+  { key: "preprint", label: "Preprint" },
+] as const;
+
+/** Map a free-text `type` onto one of the venue kinds above. */
+function venueKind(type: string) {
+  const t = type.toLowerCase();
+  if (t.includes("journal")) return "journal";
+  if (t.includes("preprint") || t.includes("arxiv")) return "preprint";
+  if (t.includes("conference") || t.includes("workshop")) return "conference";
+  return "other";
+}
+
+// Only show legend entries that actually appear in the list.
+const usedKinds = new Set(publicationInformation.map((p) => venueKind(p.type)));
+const legendKinds = VENUE_KINDS.filter((k) => usedKinds.has(k.key));
+
+const areas = [
+  ...new Set(publicationInformation.map((p) => p.area).filter(Boolean)),
+] as string[];
 ---
 
 <FormalLayout title="Publications — RuffLogix">
@@ -15,22 +39,67 @@ function isSelf(idx: number, self?: number | number[]) {
       <p class="label-strong reveal" style="margin-bottom: 1rem;">Research</p>
       <h1 class="pubs-title reveal d1">Publications</h1>
       <p class="pubs-sub reveal d2">
-        Peer-reviewed work in deep learning, medical imaging, and applied AI.
+        Published and preprint work across computer graphics, medical imaging
+        AI, and formal verification.
       </p>
       <p class="pubs-count label reveal d3">
         {String(publicationInformation.length).padStart(2, "0")} entries
       </p>
     </header>
 
+    <!-- Legend — venue kind by colour, research area by name -->
+    {
+      publicationInformation.length > 0 && (
+        <div class="pubs-legend reveal d3">
+          <dl class="legend-group">
+            <dt class="legend-term label">Venue</dt>
+            <dd class="legend-def">
+              {legendKinds.map((k) => (
+                <span class="legend-item" data-kind={k.key}>
+                  <span class="legend-dot" aria-hidden="true" />
+                  {k.label}
+                </span>
+              ))}
+            </dd>
+          </dl>
+
+          {areas.length > 0 && (
+            <dl class="legend-group">
+              <dt class="legend-term label">Areas</dt>
+              <dd class="legend-def">
+                {areas.map((a) => (
+                  <span class="legend-item legend-area">{a}</span>
+                ))}
+              </dd>
+            </dl>
+          )}
+        </div>
+      )
+    }
+
     <!-- Publication index -->
     <ol class="pubs-index">
       {
         publicationInformation.map((p, i) => (
-          <li class:list={["pub-row reveal", `d${(i % 4) + 1}`]}>
+          <li
+            class:list={["pub-row reveal", `d${(i % 4) + 1}`]}
+            data-kind={venueKind(p.type)}
+          >
             <div class="pub-head">
               <span class="pub-num">{String(i + 1).padStart(2, "0")}</span>
               <span class="pub-meta">
-                <span class="label pub-type">{p.type}</span>
+                <span class="label pub-type">
+                  <span class="legend-dot" aria-hidden="true" />
+                  {p.type}
+                </span>
+                {p.area && (
+                  <>
+                    <span class="pub-sep" aria-hidden="true">
+                      /
+                    </span>
+                    <span class="label pub-area">{p.area}</span>
+                  </>
+                )}
                 <span class="pub-sep" aria-hidden="true">
                   /
                 </span>
@@ -187,6 +256,83 @@ function isSelf(idx: number, self?: number | number[]) {
     color: var(--text-3);
   }
 
+  /* ── Venue colours ───────────────────────────────────────────
+     Muted enough to sit beside the grey palette, but distinct from
+     each other and from --accent. Contrast checked against both
+     --bg values (>=4.5:1 in light, >=8:1 in dark). */
+  .pubs-page {
+    --kind-journal: #d9a05b;
+    --kind-conference: #7fa8d9;
+    --kind-preprint: #6fbf9a;
+    --kind-other: var(--text-2);
+  }
+  :global([data-theme="light"]) .pubs-page {
+    --kind-journal: #92651c;
+    --kind-conference: #2f6496;
+    --kind-preprint: #2c7757;
+  }
+
+  /* Every element that carries data-kind resolves its own --kind-c,
+     so descendants can just use var(--kind-c). */
+  [data-kind="journal"] {
+    --kind-c: var(--kind-journal);
+  }
+  [data-kind="conference"] {
+    --kind-c: var(--kind-conference);
+  }
+  [data-kind="preprint"] {
+    --kind-c: var(--kind-preprint);
+  }
+  [data-kind="other"] {
+    --kind-c: var(--kind-other);
+  }
+
+  .legend-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--kind-c, var(--text-3));
+  }
+
+  /* ── Legend ──────────────────────────────────────────────── */
+  .pubs-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 2.5rem;
+    padding: 0.9rem 0;
+    /* no bottom rule — .pubs-index already draws one directly below */
+    border-top: 1px solid var(--border);
+  }
+  .legend-group {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin: 0;
+  }
+  .legend-term {
+    color: var(--text-3);
+  }
+  .legend-def {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 1rem;
+    margin: 0;
+  }
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+    color: var(--kind-c, var(--text-2));
+  }
+  .legend-area {
+    color: var(--text-2);
+  }
+
   /* ── Index list — single flush-left edge ─────────────────── */
   .pubs-index {
     list-style: none;
@@ -209,7 +355,7 @@ function isSelf(idx: number, self?: number | number[]) {
     top: 1.7rem;
     bottom: 1.7rem;
     width: 2px;
-    background: var(--accent);
+    background: var(--kind-c, var(--accent));
     border-radius: 2px;
     transform: scaleY(0);
     transform-origin: top;
@@ -221,7 +367,7 @@ function isSelf(idx: number, self?: number | number[]) {
 
   .pub-head {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 0.6rem;
     margin-bottom: 0.6rem;
   }
@@ -229,10 +375,14 @@ function isSelf(idx: number, self?: number | number[]) {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     color: var(--text-3);
+    /* the meta row now wraps onto two lines, so the number must not be
+       squeezed into a column of single digits */
+    flex-shrink: 0;
+    align-self: flex-start;
     transition: color var(--t-fast);
   }
   .pub-row:hover .pub-num {
-    color: var(--accent);
+    color: var(--kind-c, var(--accent));
   }
   .pub-meta {
     display: flex;
@@ -241,8 +391,14 @@ function isSelf(idx: number, self?: number | number[]) {
     gap: 0.5rem;
   }
   .pub-type {
-    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--kind-c, var(--accent));
     font-weight: 500;
+  }
+  .pub-area {
+    color: var(--text-2);
   }
   .pub-dim {
     color: var(--text-3);

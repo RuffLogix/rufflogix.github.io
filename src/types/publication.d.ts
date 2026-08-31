@@ -6,6 +6,8 @@ export interface PublicationInformation {
 	venue: string;
 	date: string;
 	type: string;
+	/** Research area, used to group entries and build the legend. */
+	area?: string;
 	abstract?: string;
 	tags: string[];
 	doi?: string;

@@ -14,6 +14,7 @@ export const publicationInformation: PublicationInformation[] = [
     venue: "arXiv preprint (cs.GR, cs.CV)",
     date: "August 2026",
     type: "Preprint",
+    area: "Computer Graphics",
     abstract:
       "A system that forecasts how copper surfaces evolve as they oxidize and renders the predicted appearance as a PBR material (albedo, normal, roughness, metallic) from a single camera observation. A learned spatio-temporal model underperforms last-frame copying on unseen specimens, while a closed-form global color extrapolation transfers successfully, improving accuracy by 13.4-16.7% depending on the prediction horizon, indicating that learned models encode specimen-specific corrosion patterns whereas global color trajectories generalize.",
     tags: [
@@ -46,6 +47,7 @@ export const publicationInformation: PublicationInformation[] = [
     venue: "IEEE Access",
     date: "June 2026",
     type: "Journal Article",
+    area: "Medical Imaging AI",
     abstract:
       "An end-to-end deep learning pipeline that automates mandible virtual surgical planning from real-world clinical data, combining volumetric segmentation and reconstruction to streamline the workflow for maxillofacial surgery.",
     tags: [
@@ -71,6 +73,7 @@ export const publicationInformation: PublicationInformation[] = [
       "2026 23rd International Joint Conference on Computer Science and Software Engineering (JCSSE)",
     date: "June 2026",
     type: "Conference Paper",
+    area: "Formal Verification",
     abstract:
       "A fine-grained hierarchical Timed Colored Petri Net (HTCPN) model of an asynchronous speaker diarization pipeline that exposes three generalizable structural deadlock patterns in concurrent AI pipelines. Seven correctness properties are verified, including a novel attribution consistency property, showing that sub-module decomposition is necessary for complete pipeline verification.",
     tags: [
