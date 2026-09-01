@@ -1,7 +1,6 @@
 ---
 import FormalLayout from "../../layouts/FormalLayout.astro";
 import { events } from "../../constants/event.constant";
-import { eventHue } from "../../utils/hue";
 
 // Most recent first. Supports year ranges like "2022–2025" by sorting on the
 // latest 4-digit year found in the string.
@@ -31,7 +30,6 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
           return (
             <li
               class:list={["event-row reveal", `d${(i % 4) + 1}`]}
-              data-hue={eventHue(ev.type)}
             >
               <Tag
                 class="event-link"
@@ -153,7 +151,7 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
     transition: color var(--t-fast);
   }
   a.event-link:hover .event-year {
-    color: var(--hue);
+    color: var(--text-1);
   }
 
   .event-main {
@@ -179,8 +177,11 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
     flex-shrink: 0;
     transition: all var(--t-mid) var(--expo);
   }
+  /* Events belong to neither practice, so hover is emphasis, not colour */
   a.event-link:hover .event-name {
-    color: var(--hue);
+    text-decoration: underline;
+    text-decoration-color: var(--border-hover);
+    text-underline-offset: 4px;
   }
   a.event-link:hover .event-ext {
     opacity: 1;
@@ -192,7 +193,7 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
     margin-top: 0.2rem;
   }
   .event-type {
-    color: var(--hue);
+    color: var(--text-2);
   }
   .event-dot {
     margin: 0 0.4rem;
@@ -211,11 +212,12 @@ const sorted = [...events].sort((a, b) => latestYear(b.year) - latestYear(a.year
     background: var(--surface);
     white-space: nowrap;
   }
-  /* Hosting / organizer role badge — accent-tinted to distinguish from awards */
+  /* Hosting / organizer role badge — distinguished from awards by weight and
+     ink, since neither is a research or engineering artifact */
   .event-award.is-role {
-    color: var(--hue);
-    border-color: color-mix(in srgb, var(--hue) 40%, transparent);
-    background: color-mix(in srgb, var(--hue) 10%, transparent);
+    color: var(--text-1);
+    border-color: var(--text-3);
+    background: var(--surface-hover);
   }
 
   /* Empty */

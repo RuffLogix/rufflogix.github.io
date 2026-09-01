@@ -2,7 +2,7 @@
 import FormalLayout from "../layouts/FormalLayout.astro";
 import { projectInformation } from "../constants/project.constant.ts";
 import { publicationInformation } from "../constants/publication.constant.ts";
-import { projectHue, publicationHue } from "../utils/hue.ts";
+import { projectHue } from "../utils/hue.ts";
 import { decodeEntities } from "../utils/html.ts";
 
 const MEDIUM_URL =
@@ -78,13 +78,6 @@ const philosophy = [
        HERO
        ═══════════════════════════════════════════ -->
   <section class="hero">
-    <!-- Ambient background -->
-    <div class="hero-ambient" aria-hidden="true">
-      <div class="glow g1"></div>
-      <div class="glow g2"></div>
-      <div class="glow g3"></div>
-    </div>
-
     <div class="hero-inner page-wrap">
       <p class="hero-label label hero-anim ha1">RuffLogix</p>
 
@@ -372,7 +365,7 @@ const philosophy = [
         recentPublications.map((p, i) => (
           <li
             class:list={["research-row reveal", `d${i + 1}`]}
-            data-hue={publicationHue(p.type)}
+            data-hue="research"
           >
             <a
               href={p.doiLink ?? "/publications"}
@@ -503,54 +496,6 @@ const philosophy = [
     overflow: hidden;
   }
 
-  .hero-ambient {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .glow {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.6;
-  }
-  .g1 {
-    width: 60vw;
-    height: 60vw;
-    top: -20%;
-    left: 10%;
-    background: radial-gradient(ellipse, var(--glow-1) 0%, transparent 70%);
-    animation: drift 18s ease-in-out infinite;
-  }
-  .g2 {
-    width: 50vw;
-    height: 50vw;
-    top: 20%;
-    right: -10%;
-    background: radial-gradient(ellipse, var(--glow-2) 0%, transparent 70%);
-    animation: drift 24s ease-in-out infinite reverse;
-  }
-  .g3 {
-    width: 40vw;
-    height: 40vw;
-    bottom: -10%;
-    left: 30%;
-    background: radial-gradient(ellipse, var(--glow-3) 0%, transparent 70%);
-    animation: drift 20s ease-in-out infinite 4s;
-  }
-  @keyframes drift {
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-    33% {
-      transform: translate(3%, 2%) scale(1.04);
-    }
-    66% {
-      transform: translate(-2%, 3%) scale(0.97);
-    }
-  }
 
   .hero-inner {
     position: relative;

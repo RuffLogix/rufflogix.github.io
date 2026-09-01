@@ -8,7 +8,7 @@ import {
 import { techStackData } from "../../constants/techstack.constant";
 import { publicationInformation } from "../../constants/publication.constant";
 import { events } from "../../constants/event.constant";
-import { orgHue, skillHue } from "../../utils/hue";
+import { orgHue } from "../../utils/hue";
 
 // Stats are counted from the same data the rest of the site renders, so they
 // can't drift out of date the way hand-written numbers do.
@@ -176,8 +176,7 @@ const podiumFinishes = events.filter((e) => e.award && PODIUM.test(e.award)).len
 
       <div class="skills-grid">
         {techStackData.map((cat, i) => (
-          <div class:list={['skill-block reveal', `d${(i % 4) + 1}`]}
-               data-hue={skillHue(cat.category)}>
+          <div class:list={['skill-block reveal', `d${(i % 4) + 1}`]}>
             <h3 class="skill-cat">
               {cat.category}
             </h3>
@@ -367,8 +366,8 @@ const podiumFinishes = events.filter((e) => e.award && PODIUM.test(e.award)).len
   animation: pulse-dot 2.4s ease-in-out infinite;
 }
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(74, 222, 128, 0.6); }
-  50%       { opacity: 0.7; box-shadow: 0 0 12px rgba(74, 222, 128, 0.8); }
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
 }
 .badge-text {
   font-size: 0.68rem;
@@ -547,7 +546,7 @@ const podiumFinishes = events.filter((e) => e.award && PODIUM.test(e.award)).len
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 500;
-  color: var(--hue);
+  color: var(--text-2);
   margin-bottom: 0.9rem;
 }
 .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }

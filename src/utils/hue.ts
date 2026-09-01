@@ -1,95 +1,59 @@
 /**
- * Agoji hue system.
+ * The research / engineering axis.
  *
- * The five colours are lifted from the five dots in the Agoda logo — the ones
- * the Agoji mascots grew out of. Here they act as a *categorical* scale: a
- * given category, publication type, event type or organisation always resolves
- * to the same hue, so colour becomes wayfinding rather than decoration.
+ * This site carries exactly two hues, and they encode one thing: which of the
+ * two practices a piece of work belongs to. Amber is research — paper, archive,
+ * citation. Slate-blue is engineering — machine, code, runtime.
  *
- * Consumers set `data-hue="<name>"` on a container; `formal.css` maps that to
- * the `--hue` custom property, which every descendant reads. Contrast for each
- * hue is tuned per theme in `formal.css` — see the token block there.
+ * The axis is applied only where it is *real*. Events, technical skills and tags
+ * do not belong to one practice or the other, so they carry no hue at all, and
+ * that absence is meaningful rather than an oversight: unhued things render in
+ * ink. This is why `--accent` is a near-ink neutral and not a colour — if the
+ * neutral were tinted, "no practice" and "engineering" would look the same.
+ *
+ * Where something could be read either way, the *artifact* decides, not the
+ * topic: a DOI makes it research.
+ *
+ * Consumers set `data-hue="research" | "engineering"` on a container;
+ * `formal.css` maps that to the `--hue` custom property, which every descendant
+ * reads. A consumer that resolves to `undefined` simply omits the attribute and
+ * inherits ink. Contrast for each hue is tuned per theme in `formal.css`.
  */
 
-export const HUES = ["blue", "green", "orange", "purple", "red"] as const;
+export const HUES = ["research", "engineering"] as const;
 export type Hue = (typeof HUES)[number];
 
-/** Stable fallback so an unmapped value still gets a consistent colour. */
-function hashHue(key: string): Hue {
-  let h = 0;
-  for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
-  return HUES[h % HUES.length];
+/**
+ * Project categories. Six of the twenty-two projects are research-flavoured;
+ * the rest are things that shipped. The split is what makes the colour worth
+ * spending — a single-hue index would carry no information.
+ */
+const PROJECT_RESEARCH_CATEGORIES = new Set([
+  "AI / Machine Learning",
+  "Data Science",
+]);
+
+export function projectHue(category: string | undefined): Hue {
+  return category && PROJECT_RESEARCH_CATEGORIES.has(category)
+    ? "research"
+    : "engineering";
 }
 
-const lookup =
-  <K extends string>(map: Record<K, Hue>) =>
-  (key: string | undefined): Hue =>
-    key ? ((map as Record<string, Hue>)[key] ?? hashHue(key)) : "blue";
-
 /**
- * Project categories, grouped by family so related work shares a colour:
- * blue = product surfaces, green = intelligence, purple = data/research,
- * orange = tooling & hardware, red = play.
+ * Organisations on the About timeline, hued by the kind of work done there
+ * rather than by what the organisation is. Anything absent from this map — a
+ * secondary school, say — is neither practice and correctly renders in ink.
  */
-export const projectHue = lookup({
-  "Web Development": "blue",
-  "Full Stack": "blue",
-  "Mobile App": "blue",
-  "AI / Machine Learning": "green",
-  "AI / Chatbot": "green",
-  "Data Science": "purple",
-  "Developer Tool": "orange",
-  "IoT Project": "orange",
-  "Game Development": "red",
-});
-
-export const publicationHue = lookup({
-  "Journal Article": "purple",
-  "Conference Paper": "blue",
-  Preprint: "green",
-});
-
-export const eventHue = lookup({
-  Competition: "red",
-  Hackathon: "orange",
-  Camp: "green",
-  Program: "purple",
-});
-
-/** Organisations on the About timeline — nods to each brand where one exists. */
-export const orgHue = lookup({
-  Agoda: "blue",
-  "Kasikorn Business-Technology Group (KBTG)": "green",
-  "LINE MAN Wongnai": "red",
-  "Looloo Technology": "purple",
-  "Khui AI": "orange",
-  AIMET: "blue",
-  "Chulalongkorn University": "red",
-  "Benjamarachutit School": "orange",
-});
-
-export const skillHue = lookup({
-  "Programming Languages": "blue",
-  "Web Technologies": "orange",
-  "Machine Learning & AI": "green",
-  "Cloud & DevOps": "purple",
-  "Mobile Development": "red",
-  "Databases & Tools": "blue",
-});
-
-/** Per-section hue used by the navbar underline and the logo dot. */
-export const SECTION_HUE: Record<string, Hue> = {
-  "/": "blue",
-  "/projects": "orange",
-  "/publications": "purple",
-  "/events": "red",
-  "/about": "green",
-  "/articles": "blue",
+const ORG_HUES: Record<string, Hue> = {
+  "Chulalongkorn University": "research",
+  AIMET: "research",
+  Agoda: "engineering",
+  "Kasikorn Business-Technology Group (KBTG)": "engineering",
+  "LINE MAN Wongnai": "engineering",
+  "Looloo Technology": "engineering",
+  "Khui AI": "engineering",
 };
 
-export function sectionHue(pathname: string): Hue {
-  const match = Object.keys(SECTION_HUE)
-    .filter((href) => href !== "/" && pathname.startsWith(href))
-    .sort((a, b) => b.length - a.length)[0];
-  return SECTION_HUE[match ?? "/"];
+export function orgHue(instituteName: string | undefined): Hue | undefined {
+  return instituteName ? ORG_HUES[instituteName] : undefined;
 }

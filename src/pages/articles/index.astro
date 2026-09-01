@@ -125,8 +125,12 @@ try {
   color: var(--text-2);
   line-height: 1.65;
 }
+/* --accent is ink now, so the underline is what marks this as a link */
 .medium-link {
   color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--border-hover);
+  text-underline-offset: 3px;
   transition: opacity var(--t-fast);
 }
 .medium-link:hover { opacity: 0.7; }

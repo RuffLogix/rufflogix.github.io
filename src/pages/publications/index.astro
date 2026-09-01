@@ -2,7 +2,6 @@
 import FormalLayout from "../../layouts/FormalLayout.astro";
 import { publicationInformation } from "../../constants/publication.constant";
 import { personalInfo } from "../../constants/timeline.constant";
-import { publicationHue } from "../../utils/hue";
 import { toBibtex } from "../../utils/citation";
 
 function isSelf(idx: number, self?: number | number[]) {
@@ -76,7 +75,9 @@ const areas = [
       </div>
     </header>
 
-    <!-- Legend — venue kind by colour, research area by name -->
+    <!-- Legend — venue kinds and research areas, both by name. Colour no longer
+         distinguishes venues: every entry here is research, so a colour key
+         would have one value. Ticket 04 re-decides this block in full. -->
     {
       publicationInformation.length > 0 && (
         <div class="pubs-legend reveal d3">
@@ -84,10 +85,7 @@ const areas = [
             <dt class="legend-term label">Venue</dt>
             <dd class="legend-def">
               {venueTypes.map((t) => (
-                <span class="legend-item" data-hue={publicationHue(t)}>
-                  <span class="legend-dot" aria-hidden="true" />
-                  {t}
-                </span>
+                <span class="legend-item legend-area">{t}</span>
               ))}
             </dd>
           </dl>
@@ -112,7 +110,7 @@ const areas = [
         publicationInformation.map((p, i) => (
           <li
             class:list={["pub-row reveal", `d${(i % 4) + 1}`]}
-            data-hue={publicationHue(p.type)}
+            data-hue="research"
           >
             <div class="pub-head">
               <span class="pub-num">{String(i + 1).padStart(2, "0")}</span>
@@ -449,7 +447,7 @@ const areas = [
     transition: color var(--t-fast);
   }
   .pub-row:hover .pub-title-link {
-    color: var(--accent);
+    color: var(--hue);
   }
   .pub-title-arrow {
     display: inline-flex;
@@ -463,7 +461,7 @@ const areas = [
   .pub-row:hover .pub-title-arrow {
     opacity: 1;
     transform: none;
-    color: var(--accent);
+    color: var(--hue);
   }
 
   .pub-authors {

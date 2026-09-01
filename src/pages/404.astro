@@ -14,10 +14,6 @@ const suggestions = [
   description="The page you were looking for doesn't exist."
 >
   <section class="nf">
-    <div class="nf-ambient" aria-hidden="true">
-      <div class="nf-glow"></div>
-    </div>
-
     <div class="nf-inner page-wrap">
       <p class="label hero-anim ha1" style="letter-spacing: 0.18em;">
         Error 404
@@ -73,24 +69,6 @@ const suggestions = [
     display: flex;
     align-items: center;
     overflow: hidden;
-  }
-
-  .nf-ambient {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .nf-glow {
-    position: absolute;
-    top: -15%;
-    left: 20%;
-    width: 55vw;
-    height: 55vw;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.6;
-    background: radial-gradient(ellipse, var(--glow-1) 0%, transparent 70%);
   }
 
   .nf-inner {

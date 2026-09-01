@@ -1,6 +1,4 @@
 ---
-import { sectionHue, SECTION_HUE } from '../utils/hue';
-
 const path = Astro.url.pathname;
 const links = [
   { href: '/projects',     label: 'Work'         },
@@ -11,7 +9,7 @@ const links = [
 ];
 ---
 
-<header id="nav" data-hue={sectionHue(path)}>
+<header id="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo">RuffLogix<span class="nav-logo-dot" aria-hidden="true">.</span></a>
 
@@ -22,7 +20,6 @@ const links = [
           <a
             href={href}
             class:list={['nav-link', { active }]}
-            data-hue={SECTION_HUE[href]}
             aria-current={active ? 'page' : undefined}
           >
             {label}

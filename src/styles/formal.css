@@ -16,17 +16,17 @@
   --text-1:        #F2F2F2;   /* 18:1 on bg */
   --text-2:        #A8A8A8;   /* 6.5:1 on bg — readable body copy */
   --text-3:        #6C6C6C;   /* 3.8:1 on bg — meta/labels, still legible */
-  --accent:        #9EB3C8;
-  --accent-dim:    rgba(158, 179, 200, 0.12);
-  --accent-glow:   rgba(158, 179, 200, 0.06);
+  /* --accent is deliberately near-ink, not a colour. It carries interaction
+     affordances (focus ring, selection) without competing with the two hues.
+     If it were tinted, "belongs to no practice" and "engineering" would look
+     the same and the axis below would stop meaning anything. */
+  --accent:        #E6E9EC;
+  --accent-dim:    rgba(255, 255, 255, 0.13);
 
-  /* Categorical hues — see src/utils/hue.ts. Desaturated to sit beside the
-     grey palette; every value clears 7:1 on --bg. */
-  --hue-blue:      #7FA8D9;
-  --hue-green:     #6FBF9A;
-  --hue-orange:    #D9A05B;
-  --hue-purple:    #B39BD9;
-  --hue-red:       #E08A8A;
+  /* The research / engineering axis — see src/utils/hue.ts. Two hues, one
+     meaning. Both clear 7:1 on --bg. */
+  --hue-research:    #D9A05B;   /* amber — paper, archive, citation */
+  --hue-engineering: #7FA8D9;   /* slate — machine, code, runtime */
 
   /* Fonts */
   --font:      'Plus Jakarta Sans', 'Geist', system-ui, -apple-system, sans-serif;
@@ -50,11 +50,6 @@
   --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.22);
   --shadow-btn:  0 8px 28px rgba(0, 0, 0, 0.28);
 
-  /* Ambient hero glows — tuned against the dark canvas */
-  --glow-1: rgba(80, 120, 200, 0.07);
-  --glow-2: rgba(140, 80, 200, 0.05);
-  --glow-3: rgba(60, 180, 140, 0.04);
-
   /* Motion */
   --expo:   cubic-bezier(0.16, 1, 0.3, 1);
   --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -74,38 +69,27 @@
   --text-1:        #111111;   /* near-black */
   --text-2:        #404040;   /* 9:1 on bg — strong readable body */
   --text-3:        #767676;   /* 4.54:1 on white — WCAG AA threshold */
-  --accent:        #3D6A8A;
-  --accent-dim:    rgba(61, 106, 138, 0.10);
-  --accent-glow:   rgba(61, 106, 138, 0.06);
+  --accent:        #1A1D21;
+  --accent-dim:    rgba(0, 0, 0, 0.10);
 
   /* The dark hues wash out on white — these are darkened to clear 4.5:1 */
-  --hue-blue:      #2F6496;
-  --hue-green:     #2C7757;
-  --hue-orange:    #92651C;
-  --hue-purple:    #63499B;
-  --hue-red:       #AF3A3A;
+  --hue-research:    #92651C;
+  --hue-engineering: #2F6496;
 
   /* Light needs a shorter, softer falloff — the dark-tuned shadow reads as dirt */
   --shadow-card: 0 14px 40px rgba(15, 23, 42, 0.10);
   --shadow-btn:  0 6px 20px rgba(15, 23, 42, 0.14);
-
-  /* Glows need more saturation to register at all against white */
-  --glow-1: rgba(80, 120, 200, 0.13);
-  --glow-2: rgba(140, 80, 200, 0.10);
-  --glow-3: rgba(60, 180, 140, 0.09);
 }
 
 /* ── HUE RESOLUTION ──────────────────────────────────────────────
    Anything carrying data-hue republishes that hue as --hue, so
    descendants style against var(--hue) without knowing which one it
-   is. Unlabelled subtrees fall back to the neutral accent. */
+   is. A subtree with no data-hue belongs to neither practice and
+   resolves to ink — that is the intended reading, not a fallback. */
 :root { --hue: var(--accent); }
 
-[data-hue="blue"]   { --hue: var(--hue-blue);   }
-[data-hue="green"]  { --hue: var(--hue-green);  }
-[data-hue="orange"] { --hue: var(--hue-orange); }
-[data-hue="purple"] { --hue: var(--hue-purple); }
-[data-hue="red"]    { --hue: var(--hue-red);    }
+[data-hue="research"]    { --hue: var(--hue-research);    }
+[data-hue="engineering"] { --hue: var(--hue-engineering); }
 
 /* Shorthands for the two tints every consumer ends up needing */
 [data-hue] {
@@ -249,8 +233,8 @@ strong     { font-weight: 600; }
   transition: opacity var(--t-fast);
 }
 .nav-logo:hover { opacity: 0.55; }
-/* Carries the current section's hue — a quiet where-am-I cue */
-.nav-logo-dot { color: var(--hue); }
+/* Chrome is never hued — the axis is for work, not for navigation */
+.nav-logo-dot { color: var(--text-3); }
 
 .nav-links {
   position: absolute;
@@ -273,7 +257,7 @@ strong     { font-weight: 600; }
   position: absolute;
   bottom: -2px; left: 0; right: 0;
   height: 1px;
-  background: var(--hue);
+  background: var(--text-1);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--t-mid) var(--expo);
