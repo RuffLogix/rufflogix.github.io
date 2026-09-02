@@ -24,7 +24,7 @@ export const HUES = ["research", "engineering"] as const;
 export type Hue = (typeof HUES)[number];
 
 /**
- * Project categories. Six of the twenty-two projects are research-flavoured;
+ * Project categories. Five of the seventeen projects are research-flavoured;
  * the rest are things that shipped. The split is what makes the colour worth
  * spending — a single-hue index would carry no information.
  */

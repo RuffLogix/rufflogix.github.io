@@ -2,6 +2,22 @@ import type { ProjectInformation } from "../types/project.d.ts";
 
 export const projectInformation: ProjectInformation[] = [
   {
+    title: "Message Bubble Generator",
+    category: "Web Development",
+    date: "September 2026",
+    description:
+      "A dependency-free browser tool that animates a chat conversation on a chroma-key background and exports it as a WebM for video editing. Every bubble is drawn on a <canvas> at output resolution — nothing is a DOM element — so the recording is pixel-identical to the preview. Messages type themselves one grapheme at a time with the bubble growing to fit, and the stack eases upward as new bubbles arrive. Ships iMessage/LINE/Flat styles, 9:16 / 1:1 / 16:9 output, per-side colours, an alpha-channel mode, and a live mode for narrating a conversation while recording. Handles Thai wrapping and tone-mark clipping, which is why it exists: it produces the chat cutaways for RuffBlitz videos.",
+    tags: ["JavaScript", "Canvas", "WebM", "MediaRecorder", "Video"],
+    role: "Personal Project",
+    image: "/images/rufflogix-logo.jpg",
+    githubLinks: [
+      {
+        label: "Repository",
+        url: "https://github.com/RuffLogix/message-bubble-generator",
+      },
+    ],
+  },
+  {
     title: "RuffBlitz School — Block-Based LMS",
     category: "Web Development",
     date: "2026",

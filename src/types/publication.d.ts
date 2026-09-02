@@ -13,4 +13,6 @@ export interface PublicationInformation {
 	doi?: string;
 	doiLink?: string;
 	pdfLink?: string;
+	/** Repository holding the code, data and run artefacts behind the paper. */
+	codeLink?: string;
 }

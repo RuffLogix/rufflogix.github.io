@@ -27,6 +27,7 @@ export const publicationInformation: PublicationInformation[] = [
     doi: "10.48550/arXiv.2608.28102",
     doiLink: "https://arxiv.org/abs/2608.28102",
     pdfLink: "https://arxiv.org/pdf/2608.28102",
+    codeLink: "https://github.com/RuffLogix/kstep-copper-forecast",
   },
   {
     title:
