@@ -2,6 +2,16 @@ import type { ProjectInformation } from "../types/project.d.ts";
 
 export const projectInformation: ProjectInformation[] = [
   {
+    title: "asr-redact — Thai Speech PII Redaction",
+    category: "AI / Machine Learning",
+    date: "September 2026",
+    description:
+      "A pipeline that finds personally identifiable information in Thai speech and censors it in the audio itself, not just in the transcript. Silero VAD packs speech into ≤30 s windows so cuts land in silence, Typhoon ASR (a NeMo RNNT model, driven directly rather than through its convenience wrapper) returns subword timestamps, and two detectors — PyThaiNLP NER plus pattern rules for identifiers dictated digit by digit — mark the spans. Because an RNNT emits a token at or after the sound it describes, each token is widened back toward the previous emission so a redaction covers the whole word rather than its tail. Every input yields a beeped/silenced/noised copy and a JSON report of what was removed and when.",
+    tags: ["ASR", "NeMo", "Silero VAD", "PyThaiNLP", "NER", "Privacy"],
+    role: "Personal Project",
+    image: "/images/rufflogix-logo.jpg",
+  },
+  {
     title: "Message Bubble Generator",
     category: "Web Development",
     date: "September 2026",
