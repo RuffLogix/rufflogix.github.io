@@ -52,6 +52,8 @@ const ORG_HUES: Record<string, Hue> = {
   "LINE MAN Wongnai": "engineering",
   "Looloo Technology": "engineering",
   "Khui AI": "engineering",
+  "Lumio 3D": "research",
+  "IKP (iKnowPlus)": "engineering",
 };
 
 export function orgHue(instituteName: string | undefined): Hue | undefined {

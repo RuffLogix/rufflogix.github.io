@@ -2,6 +2,7 @@
 import FormalLayout from "../layouts/FormalLayout.astro";
 import { projectInformation } from "../constants/project.constant.ts";
 import { publicationInformation } from "../constants/publication.constant.ts";
+import AffiliationStrip from "../components/AffiliationStrip.astro";
 import { projectHue } from "../utils/hue.ts";
 import { decodeEntities } from "../utils/html.ts";
 
@@ -214,6 +215,8 @@ const philosophy = [
       </div>
     </div>
   </section>
+
+  <AffiliationStrip />
 
   <!-- ═══════════════════════════════════════════
        SELECTED WORK
@@ -617,6 +620,7 @@ const philosophy = [
     flex-wrap: wrap;
     gap: 0.5rem;
   }
+
   /* ── WORK ─────────────────────────────────────────────────── */
   .work-section {
     padding-top: var(--sp-section);

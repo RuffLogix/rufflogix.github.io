@@ -9,6 +9,7 @@ import { techStackData } from "../../constants/techstack.constant";
 import { publicationInformation } from "../../constants/publication.constant";
 import { events } from "../../constants/event.constant";
 import { orgHue } from "../../utils/hue";
+import AffiliationStrip from "../../components/AffiliationStrip.astro";
 
 // Stats are counted from the same data the rest of the site renders, so they
 // can't drift out of date the way hand-written numbers do.
@@ -118,9 +119,9 @@ const podiumFinishes = events.filter((e) => e.award && PODIUM.test(e.award)).len
                     </div>
                   ))}
                 </div>
-              ) : (
+              ) : exp.description ? (
                 <p class="tl-desc">{exp.description}</p>
-              )}
+              ) : null}
 
               <span class="tl-location label">{exp.location}</span>
             </div>
@@ -128,6 +129,9 @@ const podiumFinishes = events.filter((e) => e.award && PODIUM.test(e.award)).len
         ))}
       </div>
     </section>
+
+    <!-- ── PART-TIME ROLES ─────────────────────────────────────── -->
+    <AffiliationStrip wrap={false} border="top" />
 
     <!-- ── EDUCATION ───────────────────────────────────────────── -->
     <section class="section">

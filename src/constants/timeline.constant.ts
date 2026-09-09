@@ -146,6 +146,15 @@ export const experienceInformation: ExperienceInformation[] = [
       "Building a framework that bridges LLMs and Temporal.io through MCP, exposing predefined Temporal workflows as tools any LLM can invoke. Applied it to an internal Slack Bot for semi-automated employee onboarding, reducing the process from 21 steps down to 3–5.",
   },
   {
+    image: "/images/experience/lumio3d-logo.png",
+    instituteName: "Lumio 3D",
+    link: "https://lumio3d.com/",
+    program: "Research Engineer (Part-time)",
+    location: "Bangkok, Thailand",
+    duration: "2026",
+    calculatedDuration: parseDurationString("2026"),
+  },
+  {
     image: "/images/experience/lmwn-logo.jpg",
     instituteName: "LINE MAN Wongnai",
     link: "https://lmwn.com/",
@@ -155,6 +164,15 @@ export const experienceInformation: ExperienceInformation[] = [
     calculatedDuration: parseDurationString("May 2025 - Jul 2025"),
     description:
       "I developed a gRPC service in Go to retrieve data for feeding into DAGs and implemented the DAGs to automate report generation and email delivery to merchants. During this process, I also gained a strong understanding of encryption algorithms to ensure secure data handling throughout the pipeline.",
+  },
+  {
+    image: "/images/experience/ikp-logo.png",
+    instituteName: "IKP (iKnowPlus)",
+    link: "https://www.iknowplus.co.th/",
+    program: "Software Developer (Part-time)",
+    location: "Bangkok, Thailand",
+    duration: "2025",
+    calculatedDuration: parseDurationString("2025"),
   },
   {
     image: "/images/experience/aimet-logo.png",
