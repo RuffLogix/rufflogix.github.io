@@ -153,6 +153,8 @@ export const experienceInformation: ExperienceInformation[] = [
     location: "Bangkok, Thailand",
     duration: "2026",
     calculatedDuration: parseDurationString("2026"),
+    description:
+      "Researching Gaussian splatting for talking-head reconstruction, building 3D representations of a subject's head from multi-view image capture so it can be re-rendered and animated from novel viewpoints.",
   },
   {
     image: "/images/experience/lmwn-logo.jpg",
@@ -173,6 +175,8 @@ export const experienceInformation: ExperienceInformation[] = [
     location: "Bangkok, Thailand",
     duration: "2025",
     calculatedDuration: parseDurationString("2025"),
+    description:
+      "Working across the full stack on an internationalised product: a Next.js frontend with i18n covering multiple locales, and a Nest.js backend on MongoDB.",
   },
   {
     image: "/images/experience/aimet-logo.png",
