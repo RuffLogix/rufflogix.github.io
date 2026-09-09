@@ -1,6 +1,6 @@
 ---
 import FormalLayout from "../../layouts/FormalLayout.astro";
-import { decodeEntities } from "../../utils/html";
+import { decodeEntities, stripEmDashes } from "../../utils/html";
 
 const MEDIUM_URL = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
 
@@ -15,7 +15,7 @@ interface MediumPost {
 }
 
 function excerpt(html: string, max = 180) {
-  const t = decodeEntities(html.replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ').trim();
+  const t = stripEmDashes(decodeEntities(html.replace(/<[^>]*>/g, ''))).replace(/\s+/g, ' ').trim();
   return t.length > max ? t.slice(0, max) + '…' : t;
 }
 
@@ -39,7 +39,7 @@ try {
 } catch { /* silent */ }
 ---
 
-<FormalLayout title="Writing — RuffLogix">
+<FormalLayout title="Writing | RuffLogix">
   <div class="articles-page page-wrap">
 
     <header class="articles-header">
@@ -74,7 +74,7 @@ try {
               <div class="post-meta-row">
                 <span class="label post-date">{fmtDate(post.pubDate)}</span>
               </div>
-              <h2 class="post-title">{decodeEntities(post.title)}</h2>
+              <h2 class="post-title">{stripEmDashes(decodeEntities(post.title))}</h2>
               <p class="post-excerpt">{excerpt(post.description)}</p>
             </div>
             <div class="post-arrow-wrap">
@@ -90,7 +90,7 @@ try {
       </div>
     ) : (
       <div class="empty-state reveal">
-        <p class="label">No posts available — check back soon.</p>
+        <p class="label">No posts available. Check back soon.</p>
         <a href="https://medium.com/@rufflogix" target="_blank" rel="noopener noreferrer"
            class="btn btn-ghost" style="margin-top: 1.5rem;">
           Visit Medium

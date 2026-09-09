@@ -2,11 +2,11 @@ import type { ProjectInformation } from "../types/project.d.ts";
 
 export const projectInformation: ProjectInformation[] = [
   {
-    title: "asr-redact — Thai Speech PII Redaction",
+    title: "asr-redact: Thai Speech PII Redaction",
     category: "AI / Machine Learning",
     date: "September 2026",
     description:
-      "A pipeline that finds personally identifiable information in Thai speech and censors it in the audio itself, not just in the transcript. Silero VAD packs speech into ≤30 s windows so cuts land in silence, Typhoon ASR (a NeMo RNNT model, driven directly rather than through its convenience wrapper) returns subword timestamps, and two detectors — PyThaiNLP NER plus pattern rules for identifiers dictated digit by digit — mark the spans. Because an RNNT emits a token at or after the sound it describes, each token is widened back toward the previous emission so a redaction covers the whole word rather than its tail. Every input yields a beeped/silenced/noised copy and a JSON report of what was removed and when.",
+      "A pipeline that finds personally identifiable information in Thai speech and censors it in the audio itself, not just in the transcript. Silero VAD packs speech into ≤30 s windows so cuts land in silence, Typhoon ASR (a NeMo RNNT model, driven directly rather than through its convenience wrapper) returns subword timestamps, and two detectors (PyThaiNLP NER plus pattern rules for identifiers dictated digit by digit) mark the spans. Because an RNNT emits a token at or after the sound it describes, each token is widened back toward the previous emission so a redaction covers the whole word rather than its tail. Every input yields a beeped/silenced/noised copy and a JSON report of what was removed and when.",
     tags: ["ASR", "NeMo", "Silero VAD", "PyThaiNLP", "NER", "Privacy"],
     role: "Personal Project",
     image: "/images/rufflogix-logo.jpg",
@@ -16,7 +16,7 @@ export const projectInformation: ProjectInformation[] = [
     category: "Web Development",
     date: "September 2026",
     description:
-      "A dependency-free browser tool that animates a chat conversation on a chroma-key background and exports it as a WebM for video editing. Every bubble is drawn on a <canvas> at output resolution — nothing is a DOM element — so the recording is pixel-identical to the preview. Messages type themselves one grapheme at a time with the bubble growing to fit, and the stack eases upward as new bubbles arrive. Ships iMessage/LINE/Flat styles, 9:16 / 1:1 / 16:9 output, per-side colours, an alpha-channel mode, and a live mode for narrating a conversation while recording. Handles Thai wrapping and tone-mark clipping, which is why it exists: it produces the chat cutaways for RuffBlitz videos.",
+      "A dependency-free browser tool that animates a chat conversation on a chroma-key background and exports it as a WebM for video editing. Every bubble is drawn on a <canvas> at output resolution (nothing is a DOM element), so the recording is pixel-identical to the preview. Messages type themselves one grapheme at a time with the bubble growing to fit, and the stack eases upward as new bubbles arrive. Ships iMessage/LINE/Flat styles, 9:16 / 1:1 / 16:9 output, per-side colours, an alpha-channel mode, and a live mode for narrating a conversation while recording. Handles Thai wrapping and tone-mark clipping, which is why it exists: it produces the chat cutaways for RuffBlitz videos.",
     tags: ["JavaScript", "Canvas", "WebM", "MediaRecorder", "Video"],
     role: "Personal Project",
     image: "/images/rufflogix-logo.jpg",
@@ -28,11 +28,11 @@ export const projectInformation: ProjectInformation[] = [
     ],
   },
   {
-    title: "RuffBlitz School — Block-Based LMS",
+    title: "RuffBlitz School: Block-Based LMS",
     category: "Web Development",
     date: "2026",
     description:
-      'A learning management platform where courses are assembled from composable "blocks" — Lego-like pieces (text, video, quizzes, code, and more) that instructors snap together to build lessons. Aimed at flexible, hands-on course authoring.',
+      'A learning management platform where courses are assembled from composable "blocks": Lego-like pieces (text, video, quizzes, code, and more) that instructors snap together to build lessons. Aimed at flexible, hands-on course authoring.',
     tags: ["Next", "TypeScript", "LMS", "EdTech"],
     role: "Personal Project",
     image: "/images/rufflogix-logo.jpg",
@@ -53,7 +53,7 @@ export const projectInformation: ProjectInformation[] = [
     category: "AI / Machine Learning",
     date: "2026",
     description:
-      "A lightweight ordinal image classifier that grades urine color on a 5-point scale (Clear → Very Dark) as a coarse hydration proxy, built for CPU inference. Treats the ordered classes as ordinal regression (class-weighted CE + Squared-EMD loss), with color-preserving augmentation, effective-number class balancing, and a held-out + 5-fold stratified protocol. Reaches QWK 0.963 on the test set with 100% adjacent accuracy — every error is off-by-one — while a trivial color+GBM baseline matches ~98% of it, making the efficiency case for tiny deployment. Delivered as a LINE chatbot via the LINE SDK and Messaging API, so users get a hydration reading by sending a photo in chat. Not a diagnostic tool.",
+      "A lightweight ordinal image classifier that grades urine color on a 5-point scale (Clear → Very Dark) as a coarse hydration proxy, built for CPU inference. Treats the ordered classes as ordinal regression (class-weighted CE + Squared-EMD loss), with color-preserving augmentation, effective-number class balancing, and a held-out + 5-fold stratified protocol. Reaches QWK 0.963 on the test set with 100% adjacent accuracy (every error is off-by-one), while a trivial color+GBM baseline matches ~98% of it, making the efficiency case for tiny deployment. Delivered as a LINE chatbot via the LINE SDK and Messaging API, so users get a hydration reading by sending a photo in chat. Not a diagnostic tool.",
     tags: ["PyTorch", "Computer Vision", "Ordinal Regression", "CNN", "LINE"],
     role: "Research Project",
     image: "/images/rufflogix-logo.jpg",
@@ -65,7 +65,7 @@ export const projectInformation: ProjectInformation[] = [
     category: "AI / Machine Learning",
     date: "2026",
     description:
-      "NSC 2026 project advised by Prof. Peerapon Vateekul. A Thai-language conversational AI agent for disaster and environmental intelligence, delivered via LINE. Unifies fragmented government open data into one chat interface: a Vertex AI RAG Engine (Gemini 2.5 Flash-Lite + Typhoon 2.1) over DDPM/HII/DMR documents, live environment tools (Google Flood Hub, Air Quality API, Air4Thai, RID, TMD, GISTDA), and geospatial analysis via Google Earth Engine (AlphaEarth & Dynamic World) for flood, landslide, and burn-scar mapping — answering in under 8s (p95) with map widgets and official citations.",
+      "NSC 2026 project advised by Prof. Peerapon Vateekul. A Thai-language conversational AI agent for disaster and environmental intelligence, delivered via LINE. Unifies fragmented government open data into one chat interface: a Vertex AI RAG Engine (Gemini 2.5 Flash-Lite + Typhoon 2.1) over DDPM/HII/DMR documents, live environment tools (Google Flood Hub, Air Quality API, Air4Thai, RID, TMD, GISTDA), and geospatial analysis via Google Earth Engine (AlphaEarth & Dynamic World) for flood, landslide, and burn-scar mapping, answering in under 8s (p95) with map widgets and official citations.",
     tags: ["Vertex AI", "Gemini", "RAG", "Earth Engine", "LINE", "PyThaiNLP"],
     role: "NSC 2026 Project",
     image: "/images/rufflogix-logo.jpg",

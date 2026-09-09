@@ -33,3 +33,15 @@ export function decodeEntities(text: string): string {
     return NAMED_ENTITIES[body.toLowerCase()] ?? match;
   });
 }
+
+/**
+ * Replace em dashes with ordinary punctuation.
+ *
+ * The site's own copy is written without them, but Medium titles and excerpts
+ * arrive as whatever was typed there, so feed text is normalised on the way in.
+ * A dash flanked by spaces becomes a comma; one set tight against the words it
+ * joins is doing the work of a hyphen, so it becomes one.
+ */
+export function stripEmDashes(text: string): string {
+  return text.replace(/\s+—\s+/g, ", ").replace(/—/g, "-");
+}

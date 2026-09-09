@@ -11,7 +11,7 @@ export const events: EventInformation[] = [
     type: "Competition",
     role: "Host ×5",
     description:
-      "Founded and hosted a Computer Olympiad competition for upper-south Thailand students — 5 editions across 2022–2025.",
+      "Founded and hosted a Computer Olympiad competition for upper-south Thailand students. 5 editions across 2022–2025.",
     year: "2022–2025",
     location: "Upper-South Thailand",
     link: "https://www.facebook.com/TUSCO2022",
@@ -34,7 +34,7 @@ export const events: EventInformation[] = [
     type: "Hackathon",
     award: "1st Place",
     description:
-      'Themed "Brain Rot" — built the most-talked-about project, ranked first by live audience engagement.',
+      'Themed "Brain Rot". Built the most-talked-about project, ranked first by live audience engagement.',
     year: "2025",
     location: "Bangkok, Thailand",
     link: "https://medium.com/@rufflogix/stupid-hackathon-9-%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%A7%E0%B8%A3%E0%B8%A3%E0%B8%93%E0%B8%A8%E0%B8%B4%E0%B8%A5%E0%B8%9B%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%88%E0%B8%A7%E0%B8%9A%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B8%A8%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B8%84%E0%B8%93%E0%B8%99%E0%B8%B2-e74070419b20",
@@ -80,7 +80,7 @@ export const events: EventInformation[] = [
     title: "AIHack Thailand 2024",
     organization: "Chulalongkorn Business School",
     type: "Hackathon",
-    award: "3rd Place — AUC Track",
+    award: "3rd Place, AUC Track",
     description:
       "Built ML models to predict customer loan defaults; 3rd place in the AUC tournament track.",
     year: "2024",
@@ -148,7 +148,7 @@ export const events: EventInformation[] = [
     type: "Camp",
     award: "Participant",
     description:
-      "Creative AI camp focused on innovative applications of AI technology — built a parking occupancy detection project using YOLOv3 and OpenCV.",
+      "Creative AI camp focused on innovative applications of AI technology. Built a parking occupancy detection project using YOLOv3 and OpenCV.",
     year: "2022",
     location: "Thailand",
     link: "https://www.cpall.co.th/news/organization/creative-ai-camp-by-cp-all-5th",
@@ -183,7 +183,7 @@ export const events: EventInformation[] = [
   },
   {
     emoji: "🧪",
-    title: "TMLCC — Thailand Machine Learning for Chemistry Competition",
+    title: "TMLCC: Thailand Machine Learning for Chemistry Competition",
     type: "Competition",
     award: "Participant",
     description:
@@ -197,7 +197,7 @@ export const events: EventInformation[] = [
     type: "Program",
     role: "Head & Host",
     description:
-      "Founded and led a program where senior students tutor juniors to prepare for the POSN (สอวน.) academic olympiad — serving as organizer, instructor, and coordinator.",
+      "Founded and led a program where senior students tutor juniors to prepare for the POSN (สอวน.) academic olympiad, serving as organizer, instructor, and coordinator.",
     year: "2021",
     location: "Thailand",
   },

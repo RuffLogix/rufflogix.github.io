@@ -4,7 +4,7 @@ import { projectInformation } from "../constants/project.constant.ts";
 import { publicationInformation } from "../constants/publication.constant.ts";
 import AffiliationStrip from "../components/AffiliationStrip.astro";
 import { projectHue } from "../utils/hue.ts";
-import { decodeEntities } from "../utils/html.ts";
+import { decodeEntities, stripEmDashes } from "../utils/html.ts";
 
 const MEDIUM_URL =
   "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
@@ -17,7 +17,7 @@ interface MediumPost {
 }
 
 function excerpt(html: string, max = 130) {
-  const t = decodeEntities(html.replace(/<[^>]*>/g, ""))
+  const t = stripEmDashes(decodeEntities(html.replace(/<[^>]*>/g, "")))
     .replace(/\s+/g, " ")
     .trim();
   return t.length > max ? t.slice(0, max) + "…" : t;
@@ -61,7 +61,7 @@ const philosophy = [
   },
   {
     word: "Verified",
-    desc: "Formal models where tests can't reach — concurrent pipelines deadlock in states no unit test enumerates.",
+    desc: "Formal models where tests can't reach. Concurrent pipelines deadlock in states no unit test enumerates.",
   },
   {
     word: "Measured",
@@ -91,7 +91,7 @@ const philosophy = [
         Published research in computer graphics, medical imaging AI,<br
           class="br-lg"
         />
-        and formal verification — and the systems that put it into production.
+        and formal verification, plus the systems that put it into production.
       </p>
 
       <div class="hero-cta hero-anim ha4">
@@ -174,15 +174,15 @@ const philosophy = [
           full-time at <strong>Khui AI</strong> on LLM training, fine-tuning,
           and deployment, alongside an AI engineering apprenticeship at <strong
             >KBTG</strong
-          >. Previously at Agoda — bridging LLMs and Temporal.io through MCP —
-          plus LINE MAN Wongnai, AIMET, and Looloo Technology, across federated
+          >. Previously at Agoda, bridging LLMs and Temporal.io through MCP, plus
+          LINE MAN Wongnai, AIMET, and Looloo Technology, across federated
           learning, speech AI, backend systems, and smart contracts.
         </p>
         <p class="about-text" style="margin-top: 0.9rem;">
           Computer Engineering student at <strong
             >Chulalongkorn University</strong
           >, publishing on computer graphics, medical imaging AI, and formal
-          verification — {publicationInformation.length} papers in <strong
+          verification: {publicationInformation.length} papers in <strong
             >IEEE Access</strong
           >, <strong>JCSSE</strong>, and on <strong>arXiv</strong>. Super AI
           Engineer Season 5 · iGEM 2024 Silver · TOI Thailand 2020/2021.
@@ -421,7 +421,7 @@ const philosophy = [
     <!-- Cinematic quote -->
     <blockquote class="phil-quote reveal d4">
       <span class="phil-quote-mark">"</span>
-      A proof you can check and an experiment you can rerun —<br />
+      A proof you can check and an experiment you can rerun:<br />
       <em>the same discipline, applied twice.</em>
     </blockquote>
   </section>
@@ -464,7 +464,7 @@ const philosophy = [
             >
               <div class="post-row-left">
                 <span class="post-date label">{fmtDate(post.pubDate)}</span>
-                <h3 class="post-title">{decodeEntities(post.title)}</h3>
+                <h3 class="post-title">{stripEmDashes(decodeEntities(post.title))}</h3>
                 <p class="post-excerpt">{excerpt(post.description)}</p>
               </div>
               <svg
