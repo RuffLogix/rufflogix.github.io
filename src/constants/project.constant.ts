@@ -28,11 +28,11 @@ export const projectInformation: ProjectInformation[] = [
     ],
   },
   {
-    title: "ts-expense-tracker: Personal Finance SPA",
+    title: "Personal Finance SPA",
     category: "Web Development",
     date: "September 2026",
     description:
-      "A personal finance app with no application server: the React SPA talks straight to Supabase Postgres, which makes Row Level Security the entire security boundary rather than one layer of it. It covers daily spend, subscriptions, income, investments, goals and debts, with dashboard aggregation pushed down into security_invoker views instead of pulling every row into the browser. Subscriptions become real transactions through a client-side catch-up on app load, kept idempotent by a partial unique index on (source_recurring_id, occurred_on), so opening the app twice never double-charges. Split transactions are sibling rows sharing a client-minted group id, so no existing aggregate had to change, and multi-currency freezes the FX rate at save time with the base-currency amount derived as a generated column so the pair cannot drift. A simple mode strips ornament without hiding a single card, swapping Recharts for plain SVG fallbacks picked by data shape. The Menagerie view draws a month of transactions as a den of creatures, species from the category and size from the amount, steered by a rAF loop that writes transforms straight to the DOM rather than re-rendering React per frame.",
+      "A personal finance app with no application server: the React SPA talks straight to Supabase Postgres, so Row Level Security is the entire security boundary. Tracks daily spend, subscriptions, income, investments, goals and debts, with dashboard aggregation pushed down into Postgres views rather than pulled into the browser. Subscriptions turn into real transactions through a client-side catch-up on load, kept idempotent by a partial unique index so opening the app twice never double-charges. A Menagerie view renders the month's transactions as a den of wandering creatures, species from the category and size from the amount.",
     tags: ["React", "TypeScript", "Supabase", "Vite", "Recharts", "PWA"],
     role: "Personal Project",
     image: "/images/rufflogix-logo.jpg",
