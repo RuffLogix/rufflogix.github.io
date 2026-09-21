@@ -57,6 +57,7 @@ export const projectInformation: ProjectInformation[] = [
     tags: ["Elysia", "Bun", "Next", "PostgreSQL", "Redis", "Judge0"],
     role: "Personal Project",
     image: "/images/rufflogix-logo.jpg",
+    infoLink: "https://grader.ruffblitz.com/",
   },
   {
     title: "Urine Color Classifier",
