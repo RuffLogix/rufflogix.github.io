@@ -135,6 +135,17 @@ export const experienceInformation: ExperienceInformation[] = [
       "I researched the NEET (Not in Education, Employment, or Training) group in Thailand to understand their behaviors and needs, and explored how AI could be utilized to support them. I also developed a mobile application using Flutter and implemented a real-time ASR (Automatic Speech Recognition) and Machine Translation pipeline for medical discussions.",
   },
   {
+    image: "/images/experience/ruffblitz-logo.png",
+    instituteName: "RuffBlitz",
+    link: "https://www.facebook.com/ruffblitz",
+    program: "Founder, Tutor, Software Developer, AI Engineer, Writer",
+    location: "Bangkok, Thailand",
+    duration: "Sep 2023 - Present",
+    calculatedDuration: parseDurationString("Sep 2023 - Present"),
+    description:
+      "Founded RuffBlitz, a Thai coding-education brand that prepares high school students for TOI and the POSN Computer Olympiad. Tutoring competitive programming and algorithms, writing learning content, and building the software and AI tools behind it, including interactive algorithm visualizers.",
+  },
+  {
     image: "/images/experience/agoda-logo.png",
     instituteName: "Agoda",
     link: "https://www.agoda.com/",
