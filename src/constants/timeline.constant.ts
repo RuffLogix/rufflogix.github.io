@@ -132,7 +132,7 @@ export const experienceInformation: ExperienceInformation[] = [
     duration: "Sep 2025 - Present",
     calculatedDuration: parseDurationString("Sep 2025 - Present"),
     description:
-      "I researched the NEET (Not in Education, Employment, or Training) group in Thailand to understand their behaviors and needs, and explored how AI could be utilized to support them. I also developed a mobile application using Flutter and implemented a real-time ASR (Automatic Speech Recognition) and Machine Translation pipeline for medical discussions.",
+      "I researched the NEET (Not in Education, Employment, or Training) group in Thailand to understand their behaviors and needs, and explored how AI could be utilized to support them. I also developed a mobile application using Flutter and implemented a real-time ASR (Automatic Speech Recognition) and Machine Translation pipeline for medical discussions. This KBTG x EEF work was showcased at KBTG Techtopia 2026.",
   },
   {
     image: "/images/experience/ruffblitz-logo.png",

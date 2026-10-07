@@ -6,6 +6,16 @@ import type { EventInformation } from "../types/event.d.ts";
  */
 export const events: EventInformation[] = [
   {
+    emoji: "🏦",
+    title: "KBTG Techtopia 2026",
+    organization: "KBTG",
+    type: "Conference",
+    award: "Showcased Work",
+    description:
+      "Showcased my KBTG x EEF (Equitable Education Fund) apprenticeship work: research on Thailand's NEET youth and how AI can support them.",
+    year: "2026",
+  },
+  {
     emoji: "🧑‍🏫",
     title: "TUSCO Computer Olympiad",
     type: "Competition",
