@@ -84,6 +84,7 @@ export function toBibtex(p: PublicationInformation): string {
   const identifiers: Field[] = [
     ["doi", p.doi],
     ["url", p.doiLink],
+    ["note", p.status === "accepted" ? "Accepted, to appear" : undefined],
   ];
 
   switch (p.type) {

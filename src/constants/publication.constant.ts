@@ -3,6 +3,108 @@ import type { PublicationInformation } from "../types/publication.d.ts";
 export const publicationInformation: PublicationInformation[] = [
   {
     title:
+      "A Glossary Must Be Scoped to the Speech It Will Hear: Terminology Control for Live Thai-English Medical Captioning",
+    authors: ["Teejuta Sriwaranon", "Monchai Lertsutthiwong"],
+    selfAuthorIndex: 0,
+    venue:
+      "2026 21st International Joint Symposium on Artificial Intelligence and Natural Language Processing (iSAI-NLP)",
+    date: "2026",
+    type: "Conference Paper",
+    status: "accepted",
+    area: "Speech and Language Processing",
+    abstract:
+      "A deployed real-time Thai-English captioning system for medical conferences built around a deterministic term-protection layer: one curated glossary grounds an LLM correction stage over ASR finals, and protected terms are masked before a black-box MT call and restored afterwards, with an append-on-loss fallback. On 440 synthesized utterances with known ground truth, the best configuration reaches 90.0% term fidelity against 47.9% for corrected text through plain MT; on 54.1 minutes of real speech, a support check blocks 19 of 20 off-domain glossary insertions.",
+    tags: [
+      "Speech Translation",
+      "Code-Switching",
+      "Thai NLP",
+      "Terminology Control",
+      "Live Captioning",
+      "Medical NLP",
+    ],
+  },
+  {
+    title:
+      "Cross-Specimen Forecasting of Copper Oxidation Appearance for Physically Based Rendering",
+    authors: [
+      "Teejuta Sriwaranon",
+      "Borworntat Dendumrongkul",
+      "Tanapat Chamted",
+      "Sirichai Leelachao",
+      "Pizzanu Kanongchaiyos",
+    ],
+    selfAuthorIndex: 0,
+    venue:
+      "2026 30th International Computer Science and Engineering Conference (ICSEC)",
+    date: "2026",
+    type: "Conference Paper",
+    status: "accepted",
+    area: "Computer Graphics",
+    abstract:
+      "A system that observes a copper plate with a fixed camera, forecasts its appearance ten accelerated units ahead, and converts the forecast into metallic-roughness PBR maps. Under leave-one-recording-out evaluation across an accelerated-chamber and an open-air recording, a training-free global affine color extrapolation is the only method that beats repeating the last observed frame in both directions (+11.7% and +51.2%), while chamber-trained learned models improve only on held-back frames of their own recording.",
+    tags: [
+      "Appearance Forecasting",
+      "PBR Material",
+      "Computer Graphics",
+      "Surface Oxidation",
+      "Cross-Specimen Generalization",
+    ],
+  },
+  {
+    title:
+      "Timed-Automata Verification of Payload-Link Supervision, Watchdog Gating, and A/B Boot Policy in STM32 Flight Software",
+    authors: [
+      "Borworntat Dendumrongkul",
+      "Natdanai Hirunsirikul",
+      "Teejuta Sriwaranon",
+      "Phongsatorn Saisutjarit",
+      "Pizzanu Kanongchaiyos",
+    ],
+    selfAuthorIndex: 2,
+    venue:
+      "2026 30th International Computer Science and Engineering Conference (ICSEC)",
+    date: "2026",
+    type: "Conference Paper",
+    status: "accepted",
+    area: "Formal Verification",
+    abstract:
+      "Verifies an abstracted design model of three interacting recovery mechanisms in an STM32 small-satellite flight-software prototype (payload-link supervision, a health-gated hardware watchdog, and a CRC-validated A/B bootloader) as UPPAAL timed automata. Across fifteen model configurations and 254 TCTL formulas every verdict matches a pre-declared oracle; model checking exposes one design defect, confirmed and fixed in source, and the verified bounds are checked against hash-verified hardware traces from 90 fault-injection trials.",
+    tags: [
+      "Formal Verification",
+      "Timed Automata",
+      "UPPAAL",
+      "Embedded Systems",
+      "Flight Software",
+    ],
+  },
+  {
+    title:
+      "Formal Verification of DirectX11 Graphics Pipeline Using Colored Petri Nets",
+    authors: [
+      "Borworntat Dendumrongkul",
+      "Teejuta Sriwaranon",
+      "Nuengwong Tuaycharoen",
+      "Wiwat Vatanawood",
+    ],
+    selfAuthorIndex: 1,
+    venue:
+      "2026 30th International Computer Science and Engineering Conference (ICSEC)",
+    date: "2026",
+    type: "Conference Paper",
+    status: "accepted",
+    area: "Formal Verification",
+    abstract:
+      "A compositional Colored Petri Net model of all ten stages of the DirectX 11 graphics pipeline, with the core rasterization path exhaustively verified against six LTL properties spanning safety, liveness, boundedness, and resource correctness. Breadth-first exploration reaches up to 208,905 states; a fault-injection matrix shows every checker is sensitive to its own fault, and two properties fail in stronger forms: per-lane starvation freedom under an arbitration policy DX11 permits, and token conservation under geometry-shader fan-out.",
+    tags: [
+      "Formal Verification",
+      "Colored Petri Nets",
+      "Graphics Pipeline",
+      "DirectX 11",
+      "Model Checking",
+    ],
+  },
+  {
+    title:
       "What Will This Copper Look Like Later? Forecasting Surface Appearance and Rendering It as a PBR Material",
     authors: [
       "Teejuta Sriwaranon",

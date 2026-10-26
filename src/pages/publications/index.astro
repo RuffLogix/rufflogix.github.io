@@ -25,7 +25,7 @@ const areas = [
       <p class="label-strong reveal" style="margin-bottom: 1rem;">Research</p>
       <h1 class="pubs-title reveal d1">Publications</h1>
       <p class="pubs-sub reveal d2">
-        Published and preprint work across computer graphics, medical imaging
+        Published, accepted, and preprint work across computer graphics, medical imaging
         AI, and formal verification.
       </p>
       <p class="pubs-count label reveal d3">
@@ -119,6 +119,9 @@ const areas = [
                   <span class="legend-dot" aria-hidden="true" />
                   {p.type}
                 </span>
+                {p.status === "accepted" && (
+                  <span class="label pub-status">Accepted, to appear</span>
+                )}
                 {p.area && (
                   <>
                     <span class="pub-sep" aria-hidden="true">
@@ -448,6 +451,13 @@ const areas = [
   }
   .pub-area {
     color: var(--text-2);
+  }
+  /* Accepted-but-unpublished entries say so next to the venue type */
+  .pub-status {
+    color: var(--text-1);
+    padding: 0.05rem 0.4rem;
+    border: 1px solid var(--border-hover);
+    border-radius: var(--r-sm);
   }
   .pub-dim {
     color: var(--text-3);

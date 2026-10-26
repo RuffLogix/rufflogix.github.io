@@ -184,7 +184,8 @@ const philosophy = [
           >, publishing on computer graphics, medical imaging AI, and formal
           verification: {publicationInformation.length} papers in <strong
             >IEEE Access</strong
-          >, <strong>JCSSE</strong>, and on <strong>arXiv</strong>. Super AI
+          >, <strong>JCSSE</strong>, <strong>ICSEC</strong>, <strong>iSAI-NLP</strong>, and on
+          <strong>arXiv</strong>. Super AI
           Engineer Season 5 · iGEM 2024 Silver · TOI Thailand 2020/2021.
         </p>
         <a href="/about" class="about-more">
@@ -377,7 +378,9 @@ const philosophy = [
               class="research-link"
             >
               <span class="research-meta label">
-                <span class="research-type">{p.type}</span>
+                <span class="research-type">
+                  {p.status === "accepted" ? `${p.type} (Accepted)` : p.type}
+                </span>
                 <span class="research-sep" aria-hidden="true">
                   /
                 </span>

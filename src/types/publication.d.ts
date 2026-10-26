@@ -6,6 +6,11 @@ export interface PublicationInformation {
 	venue: string;
 	date: string;
 	type: string;
+	/**
+	 * Set to "accepted" while a paper is accepted but not yet in the
+	 * proceedings or journal. Drop it once the DOI exists.
+	 */
+	status?: "accepted";
 	/** Research area, used to group entries and build the legend. */
 	area?: string;
 	abstract?: string;
