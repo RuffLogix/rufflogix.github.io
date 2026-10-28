@@ -203,7 +203,7 @@ export const experienceInformation: ExperienceInformation[] = [
   {
     image: "/images/experience/looloo-logo.png",
     instituteName: "Looloo Technology",
-    link: "https://aimet.tech",
+    link: "https://loolootech.com",
     location: "Bangkok, Thailand",
     duration: "Jun 2024 - Dec 2024",
     calculatedDuration: parseDurationString("Jun 2024 - Dec 2024"),

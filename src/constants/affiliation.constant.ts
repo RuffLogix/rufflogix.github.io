@@ -8,7 +8,7 @@ import { experienceInformation } from "./timeline.constant";
  * A role qualifies by having "(Part-time)" in its title — the same string the
  * timeline already renders — so adding a part-time job to `timeline.constant.ts`
  * puts it in the strip automatically, and the two can never disagree. Companies
- * where only some of the roles were part-time (Khui AI, Looloo) contribute just
+ * where only some of the roles were part-time (Looloo) contribute just
  * the part-time position, not the whole tenure.
  *
  * Logos are the timeline's own, under `public/images/experience/`. They render
@@ -28,6 +28,12 @@ export const affiliationInformation: AffiliationInformation[] =
 			: exp.program
 				? [{ program: exp.program, duration: exp.duration }]
 				: [];
+
+		// A part-time stint that turned into a current full-time role is history
+		// of the main job, not a side role; listing it as "previous part-time"
+		// would contradict the timeline's "Present".
+		if (roles.some((r) => /present/i.test(r.duration) && !PART_TIME.test(r.program)))
+			return [];
 
 		return roles
 			.filter((role) => PART_TIME.test(role.program))
