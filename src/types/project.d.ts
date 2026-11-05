@@ -9,5 +9,6 @@ export interface ProjectInformation {
 	image: string;
 	infoLink?: string;
 	articleLink?: string;
+	videoLink?: string;
 	githubLinks?: { label: string; url: string }[];
 }

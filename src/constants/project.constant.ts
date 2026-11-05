@@ -2,6 +2,18 @@ import type { ProjectInformation } from "../types/project.d.ts";
 
 export const projectInformation: ProjectInformation[] = [
   {
+    title: "QED Notes: Markdown Notes for STEM",
+    category: "Web Development",
+    date: "October 2026",
+    description:
+      "A local-first Markdown note app for STEM students, built to typeset lecture notes as they are taken. KaTeX renders math in place as you type, with snippets fast enough to keep up with a lecture, and plain-text blocks become function plots, live queries and clickable logic circuits with schematics and truth tables. Notes link to each other with backlinks and a graph view, and the app adds Excalidraw whiteboards, PDF slide markup saved as standard annotations, flashcards, tasks on a calendar, and LaTeX export that keeps \\label, \\eqref and \\cite. There is no account and no database: notes stay plain .md files in a folder you choose, and that folder also opens in Obsidian. A browser demo is live, with macOS and Windows desktop apps coming soon.",
+    tags: ["Markdown", "KaTeX", "Excalidraw", "Mermaid", "Local-first", "EdTech"],
+    role: "Personal Project",
+    image: "/images/rufflogix-logo.jpg",
+    infoLink: "https://qednotes.com/",
+    videoLink: "https://www.youtube.com/@qednotes",
+  },
+  {
     title: "asr-redact: Thai Speech PII Redaction",
     category: "AI / Machine Learning",
     date: "September 2026",
