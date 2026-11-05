@@ -2,9 +2,12 @@
 import FormalLayout from "../../layouts/FormalLayout.astro";
 import { projectInformation } from "../../constants/project.constant";
 import { projectHue } from "../../utils/hue";
-
-const primaryLink = (p: (typeof projectInformation)[number]) =>
-  p.githubLinks?.[0]?.url ?? p.infoLink ?? p.articleLink ?? null;
+import {
+  projectLinks,
+  projectMonth,
+  projectSummary,
+  projectYear,
+} from "../../utils/project";
 
 // Categories in first-appearance order, each with its own count.
 const categories = [...new Set(projectInformation.map((p) => p.category))].map(
@@ -14,25 +17,29 @@ const categories = [...new Set(projectInformation.map((p) => p.category))].map(
   }),
 );
 
+// The list is already sorted newest first, so grouping keeps that order.
+const years = [...new Set(projectInformation.map(projectYear))].map((year) => ({
+  year,
+  projects: projectInformation.filter((p) => projectYear(p) === year),
+}));
+
+// Most entries are personal projects, so only the exceptions are worth a label.
+const roleLabel = (role: string) =>
+  role === "Personal Project" || role === "Project" ? null : role;
+
 const total = projectInformation.length;
-const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
 <FormalLayout title="Work | RuffLogix">
   <div class="projects-page page-wrap">
-    <!-- Page header -->
     <header class="projects-header">
-      <p class="label-strong reveal" style="margin-bottom: 1rem;">
-        Selected Work
-      </p>
-      <h1 class="projects-title reveal d1">Projects &amp; Experiments</h1>
-      <p class="projects-sub reveal d2">
+      <h1 class="projects-title">Work</h1>
+      <p class="page-sub">
         Systems built for performance, AI, and exploration.
       </p>
     </header>
 
-    <!-- Category filter -->
-    <div class="proj-filter reveal d3">
+    <div class="proj-filter">
       <div class="filter-chips" role="group" aria-label="Filter projects by category">
         <button
           type="button"
@@ -40,199 +47,94 @@ const pad = (n: number) => String(n).padStart(2, "0");
           data-filter="all"
           aria-pressed="true"
         >
-          All <span class="chip-count">{pad(total)}</span>
+          All <span class="chip-count">{total}</span>
         </button>
         {categories.map(({ name, count }) => (
-          <button
-            type="button"
-            class="chip"
-            data-filter={name}
-            data-hue={projectHue(name)}
-            aria-pressed="false"
-          >
-            {name} <span class="chip-count">{pad(count)}</span>
+          <button type="button" class="chip" data-filter={name} aria-pressed="false">
+            {name} <span class="chip-count">{count}</span>
           </button>
         ))}
       </div>
 
       <p class="projects-count label" id="proj-count" aria-live="polite">
-        {pad(total)} entries
+        {total} projects
       </p>
     </div>
 
-    <!-- Project index -->
-    <ol class="proj-index">
+    <div class="proj-years">
       {
-        projectInformation.map((p, i) => {
-          const href = primaryLink(p);
-          return (
-            <li
-              class:list={["proj-row reveal", `d${(i % 4) + 1}`]}
-              data-category={p.category}
-              data-hue={projectHue(p.category)}
-            >
-              <a
-                class="proj-main"
-                href={href ?? undefined}
-                target={href ? "_blank" : undefined}
-                rel={href ? "noopener noreferrer" : undefined}
-              >
-                <div class="proj-head">
-                  <span class="proj-num">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span class="proj-meta">
-                    <span class="label proj-cat">{p.category}</span>
-                    <span class="proj-sep" aria-hidden="true">
-                      /
-                    </span>
-                    <span class="label proj-dim">{p.date}</span>
-                    <span class="proj-sep" aria-hidden="true">
-                      /
-                    </span>
-                    <span class="label proj-dim">{p.role}</span>
-                    {p.status && (
-                      <span class="proj-status">{p.status}</span>
-                    )}
-                  </span>
-                  {href && (
-                    <span class="proj-arrow" aria-hidden="true">
-                      <svg
-                        width="17"
-                        height="17"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.75"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <line x1="7" y1="17" x2="17" y2="7" />
-                        <polyline points="7 7 17 7 17 17" />
-                      </svg>
-                    </span>
-                  )}
-                </div>
+        years.map(({ year, projects }) => (
+          <section class="year-group" aria-labelledby={`year-${year}`}>
+            <h2 class="year-label" id={`year-${year}`}>{year}</h2>
 
-                <h2 class="proj-title">{p.title}</h2>
-                <p class="proj-desc">{p.description}</p>
-              </a>
+            <ol class="proj-list">
+              {projects.map((p) => {
+                const links = projectLinks(p);
+                const summary = projectSummary(p);
+                const role = roleLabel(p.role);
+                const month = projectMonth(p);
+                return (
+                  <li
+                    class="proj-row reveal"
+                    data-category={p.category}
+                    data-hue={projectHue(p.category)}
+                  >
+                    <div class="proj-main">
+                      <h3 class="proj-title">
+                        {links[0] ? (
+                          <a
+                            href={links[0].url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {p.title}
+                          </a>
+                        ) : (
+                          p.title
+                        )}
+                      </h3>
+                      <p class="proj-summary">{summary}</p>
+                    </div>
 
-              <div class="proj-foot">
-                <div class="proj-tags">
-                  {p.tags.map((t) => (
-                    <span class="tag">{t}</span>
-                  ))}
-                </div>
+                    <div class="proj-side">
+                      {links.map((link) => (
+                        <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-link"
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
 
-                {(p.githubLinks?.length || p.articleLink || p.infoLink || p.videoLink) && (
-                  <div class="proj-links">
-                    {p.githubLinks?.map((link) => (
-                      <a
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="proj-link"
-                      >
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                        >
-                          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-                        </svg>
-                        {link.label}
-                      </a>
-                    ))}
-                    {p.articleLink && (
-                      <a
-                        href={p.articleLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="proj-link"
-                      >
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                          <polyline points="15 3 21 3 21 9" />
-                          <line x1="10" y1="14" x2="21" y2="3" />
-                        </svg>
-                        Article
-                      </a>
-                    )}
-                    {p.infoLink && (
-                      <a
-                        href={p.infoLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="proj-link"
-                      >
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                          <polyline points="15 3 21 3 21 9" />
-                          <line x1="10" y1="14" x2="21" y2="3" />
-                        </svg>
-                        Live
-                      </a>
-                    )}
-                    {p.videoLink && (
-                      <a
-                        href={p.videoLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="proj-link"
-                      >
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <polygon points="6 3 20 12 6 21 6 3" />
-                        </svg>
-                        YouTube
-                      </a>
-                    )}
-                  </div>
-                )}
-              </div>
-            </li>
-          );
-        })
+                    <div class="proj-foot">
+                      <p class="proj-meta label">
+                        <span class="proj-cat">{p.category}</span>
+                        {month && <span>{month}</span>}
+                        {role && <span>{role}</span>}
+                        {p.status && <span class="proj-status">{p.status}</span>}
+                      </p>
+                      <details class="proj-details">
+                        <summary class="proj-toggle">Details</summary>
+                        <div class="proj-panel">
+                          {p.description !== summary && (
+                            <p class="proj-desc">{p.description}</p>
+                          )}
+                          <p class="proj-stack">{p.tags.join(" · ")}</p>
+                        </div>
+                      </details>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        ))
       }
-    </ol>
-
-    <!-- No matches for the active filter -->
-    <div class="empty-state" id="proj-empty" hidden>
-      <p class="label">No projects in this category</p>
-      <button type="button" class="btn btn-ghost" data-filter-reset>
-        Show all projects
-      </button>
     </div>
 
-    <!-- Nothing published at all -->
     {
       total === 0 && (
         <div class="empty-state">
@@ -250,11 +152,10 @@ const pad = (n: number) => String(n).padStart(2, "0");
   const rows = Array.from(
     document.querySelectorAll<HTMLLIElement>(".proj-row[data-category]"),
   );
+  const groups = Array.from(
+    document.querySelectorAll<HTMLElement>(".year-group"),
+  );
   const countEl = document.getElementById("proj-count");
-  const emptyEl = document.getElementById("proj-empty");
-  const resetBtn = document.querySelector<HTMLButtonElement>("[data-filter-reset]");
-
-  const pad = (n: number) => String(n).padStart(2, "0");
 
   function applyFilter(filter: string) {
     let shown = 0;
@@ -265,53 +166,42 @@ const pad = (n: number) => String(n).padStart(2, "0");
       if (match) shown++;
     });
 
+    // A year with nothing left in it shouldn't leave a bare heading behind
+    groups.forEach((group) => {
+      group.hidden = !group.querySelector(".proj-row:not([hidden])");
+    });
+
     chips.forEach((chip) => {
       const active = chip.dataset.filter === filter;
       chip.classList.toggle("is-active", active);
       chip.setAttribute("aria-pressed", String(active));
     });
 
-    if (countEl) countEl.textContent = `${pad(shown)} ${shown === 1 ? "entry" : "entries"}`;
-    if (emptyEl) emptyEl.hidden = shown > 0;
+    if (countEl) countEl.textContent = `${shown} ${shown === 1 ? "project" : "projects"}`;
   }
 
   chips.forEach((chip) =>
     chip.addEventListener("click", () => applyFilter(chip.dataset.filter ?? "all")),
   );
-  resetBtn?.addEventListener("click", () => {
-    applyFilter("all");
-    chips[0]?.focus();
-  });
 </script>
 
 <style>
   .projects-page {
-    padding-top: var(--sp-section);
-    padding-bottom: calc(var(--sp-section) + 1rem);
+    padding-top: clamp(3rem, 9vh, 5.5rem);
+    padding-bottom: var(--sp-section);
   }
 
-  /* Header */
+  /* Same voice as the homepage hero, one step down */
   .projects-header {
-    margin-bottom: 2rem;
+    margin-bottom: 2.25rem;
   }
   .projects-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
+    font-size: clamp(2.75rem, 1.5rem + 5vw, 4.5rem);
+    font-weight: 600;
     letter-spacing: -0.03em;
-    line-height: 1.1;
+    line-height: 1.05;
     color: var(--text-1);
     margin-bottom: 0.75rem;
-  }
-  .projects-sub {
-    font-size: 1rem;
-    color: var(--text-2);
-    max-width: 48ch;
-    line-height: 1.65;
-  }
-  .projects-count {
-    color: var(--text-3);
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
   }
 
   /* ── Filter bar ──────────────────────────────────────────── */
@@ -320,27 +210,23 @@ const pad = (n: number) => String(n).padStart(2, "0");
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 1rem 1.5rem;
-    margin-bottom: 1.75rem;
+    gap: 0.75rem 1.5rem;
+    margin-bottom: 2.5rem;
   }
-
   .filter-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
   }
-
   .chip {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.34rem 0.85rem;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.03em;
+    min-height: 2.25rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--border-hover);
+    font-size: 0.85rem;
     color: var(--text-2);
     transition:
       border-color var(--t-fast),
@@ -348,222 +234,193 @@ const pad = (n: number) => String(n).padStart(2, "0");
       background var(--t-fast);
   }
   .chip:hover {
-    border-color: var(--border-hover);
     color: var(--text-1);
     background: var(--surface-hover);
   }
+  /* Active is inverted ink: state, not category, so it carries no hue */
   .chip.is-active {
-    border-color: color-mix(in srgb, var(--hue) 45%, transparent);
-    background: color-mix(in srgb, var(--hue) 12%, transparent);
-    color: var(--hue);
+    border-color: var(--text-1);
+    background: var(--text-1);
+    color: var(--bg);
   }
-
   .chip-count {
-    font-size: 0.62rem;
-    color: var(--text-3);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    opacity: 0.7;
     font-variant-numeric: tabular-nums;
   }
-  .chip.is-active .chip-count {
-    color: inherit;
-    opacity: 0.7;
+  .projects-count {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
 
-  /* ── Index list — single flush-left edge ─────────────────── */
-  .proj-index {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--border);
+  /* ── Years: the year holds its place while its projects scroll by ── */
+  .year-group {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr);
+    gap: 1.5rem;
+    border-top: 1px solid var(--border-hover);
+    padding-bottom: 2rem;
   }
-
-  .proj-row {
-    position: relative;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--border);
+  .year-group[hidden] {
+    display: none;
   }
-
-  /* Accent marker — sits in the left gutter, only on hover */
-  .proj-row::before {
-    content: "";
-    position: absolute;
-    left: -1rem;
-    top: 1.5rem;
-    bottom: 1.5rem;
-    width: 2px;
-    background: var(--hue);
-    border-radius: 2px;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform var(--t-mid) var(--expo);
-  }
-  .proj-row:hover::before {
-    transform: scaleY(1);
-  }
-
-  /* Clickable region */
-  .proj-main {
-    display: block;
-  }
-
-  .proj-head {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 0.6rem;
-  }
-  .proj-num {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-3);
-    transition: color var(--t-fast);
-  }
-  .proj-row:hover .proj-num {
-    color: var(--hue);
-  }
-  .proj-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    min-width: 0;
-  }
-  .proj-cat {
-    color: var(--hue);
-    font-weight: 500;
-  }
-  .proj-dim {
-    color: var(--text-3);
-  }
-  .proj-sep {
-    color: var(--border-hover);
-    font-size: 0.72rem;
-  }
-  .proj-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35em;
-    padding: 0.1rem 0.5rem;
-    border-radius: 999px;
-    font-size: 0.68rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--hue);
-    background: color-mix(in srgb, var(--hue) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--hue) 30%, transparent);
-  }
-  .proj-status::before {
-    content: "";
-    width: 0.4em;
-    height: 0.4em;
-    border-radius: 50%;
-    background: var(--hue);
-    animation: proj-pulse 1.8s ease-in-out infinite;
-  }
-  @keyframes proj-pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.3;
-    }
-  }
-  .proj-arrow {
-    margin-left: auto;
-    color: var(--text-3);
-    opacity: 0.5;
-    transition: all var(--t-mid) var(--expo);
-  }
-  .proj-row:hover .proj-arrow {
-    color: var(--text-1);
-    opacity: 1;
-    transform: translate(2px, -2px);
-  }
-
-  .proj-title {
-    font-size: 1.3rem;
+  .year-label {
+    position: sticky;
+    top: calc(var(--nav-h) + 1rem);
+    align-self: start;
+    padding-top: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: -0.02em;
+    line-height: 1.2;
     color: var(--text-1);
-    line-height: 1.3;
-    margin-bottom: 0.4rem;
-    transition: color var(--t-fast);
-  }
-  .proj-row:hover .proj-title {
-    color: var(--hue);
-  }
-  .proj-desc {
-    font-size: 0.9rem;
-    color: var(--text-2);
-    line-height: 1.6;
-    max-width: 80ch;
+    font-variant-numeric: tabular-nums;
   }
 
-  /* Foot — tags top row, links below */
-  .proj-foot {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.6rem;
-    margin-top: 1rem;
+  /* ── Rows ────────────────────────────────────────────────── */
+  .proj-list {
+    list-style: none;
   }
-  .proj-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
+  .proj-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.35rem 2rem;
+    padding: 1.1rem 0;
   }
-  .proj-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.1rem;
+  .proj-row + .proj-row {
+    border-top: 1px solid var(--border);
   }
-  .proj-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.74rem;
-    font-family: var(--font-mono);
-    letter-spacing: 0.02em;
-    color: var(--text-3);
-    transition: color var(--t-fast);
-  }
-  .proj-link:hover {
-    color: var(--text-1);
-  }
-
-  /* Empty */
-  .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
-    padding: 4rem 0;
-    text-align: center;
-  }
-  .empty-state[hidden] {
+  .proj-row[hidden] {
     display: none;
   }
 
-  /* Responsive */
-  @media (max-width: 640px) {
-    .projects-header {
-      margin-bottom: 1.5rem;
+  .proj-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+    color: var(--text-1);
+    margin-bottom: 0.25rem;
+  }
+  .proj-title a {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--t-fast);
+  }
+  .proj-title a:hover {
+    text-decoration-color: currentColor;
+  }
+  .proj-summary {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--text-2);
+    max-width: 72ch;
+  }
+  /* Meta and the toggle share a line; an open panel takes a line of its own */
+  .proj-foot {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2rem 1.25rem;
+  }
+  .proj-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1rem 0.9rem;
+  }
+  .proj-cat {
+    color: var(--hue);
+  }
+  .proj-status {
+    color: var(--text-1);
+  }
+
+  .proj-side {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: flex-start;
+    gap: 0.25rem 1rem;
+    max-width: 14rem;
+    padding-top: 0.2rem;
+    font-size: 0.875rem;
+  }
+
+  /* ── Details ─────────────────────────────────────────────── */
+  .proj-details[open] {
+    flex-basis: 100%;
+  }
+  .proj-toggle {
+    display: inline-flex;
+    gap: 0.35rem;
+    cursor: pointer;
+    list-style: none;
+    font-size: 0.875rem;
+    color: var(--text-2);
+    transition: color var(--t-fast);
+  }
+  .proj-toggle:hover {
+    color: var(--text-1);
+  }
+  .proj-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .proj-toggle::before {
+    content: "+";
+    font-family: var(--font-mono);
+  }
+  .proj-details[open] > .proj-toggle::before {
+    content: "−";
+  }
+  .proj-panel {
+    margin-top: 0.6rem;
+    padding-left: 1rem;
+    border-left: 1px solid var(--border-hover);
+  }
+  .proj-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-2);
+    max-width: 72ch;
+    margin-bottom: 0.5rem;
+  }
+  .proj-stack {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--text-3);
+  }
+
+  .empty-state {
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  @media (max-width: 720px) {
+    .year-group {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
     }
-    .proj-filter {
-      gap: 0.85rem;
+    /* On a narrow screen a pinned year would cover the row it labels */
+    .year-label {
+      position: static;
+      padding-top: 1rem;
     }
-    .proj-row::before {
-      left: -0.7rem;
+    .proj-row {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 1rem 0;
     }
-    .proj-title {
-      font-size: 1.12rem;
+    .proj-side {
+      justify-content: flex-start;
+      max-width: none;
+      padding-top: 0;
     }
-    .proj-arrow {
-      display: none;
-    }
-    .proj-foot {
-      gap: 0.5rem;
+    .proj-side a,
+    .proj-toggle {
+      padding: 0.3rem 0;
     }
   }
 </style>

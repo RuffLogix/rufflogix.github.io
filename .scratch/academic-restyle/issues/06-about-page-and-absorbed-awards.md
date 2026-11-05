@@ -1,7 +1,7 @@
 # 06 — About page: timeline plus absorbed awards
 
 Type: prototype
-Status: open
+Status: resolved
 Blocked by: 02, 03
 
 ## Question

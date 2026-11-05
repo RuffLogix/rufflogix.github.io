@@ -1,64 +1,34 @@
 ---
 import FormalLayout from "../../layouts/FormalLayout.astro";
-import { decodeEntities, stripEmDashes } from "../../utils/html";
+import {
+  getPosts,
+  MEDIUM_PROFILE,
+  postDate,
+  postExcerpt,
+  postTitle,
+} from "../../utils/medium";
 
-const MEDIUM_URL = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
-
-interface MediumPost {
-  title: string;
-  pubDate: string;
-  guid: string;
-  author: string;
-  description: string;
-  content?: string;
-  thumbnail?: string;
-}
-
-function excerpt(html: string, max = 180) {
-  const t = stripEmDashes(decodeEntities(html.replace(/<[^>]*>/g, ''))).replace(/\s+/g, ' ').trim();
-  return t.length > max ? t.slice(0, max) + '…' : t;
-}
-
-function fmtDate(s: string) {
-  return new Date(s).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-}
-
-function firstImage(post: MediumPost) {
-  if (post.thumbnail) return post.thumbnail;
-  const match = (post.content || post.description || '').match(/<img[^>]+src="([^"]+)"/);
-  return match ? match[1] : null;
-}
-
-let posts: MediumPost[] = [];
-try {
-  const r = await fetch(MEDIUM_URL);
-  if (r.ok) {
-    const d = await r.json();
-    posts = d.items || [];
-  }
-} catch { /* silent */ }
+const posts = await getPosts();
 ---
 
 <FormalLayout title="Writing | RuffLogix">
   <div class="articles-page page-wrap">
 
     <header class="articles-header">
-      <p class="label-strong reveal" style="margin-bottom: 1rem;">Writing</p>
-      <h1 class="articles-title reveal d1">Articles &amp; Notes</h1>
-      <p class="articles-sub reveal d2">
-        Technical writing published on
-        <a href="https://medium.com/@rufflogix" target="_blank" rel="noopener noreferrer"
-           class="medium-link">Medium @rufflogix</a>
+      <h1 class="page-title">Writing</h1>
+      <p class="page-sub">
+        Technical writing, in English and Thai, published on
+        <a href={MEDIUM_PROFILE} target="_blank" rel="noopener noreferrer" class="text-link">Medium</a>.
       </p>
     </header>
 
     {posts.length > 0 ? (
       <div class="posts-list">
-        {posts.map((post, i) => {
-          const image = firstImage(post);
+        {posts.map((post) => {
+          const image = post.image;
           return (
-          <a href={post.guid} target="_blank" rel="noopener noreferrer"
-             class:list={['post-row reveal', `d${(i % 4) + 1}`]}>
+          <a href={post.url} target="_blank" rel="noopener noreferrer"
+             class="post-row reveal">
             {image && (
               <div class="post-thumb-wrap">
                 <img
@@ -72,10 +42,10 @@ try {
             )}
             <div class="post-row-inner">
               <div class="post-meta-row">
-                <span class="label post-date">{fmtDate(post.pubDate)}</span>
+                <span class="label post-date">{postDate(post)}</span>
               </div>
-              <h2 class="post-title">{stripEmDashes(decodeEntities(post.title))}</h2>
-              <p class="post-excerpt">{excerpt(post.description)}</p>
+              <h2 class="post-title">{postTitle(post)}</h2>
+              <p class="post-excerpt">{postExcerpt(post, 180)}</p>
             </div>
             <div class="post-arrow-wrap">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -90,10 +60,10 @@ try {
       </div>
     ) : (
       <div class="empty-state reveal">
-        <p class="label">No posts available. Check back soon.</p>
-        <a href="https://medium.com/@rufflogix" target="_blank" rel="noopener noreferrer"
-           class="btn btn-ghost" style="margin-top: 1.5rem;">
-          Visit Medium
+        <p class="empty-copy">Posts couldn't be loaded when this page was built. They're all on Medium.</p>
+        <a href={MEDIUM_PROFILE} target="_blank" rel="noopener noreferrer"
+           class="btn btn-ghost" style="margin-top: 1rem;">
+          Read on Medium
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -107,33 +77,11 @@ try {
 
 <style>
 .articles-page {
-  padding-top: var(--sp-section);
-  padding-bottom: calc(var(--sp-section) + 1rem);
+  padding-top: clamp(2.5rem, 7vh, 4.5rem);
+  padding-bottom: var(--sp-section);
 }
 
-.articles-header { margin-bottom: 4rem; }
-.articles-title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  color: var(--text-1);
-  margin-bottom: 0.75rem;
-}
-.articles-sub {
-  font-size: 1rem;
-  color: var(--text-2);
-  line-height: 1.65;
-}
-/* --accent is ink now, so the underline is what marks this as a link */
-.medium-link {
-  color: var(--accent);
-  text-decoration: underline;
-  text-decoration-color: var(--border-hover);
-  text-underline-offset: 3px;
-  transition: opacity var(--t-fast);
-}
-.medium-link:hover { opacity: 0.7; }
+.articles-header { margin-bottom: 2rem; }
 
 .posts-list { display: flex; flex-direction: column; }
 
@@ -196,8 +144,9 @@ try {
   margin-top: 0.2rem;
 }
 
+.empty-copy { font-size: 1rem; color: var(--text-2); }
 .empty-state {
-  padding: 4rem 0;
+  padding: 1rem 0 2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

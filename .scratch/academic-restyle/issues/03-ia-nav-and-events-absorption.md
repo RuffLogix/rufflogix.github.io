@@ -1,7 +1,7 @@
 # 03 — IA: nav reorder and Events absorption
 
 Type: task
-Status: open
+Status: resolved
 Blocked by: —
 
 ## Question

@@ -8,6 +8,11 @@ import react from "@astrojs/react";
 export default defineConfig({
 	site: "https://rufflogix.github.io",
 
+	// Events moved into About; the old URL is public, so it must not 404.
+	redirects: {
+		"/events": "/about#activities",
+	},
+
 	// base: "/rufflogix.github.io",
 	build: {
 		assets: "_astro/[name].[hash][extname]",

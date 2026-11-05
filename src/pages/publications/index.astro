@@ -2,38 +2,21 @@
 import FormalLayout from "../../layouts/FormalLayout.astro";
 import { publicationInformation } from "../../constants/publication.constant";
 import { personalInfo } from "../../constants/timeline.constant";
-import { toBibtex } from "../../utils/citation";
-
-function isSelf(idx: number, self?: number | number[]) {
-  if (self === undefined) return false;
-  return Array.isArray(self) ? self.includes(idx) : self === idx;
-}
-
-// Legend entries are derived from the entries themselves, so a new venue
-// type shows up in the key automatically.
-const venueTypes = [...new Set(publicationInformation.map((p) => p.type))];
-
-const areas = [
-  ...new Set(publicationInformation.map((p) => p.area).filter(Boolean)),
-] as string[];
+import { isSelfAuthor, toBibtex } from "../../utils/citation";
 ---
 
 <FormalLayout title="Publications | RuffLogix">
   <div class="pubs-page page-wrap">
     <!-- Page header -->
     <header class="pubs-header">
-      <p class="label-strong reveal" style="margin-bottom: 1rem;">Research</p>
-      <h1 class="pubs-title reveal d1">Publications</h1>
-      <p class="pubs-sub reveal d2">
-        Published, accepted, and preprint work across computer graphics, medical imaging
-        AI, and formal verification.
-      </p>
-      <p class="pubs-count label reveal d3">
-        {String(publicationInformation.length).padStart(2, "0")} entries
+      <h1 class="page-title">Publications</h1>
+      <p class="page-sub">
+        Published, accepted, and preprint work across computer graphics, medical
+        imaging AI, speech and language processing, and formal verification.
       </p>
 
       <!-- Profile and bulk-citation links, where academic readers expect them -->
-      <div class="pubs-actions reveal d3">
+      <div class="pubs-actions">
         <a
           href={personalInfo.scholar}
           target="_blank"
@@ -75,200 +58,95 @@ const areas = [
       </div>
     </header>
 
-    <!-- Legend of venue kinds and research areas, both by name. Colour no longer
-         distinguishes venues: every entry here is research, so a colour key
-         would have one value. Ticket 04 re-decides this block in full. -->
-    {
-      publicationInformation.length > 0 && (
-        <div class="pubs-legend reveal d3">
-          <dl class="legend-group">
-            <dt class="legend-term label">Venue</dt>
-            <dd class="legend-def">
-              {venueTypes.map((t) => (
-                <span class="legend-item legend-area">{t}</span>
-              ))}
-            </dd>
-          </dl>
-
-          {areas.length > 0 && (
-            <dl class="legend-group">
-              <dt class="legend-term label">Areas</dt>
-              <dd class="legend-def">
-                {areas.map((a) => (
-                  <span class="legend-item legend-area">{a}</span>
-                ))}
-              </dd>
-            </dl>
-          )}
-        </div>
-      )
-    }
-
     <!-- Publication index -->
     <ol class="pubs-index">
       {
         publicationInformation.map((p, i) => (
-          <li
-            class:list={["pub-row reveal", `d${(i % 4) + 1}`]}
-            data-hue="research"
-          >
-            <div class="pub-head">
-              <span class="pub-num">{String(i + 1).padStart(2, "0")}</span>
-              <span class="pub-meta">
-                <span class="label pub-type">
-                  <span class="legend-dot" aria-hidden="true" />
-                  {p.type}
-                </span>
-                {p.status === "accepted" && (
-                  <span class="label pub-status">Accepted, to appear</span>
-                )}
-                {p.area && (
-                  <>
-                    <span class="pub-sep" aria-hidden="true">
-                      /
-                    </span>
-                    <span class="label pub-area">{p.area}</span>
-                  </>
-                )}
-                <span class="pub-sep" aria-hidden="true">
-                  /
-                </span>
-                <span class="label pub-dim">{p.venue}</span>
-                <span class="pub-sep" aria-hidden="true">
-                  /
-                </span>
-                <span class="label pub-dim">{p.date}</span>
-              </span>
-            </div>
+          <li class="pub-row reveal" id={`pub-${i + 1}`} data-hue="research">
+            <span class="pub-num">{String(publicationInformation.length - i).padStart(2, "0")}</span>
 
-            <h2 class="pub-title">
-              {p.doiLink ? (
-                <a
-                  href={p.doiLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="pub-title-link"
-                >
-                  {p.title}
-                  <span class="pub-title-arrow" aria-hidden="true">
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.75"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <line x1="7" y1="17" x2="17" y2="7" />
-                      <polyline points="7 7 17 7 17 17" />
-                    </svg>
-                  </span>
-                </a>
-              ) : (
-                p.title
-              )}
-            </h2>
-
-            <p class="pub-authors">
-              {p.authors.map((a, idx) => (
-                // The comma sits inside the span so the gap between authors is
-                // the markup's own whitespace, not whitespace plus a comma.
-                <span
-                  class:list={[
-                    "pub-author",
-                    { self: isSelf(idx, p.selfAuthorIndex) },
-                  ]}
-                >
-                  {idx < p.authors.length - 1 ? `${a},` : a}
-                </span>
-              ))}
-            </p>
-
-            {p.abstract && <p class="pub-abstract">{p.abstract}</p>}
-
-            <div class="pub-foot">
-              <div class="pub-tags">
-                {p.tags.map((t) => (
-                  <span class="tag">{t}</span>
-                ))}
-              </div>
-
-              <div class="pub-links">
-                {p.doi && (
-                  <span class="pub-doi">
-                    <span class="pub-doi-label">DOI</span>
-                    {p.doiLink ? (
-                      <a
-                        href={p.doiLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="pub-doi-link"
-                      >
-                        {p.doi}
-                      </a>
-                    ) : (
-                      <span class="pub-doi-link">{p.doi}</span>
-                    )}
-                  </span>
-                )}
-                {p.pdfLink && (
+            <div class="pub-body">
+              <h2 class="pub-title">
+                {p.doiLink ? (
                   <a
-                    href={p.pdfLink}
+                    href={p.doiLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="pub-link"
+                    class="pub-title-link"
                   >
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                      <polyline points="14 2 14 8 20 8" />
-                    </svg>
+                    {p.title}
+                  </a>
+                ) : (
+                  p.title
+                )}
+              </h2>
+
+              <p class="pub-authors">
+                {p.authors.map((a, idx) => (
+                  // The comma sits inside the span so the gap between authors is
+                  // the markup's own whitespace, not whitespace plus a comma.
+                  <span
+                    class:list={[
+                      "pub-author",
+                      { self: isSelfAuthor(idx, p.selfAuthorIndex) },
+                    ]}
+                  >
+                    {idx < p.authors.length - 1 ? `${a},` : a}
+                  </span>
+                ))}
+              </p>
+
+              <p class="pub-venue">
+                {/* Conference names already open with their year */}
+                {p.venue.includes(p.date) ? p.venue : `${p.venue}, ${p.date}`}
+              </p>
+
+              <p class="pub-meta">
+                <span class="pub-type">{p.type}</span>
+                {p.status === "accepted" && <span class="pub-status">Accepted, to appear</span>}
+                {p.area && <span>{p.area}</span>}
+              </p>
+
+              <div class="pub-actions">
+                {p.doi && (
+                  p.doiLink ? (
+                    <a href={p.doiLink} target="_blank" rel="noopener noreferrer" class="pub-link">
+                      DOI: {p.doi}
+                    </a>
+                  ) : (
+                    <span class="pub-link pub-link-static">DOI: {p.doi}</span>
+                  )
+                )}
+                {p.pdfLink && (
+                  <a href={p.pdfLink} target="_blank" rel="noopener noreferrer" class="pub-link">
                     PDF
                   </a>
                 )}
                 {p.codeLink && (
-                  <a
-                    href={p.codeLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="pub-link"
-                  >
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <polyline points="16 18 22 12 16 6" />
-                      <polyline points="8 6 2 12 8 18" />
-                    </svg>
+                  <a href={p.codeLink} target="_blank" rel="noopener noreferrer" class="pub-link">
                     Code
                   </a>
                 )}
+                {p.abstract && (
+                  <details class="pub-more">
+                    <summary class="pub-toggle">Abstract</summary>
+                    <div class="pub-panel">
+                      <p class="pub-abstract">{p.abstract}</p>
+                      {p.tags.length > 0 && (
+                        <p class="pub-keywords">Keywords: {p.tags.join(", ")}</p>
+                      )}
+                    </div>
+                  </details>
+                )}
+                <details class="pub-more">
+                  <summary class="pub-toggle">BibTeX</summary>
+                  <div class="pub-panel cite-box">
+                    <pre class="cite-pre" tabindex="0">{toBibtex(p)}</pre>
+                    <button type="button" class="cite-copy">Copy</button>
+                  </div>
+                </details>
               </div>
             </div>
-
-            <details class="pub-cite">
-              <summary class="pub-cite-toggle label">BibTeX</summary>
-              <div class="cite-box">
-                <pre class="cite-pre">{toBibtex(p)}</pre>
-                <button type="button" class="cite-copy label">Copy</button>
-              </div>
-            </details>
           </li>
         ))
       }
@@ -287,350 +165,196 @@ const areas = [
 
 <style>
   .pubs-page {
-    padding-top: var(--sp-section);
-    padding-bottom: calc(var(--sp-section) + 1rem);
+    padding-top: clamp(2.5rem, 7vh, 4.5rem);
+    padding-bottom: var(--sp-section);
   }
 
-  /* Header */
   .pubs-header {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
-  .pubs-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: var(--text-1);
-    margin-bottom: 0.75rem;
-  }
-  .pubs-sub {
-    font-size: 1rem;
-    color: var(--text-2);
-    max-width: 52ch;
-    line-height: 1.65;
-  }
-  .pubs-count {
-    margin-top: 1.1rem;
-    color: var(--text-3);
-  }
-
   .pubs-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 0.75rem;
-    margin-top: 1.4rem;
-    margin-bottom: 1.75rem;
+    margin-top: 1.25rem;
   }
   .pubs-action {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.02em;
-    color: var(--text-2);
-    padding: 0.35rem 0.7rem;
-    border: 1px solid var(--border);
-    border-radius: var(--r-sm);
-    transition: all var(--t-fast);
-  }
-  .pubs-action:hover {
+    font-size: 0.875rem;
     color: var(--text-1);
-    border-color: var(--border-hover);
-  }
-
-  .legend-dot {
-    width: 0.45rem;
-    height: 0.45rem;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: var(--hue);
-  }
-
-  /* ── Legend ──────────────────────────────────────────────── */
-  .pubs-legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem 2.5rem;
-    padding: 0.9rem 0;
-    /* no bottom rule — .pubs-index already draws one directly below */
-    border-top: 1px solid var(--border);
-  }
-  .legend-group {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    margin: 0;
-  }
-  .legend-term {
-    color: var(--text-3);
-  }
-  .legend-def {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.4rem 1rem;
-    margin: 0;
-  }
-  .legend-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.03em;
-    color: var(--hue);
-  }
-  .legend-area {
-    color: var(--text-2);
-  }
-
-  /* ── Index list — single flush-left edge ─────────────────── */
-  .pubs-index {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--border);
-  }
-
-  .pub-row {
-    position: relative;
-    padding: 1.7rem 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  /* Accent marker in left gutter, only on hover */
-  .pub-row::before {
-    content: "";
-    position: absolute;
-    left: -1rem;
-    top: 1.7rem;
-    bottom: 1.7rem;
-    width: 2px;
-    background: var(--hue);
-    border-radius: 2px;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform var(--t-mid) var(--expo);
-  }
-  .pub-row:hover::before {
-    transform: scaleY(1);
-  }
-
-  .pub-head {
-    display: flex;
-    align-items: baseline;
-    gap: 0.6rem;
-    margin-bottom: 0.6rem;
-  }
-  .pub-num {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-3);
-    /* the meta row now wraps onto two lines, so the number must not be
-       squeezed into a column of single digits */
-    flex-shrink: 0;
-    align-self: flex-start;
-    transition: color var(--t-fast);
-  }
-  .pub-row:hover .pub-num {
-    color: var(--hue);
-  }
-  .pub-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .pub-type {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: var(--hue);
-    font-weight: 500;
-  }
-  .pub-area {
-    color: var(--text-2);
-  }
-  /* Accepted-but-unpublished entries say so next to the venue type */
-  .pub-status {
-    color: var(--text-1);
-    padding: 0.05rem 0.4rem;
+    padding: 0.45rem 0.8rem;
     border: 1px solid var(--border-hover);
     border-radius: var(--r-sm);
+    transition: background var(--t-fast);
   }
-  .pub-dim {
+  .pubs-action:hover {
+    background: var(--surface-hover);
+  }
+
+  /* ── Index: number in the margin, paper-style ────────────── */
+  .pubs-index {
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+  .pub-row {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    gap: 0.5rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: background var(--t-slow) var(--expo);
+  }
+  /* Arriving from a homepage link: show which entry was meant */
+  .pub-row:target {
+    background: var(--hue-soft);
+    box-shadow: -0.75rem 0 0 var(--hue-soft), 0.75rem 0 0 var(--hue-soft);
+  }
+
+  .pub-num {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.9;
     color: var(--text-3);
-  }
-  .pub-sep {
-    color: var(--border-hover);
-    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
   }
 
   .pub-title {
-    font-size: 1.35rem;
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    line-height: 1.3;
     color: var(--text-1);
-    line-height: 1.32;
-    margin-bottom: 0.6rem;
     max-width: 62ch;
+    margin-bottom: 0.4rem;
   }
   .pub-title-link {
-    transition: color var(--t-fast);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--t-fast);
   }
-  .pub-row:hover .pub-title-link {
-    color: var(--hue);
-  }
-  .pub-title-arrow {
-    display: inline-flex;
-    vertical-align: -2px;
-    margin-left: 0.3rem;
-    color: var(--text-3);
-    opacity: 0;
-    transform: translate(-3px, 3px);
-    transition: all var(--t-mid) var(--expo);
-  }
-  .pub-row:hover .pub-title-arrow {
-    opacity: 1;
-    transform: none;
-    color: var(--hue);
+  .pub-title-link:hover {
+    text-decoration-color: currentColor;
   }
 
   .pub-authors {
-    font-size: 0.85rem;
-    color: var(--text-3);
-    line-height: 1.7;
-    margin-bottom: 0.7rem;
+    font-size: 0.95rem;
+    color: var(--text-2);
+    line-height: 1.5;
   }
   .pub-author.self {
     color: var(--text-1);
     font-weight: 600;
   }
-
-  .pub-abstract {
-    font-size: 0.9rem;
+  .pub-venue {
+    font-size: 0.95rem;
+    font-style: italic;
     color: var(--text-2);
-    line-height: 1.65;
-    max-width: 68ch;
-    margin-bottom: 1rem;
+    line-height: 1.5;
+    margin-top: 0.1rem;
+    max-width: 72ch;
   }
 
-  .pub-foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.75rem 1.25rem;
-  }
-  .pub-tags {
+  .pub-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-  .pub-links {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.1rem;
-  }
-
-  .pub-doi {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.74rem;
-  }
-  .pub-doi-label {
+    gap: 0.1rem 0.9rem;
+    margin-top: 0.45rem;
     font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.75rem;
     color: var(--text-3);
-    border: 1px solid var(--border);
-    border-radius: var(--r-sm);
-    padding: 0.12rem 0.4rem;
   }
-  .pub-doi-link {
-    color: var(--text-2);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    transition: color var(--t-fast);
+  .pub-type {
+    color: var(--hue);
   }
-  a.pub-doi-link:hover {
+  .pub-status {
     color: var(--text-1);
   }
 
-  .pub-link {
+  /* Links and toggles share one row; an open toggle takes a line of its own */
+  .pub-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 1.1rem;
+    margin-top: 0.55rem;
+    font-size: 0.875rem;
+  }
+  .pub-link,
+  .pub-toggle {
+    color: var(--text-1);
+    text-decoration: underline;
+    text-decoration-color: var(--border-hover);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--t-fast);
+  }
+  .pub-link:hover,
+  .pub-toggle:hover {
+    text-decoration-color: currentColor;
+  }
+  .pub-link-static {
+    text-decoration: none;
+    color: var(--text-2);
+  }
+
+  .pub-more[open] {
+    flex-basis: 100%;
+  }
+  .pub-toggle {
     display: inline-flex;
-    align-items: center;
     gap: 0.35rem;
-    font-size: 0.74rem;
-    font-family: var(--font-mono);
-    letter-spacing: 0.02em;
-    color: var(--text-3);
-    transition: color var(--t-fast);
-  }
-  .pub-link:hover {
-    color: var(--text-1);
-  }
-
-  /* ── BibTeX ──────────────────────────────────────────────── */
-  /* Styled like the rest of the entry: hairlines and mono text, no filled
-     panel — the page has no other boxed surface to match. */
-  .pub-cite {
-    margin-top: 0.9rem;
-  }
-  .pub-cite-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
     cursor: pointer;
-    color: var(--text-3);
     list-style: none;
-    transition: color var(--t-fast);
   }
-  .pub-cite-toggle::-webkit-details-marker {
+  .pub-toggle::-webkit-details-marker {
     display: none;
   }
-  .pub-cite-toggle::before {
+  .pub-toggle::before {
     content: "+";
     font-family: var(--font-mono);
   }
-  .pub-cite[open] .pub-cite-toggle::before {
+  .pub-more[open] > .pub-toggle::before {
     content: "−";
   }
-  .pub-cite-toggle:hover {
-    color: var(--text-1);
+  .pub-panel {
+    margin: 0.6rem 0 0.4rem;
+    padding-left: 1rem;
+    border-left: 1px solid var(--border-hover);
+  }
+  .pub-abstract {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-2);
+    max-width: 72ch;
+  }
+  .pub-keywords {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-3);
   }
 
-  .cite-box {
-    margin-top: 0.8rem;
-    padding-left: 1.1rem;
-    border-left: 1px solid var(--border);
-  }
   .cite-pre {
-    margin: 0;
     /* Long DOIs and titles scroll rather than stretching the page */
     overflow-x: auto;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     line-height: 1.7;
-    color: var(--text-3);
+    color: var(--text-2);
     white-space: pre;
   }
   .cite-copy {
-    display: inline-block;
-    margin-top: 0.7rem;
-    padding: 0;
-    cursor: pointer;
-    background: none;
-    border: none;
-    color: var(--text-3);
-    transition: color var(--t-fast);
+    margin-top: 0.5rem;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border-hover);
+    border-radius: var(--r-sm);
+    font-size: 0.8rem;
+    color: var(--text-1);
+    transition: background var(--t-fast);
   }
   .cite-copy:hover {
-    color: var(--text-1);
+    background: var(--surface-hover);
   }
 
   /* Empty */
@@ -639,22 +363,21 @@ const areas = [
     text-align: center;
   }
 
-  /* Responsive */
   @media (max-width: 640px) {
-    .pubs-header {
-      margin-bottom: 1.75rem;
-    }
-    .pub-row::before {
-      left: -0.7rem;
+    .pub-row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.15rem;
     }
     .pub-title {
-      font-size: 1.12rem;
+      font-size: 1.15rem;
     }
-    .pub-foot {
-      gap: 0.7rem 1rem;
+    .pub-link,
+    .pub-toggle {
+      display: inline-block;
+      padding: 0.3rem 0;
     }
-    .cite-box {
-      padding-left: 0.8rem;
+    .pub-toggle {
+      display: inline-flex;
     }
   }
 </style>

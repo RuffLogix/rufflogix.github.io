@@ -79,6 +79,18 @@ not open for re-litigation inside a ticket without saying so explicitly.
   jspdf/html2canvas, which already throws at 390px on this site's `color-mix()` usage
   and would ship ~82× the site's current JavaScript to produce an unsearchable image.
   Surfaced that most researcher homepages link no CV at all, which is now ticket 08.
+- [02 — Type stack](issues/02-type-stack-and-scale.md): Source Serif 4 and IBM Plex Sans
+  self-hosted as variable fonts, Jakarta deleted; eyebrow labels above page titles dropped.
+- [03 — IA](issues/03-ia-nav-and-events-absorption.md): nav is Publications · Work ·
+  Writing · About; `/events` redirects to `/about#activities`.
+- [04 — Publications](issues/04-publications-page.md): number in the margin, legend removed,
+  abstract and BibTeX behind native disclosures. ORCID and Semantic Scholar links still
+  missing because the profile URLs aren't in the data.
+- [05 — Homepage](issues/05-homepage-metadata-block.md): the metadata block was built and
+  rejected by the site owner on sight. The earlier homepage (large hero, about strip, logo
+  band, cards, philosophy) is back and overrides settled rules 8's section order and 10.
+- [06 — About](issues/06-about-page-and-absorbed-awards.md): emoji gone, "Awards & Activities"
+  as a dense list, skills as a fact list, stats cut, contact moved to the top.
 
 ## Not yet specified
 

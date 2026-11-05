@@ -1,7 +1,7 @@
 # 05 — Homepage: metadata block and section reorder
 
 Type: prototype
-Status: open
+Status: rejected
 Blocked by: 01, 02, 03
 
 ## Question
@@ -34,3 +34,5 @@ Note the ratio constraint from the map: leading with research must not make the
 site look thin, and the engineering work is the larger body of evidence.
 
 ## Comments
+
+The metadata-block homepage was built and the site owner preferred the earlier design, so it was reverted. Do not rebuild it without asking.

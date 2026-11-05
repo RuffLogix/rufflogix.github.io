@@ -1,7 +1,7 @@
 # 04 — Publications as the site's academic centrepiece
 
 Type: prototype
-Status: open
+Status: resolved
 Blocked by: 01, 02
 
 ## Question

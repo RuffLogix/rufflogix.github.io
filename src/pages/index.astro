@@ -4,41 +4,21 @@ import { projectInformation } from "../constants/project.constant.ts";
 import { publicationInformation } from "../constants/publication.constant.ts";
 import AffiliationStrip from "../components/AffiliationStrip.astro";
 import { projectHue } from "../utils/hue.ts";
-import { decodeEntities, stripEmDashes } from "../utils/html.ts";
+import {
+  projectLinks,
+  projectShortDate,
+  projectSummary,
+} from "../utils/project.ts";
+import { getPosts, postDate, postExcerpt, postTitle } from "../utils/medium.ts";
 
-const MEDIUM_URL =
-  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@rufflogix";
+const posts = (await getPosts()).slice(0, 3);
 
-interface MediumPost {
-  title: string;
-  pubDate: string;
-  guid: string;
-  description: string;
-}
-
-function excerpt(html: string, max = 130) {
-  const t = stripEmDashes(decodeEntities(html.replace(/<[^>]*>/g, "")))
-    .replace(/\s+/g, " ")
-    .trim();
-  return t.length > max ? t.slice(0, max) + "…" : t;
-}
-
-function fmtDate(s: string) {
-  return new Date(s).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-let posts: MediumPost[] = [];
-try {
-  const r = await fetch(MEDIUM_URL);
-  const d = await r.json();
-  posts = d.items?.slice(0, 3) || [];
-} catch {
-  /* silent */
-}
+// Conference venues are full sentences ending in the acronym people actually
+// cite; spelled out in an uppercase meta line they wrap to two rows.
+const shortVenue = (venue: string, type: string) =>
+  type === "Conference Paper"
+    ? (venue.match(/\(([^()]+)\)\s*$/)?.[1] ?? venue)
+    : venue;
 
 const featured = projectInformation.slice(0, 3);
 const recentPublications = publicationInformation.slice(0, 3);
@@ -244,121 +224,35 @@ const philosophy = [
       </a>
     </div>
 
-    <div class="bento-grid">
+    <div class="work-grid">
       {
-        featured.map((p, i) => (
-          <article
-            class:list={[
-              "bento-card card reveal",
-              { "bento-wide": i === 0 },
-              `d${i + 1}`,
-            ]}
-            data-hue={projectHue(p.category)}
-          >
-            <div class="bento-top">
-              <span class="bento-cat label">{p.category}</span>
-              <span class="bento-date label">{p.date}</span>
-              {p.status && <span class="bento-status">{p.status}</span>}
-            </div>
-            <h3 class="bento-title">{p.title}</h3>
-            <p class="bento-desc">{p.description}</p>
-            <div class="bento-tags">
-              {p.tags.map((t) => (
-                <span class="tag">{t}</span>
-              ))}
-            </div>
-            <div class="bento-actions">
-              {p.githubLinks?.map((link) => (
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="bento-link"
-                >
-                  <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-                  </svg>
-                  {link.label}
-                </a>
-              ))}
-              {p.articleLink && (
-                <a
-                  href={p.articleLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="bento-link"
-                >
-                  <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                  Article
-                </a>
+        featured.map((p) => {
+          const links = projectLinks(p);
+          return (
+            <article class="work-card card reveal" data-hue={projectHue(p.category)}>
+              <p class="work-meta">
+                <span class="work-cat label">{p.category}</span>
+                <span class="label">{projectShortDate(p)}</span>
+              </p>
+              <h3 class="work-title">{p.title}</h3>
+              <p class="work-summary">{projectSummary(p)}</p>
+              {links.length > 0 && (
+                <p class="work-links">
+                  {links.map((link) => (
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-link"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </p>
               )}
-              {p.infoLink && (
-                <a
-                  href={p.infoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="bento-link"
-                >
-                  <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                  Live
-                </a>
-              )}
-              {p.videoLink && (
-                <a
-                  href={p.videoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="bento-link"
-                >
-                  <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <polygon points="6 3 20 12 6 21 6 3" />
-                  </svg>
-                  YouTube
-                </a>
-              )}
-            </div>
-          </article>
-        ))
+            </article>
+          );
+        })
       }
     </div>
   </section>
@@ -407,7 +301,7 @@ const philosophy = [
                 <span class="research-sep" aria-hidden="true">
                   /
                 </span>
-                {p.venue}
+                {shortVenue(p.venue, p.type)}
                 <span class="research-sep" aria-hidden="true">
                   /
                 </span>
@@ -483,15 +377,15 @@ const philosophy = [
         <div class="posts-list">
           {posts.map((post, i) => (
             <a
-              href={post.guid}
+              href={post.url}
               target="_blank"
               rel="noopener noreferrer"
               class:list={["post-row reveal", `d${i + 1}`]}
             >
               <div class="post-row-left">
-                <span class="post-date label">{fmtDate(post.pubDate)}</span>
-                <h3 class="post-title">{stripEmDashes(decodeEntities(post.title))}</h3>
-                <p class="post-excerpt">{excerpt(post.description)}</p>
+                <span class="post-date label">{postDate(post)}</span>
+                <h3 class="post-title">{postTitle(post)}</h3>
+                <p class="post-excerpt">{postExcerpt(post, 130)}</p>
               </div>
               <svg
                 class="post-arrow"
@@ -516,6 +410,31 @@ const philosophy = [
 </FormalLayout>
 
 <style>
+  /* Cards and pill tags are this page's look; the inner pages stay on hairlines */
+  .card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    transition:
+      border-color var(--t-mid) var(--expo),
+      transform var(--t-mid) var(--expo),
+      box-shadow var(--t-mid) var(--expo);
+  }
+  .card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-hover);
+    background: var(--surface);
+    color: var(--text-2);
+  }
+
   /* ── HERO ─────────────────────────────────────────────────── */
   .hero {
     position: relative;
@@ -547,7 +466,7 @@ const philosophy = [
        the largest size that still keeps "Software Engineering" on one line
        inside the 1032px content column. */
     font-size: clamp(2.1rem, 0.3rem + 7.7vw, 6.25rem);
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.02;
     color: var(--text-1);
@@ -685,107 +604,46 @@ const philosophy = [
     transform: translateX(3px);
   }
 
-  /* Bento grid */
-  .bento-grid {
+  /* One line each: the full write-ups live on /projects */
+  .work-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
   }
-  .bento-wide {
-    grid-column: 1 / -1;
-  }
-
-  .bento-card {
-    padding: 1.75rem;
+  .work-card {
     display: flex;
     flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.5rem;
+  }
+  .work-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
     gap: 0.75rem;
   }
-  .bento-top {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .bento-cat {
+  .work-cat {
     color: var(--hue);
-    font-weight: 500;
   }
-  .bento-date {
-    color: var(--text-2);
-    margin-left: auto;
-  }
-  .bento-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35em;
-    padding: 0.1rem 0.5rem;
-    border-radius: 999px;
-    font-size: 0.62rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--hue);
-    background: color-mix(in srgb, var(--hue) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--hue) 30%, transparent);
-  }
-  .bento-status::before {
-    content: "";
-    width: 0.4em;
-    height: 0.4em;
-    border-radius: 50%;
-    background: var(--hue);
-    animation: bento-pulse 1.8s ease-in-out infinite;
-  }
-  @keyframes bento-pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.3;
-    }
-  }
-
-  .bento-title {
+  .work-title {
     font-size: 1.15rem;
     font-weight: 600;
     letter-spacing: -0.02em;
+    line-height: 1.3;
     color: var(--text-1);
-    line-height: 1.35;
   }
-  .bento-wide .bento-title {
-    font-size: 1.4rem;
-  }
-
-  .bento-desc {
-    font-size: 0.875rem;
-    color: var(--text-2);
-    line-height: 1.7;
+  .work-summary {
     flex: 1;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text-2);
   }
-  .bento-tags {
+  .work-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: auto;
-  }
-  .bento-actions {
-    display: flex;
-    gap: 1.25rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
-    margin-top: 0.5rem;
-  }
-  .bento-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.78rem;
-    color: var(--text-2);
-    transition: color var(--t-fast);
-  }
-  .bento-link:hover {
-    color: var(--text-1);
+    gap: 0.25rem 1rem;
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
   }
 
   /* ── SELECTED RESEARCH ────────────────────────────────────── */
@@ -987,11 +845,8 @@ const philosophy = [
     .phil-item:nth-child(4) {
       border-left: 1px solid var(--border);
     }
-    .bento-grid {
-      grid-template-columns: 1fr;
-    }
-    .bento-wide {
-      grid-column: auto;
+    .work-grid {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
@@ -1028,7 +883,7 @@ const philosophy = [
       border-top: 1px solid var(--border);
       padding-left: 0;
     }
-    .bento-card {
+    .work-card {
       padding: 1.25rem;
     }
     .section-header {

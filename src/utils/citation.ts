@@ -117,3 +117,9 @@ export function toBibtex(p: PublicationInformation): string {
 export function toBibFile(publications: PublicationInformation[]): string {
   return publications.map(toBibtex).join("\n\n") + "\n";
 }
+
+/** Whether the author at `idx` is the site owner, for emphasis in author lists. */
+export function isSelfAuthor(idx: number, self?: number | number[]): boolean {
+  if (self === undefined) return false;
+  return Array.isArray(self) ? self.includes(idx) : self === idx;
+}

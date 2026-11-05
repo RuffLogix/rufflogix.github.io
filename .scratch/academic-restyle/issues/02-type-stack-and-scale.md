@@ -1,7 +1,7 @@
 # 02 — Type stack and typographic scale
 
 Type: prototype
-Status: open
+Status: resolved
 Blocked by: —
 
 ## Question

@@ -9,7 +9,7 @@ export interface Props {
 }
 
 const {
-  title = "RuffLogix: Research-Driven Software Engineering",
+  title = "Teejuta Sriwaranon (RuffLogix): Research-Driven Software Engineering",
   description = "Software engineer, AI researcher, and systems programmer building intelligent systems and experimental technology.",
 } = Astro.props;
 ---
@@ -25,19 +25,19 @@ const {
     <title>{title}</title>
 
     <!-- Fonts are self-hosted (see formal.css). Only the faces that paint above
-         the fold on every page are preloaded: the sans at 500 and 700 for the
-         headline and nav, the mono at 500 for the eyebrow labels. The rest are
+         the fold on every page are preloaded: the serif for headings, the sans
+         for body and nav, the mono at 500 for labels. The rest are
          discovered from the stylesheet as usual. -->
     <link
       rel="preload"
-      href="/fonts/jakarta-700-latin.woff2"
+      href="/fonts/source-serif-4-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/jakarta-500-latin.woff2"
+      href="/fonts/ibm-plex-sans-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -55,12 +55,13 @@ const {
     <!-- Critical CSS to prevent flash. Must match --bg/--text-1 exactly. -->
     <style is:inline>
       html { background: #0C0C0E; color: #F2F2F2; }
-      html[data-theme="light"] { background: #FFFFFF; color: #111111; }
+      html[data-theme="light"] { background: #FAFAF7; color: #111111; }
     </style>
 
     <!-- Apply saved theme immediately, before paint -->
     <script is:inline>
       (function() {
+        document.documentElement.classList.add('js');
         const t = localStorage.getItem('theme');
         if (t) document.documentElement.setAttribute('data-theme', t);
         else if (window.matchMedia('(prefers-color-scheme: light)').matches)
@@ -90,7 +91,6 @@ const {
 
     const apply = (t: 'dark' | 'light') => {
       html.setAttribute('data-theme', t);
-      localStorage.setItem('theme', t);
       theme = t;
 
       // Announce the destination, not the current state — that's what the click does
@@ -102,10 +102,15 @@ const {
 
       document
         .querySelector('meta[name="theme-color"]')
-        ?.setAttribute('content', t === 'dark' ? '#0C0C0E' : '#FFFFFF');
+        ?.setAttribute('content', t === 'dark' ? '#0C0C0E' : '#FAFAF7');
     };
     apply(theme);
-    btn?.addEventListener('click', () => apply(theme === 'dark' ? 'light' : 'dark'));
+    btn?.addEventListener('click', () => {
+      // Saved only on an explicit choice, so until then the OS setting keeps winning
+      const next = theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', next);
+      apply(next);
+    });
 
     /* ── Frosted nav on scroll ── */
     const nav = document.getElementById('nav');
