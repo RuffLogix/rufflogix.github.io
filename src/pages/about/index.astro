@@ -158,6 +158,15 @@ const contactLinks = [
                 </div>
               </div>
               <p class="tl-desc">{edu.description}</p>
+              {edu.research && (
+                <p class="tl-desc">
+                  Undergraduate researcher in the{" "}
+                  <a href={edu.research.labLink} target="_blank" rel="noopener noreferrer" class="text-link">{edu.research.lab}</a>,
+                  advised by{" "}
+                  <a href={edu.research.advisorLink} target="_blank" rel="noopener noreferrer" class="text-link">{edu.research.advisor}</a>,
+                  working on {edu.research.topic}.
+                </p>
+              )}
               {edu.coursework && (
                 <div class="tl-coursework">
                   <span class="tl-coursework-label label">Selected coursework</span>

@@ -11,6 +11,13 @@ export interface EducationalInformation {
 	duration: string;
 	calculatedDuration: string;
 	description: string;
+	research?: {
+		lab: string;
+		labLink: string;
+		advisor: string;
+		advisorLink: string;
+		topic: string;
+	};
 	coursework?: CourseworkArea[];
 }
 

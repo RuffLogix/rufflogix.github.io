@@ -301,6 +301,9 @@ import { isSelfAuthor, toBibtex } from "../../utils/citation";
 
   .pub-more[open] {
     flex-basis: 100%;
+    /* A flex item won't shrink below its content by default, so a long BibTeX
+       line would stretch the whole entry past the page */
+    min-width: 0;
   }
   .pub-toggle {
     display: inline-flex;
@@ -336,13 +339,13 @@ import { isSelfAuthor, toBibtex } from "../../utils/citation";
   }
 
   .cite-pre {
-    /* Long DOIs and titles scroll rather than stretching the page */
-    overflow-x: auto;
+    /* Long author lists wrap on screen; Copy still gets the original text */
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     line-height: 1.7;
     color: var(--text-2);
-    white-space: pre;
   }
   .cite-copy {
     margin-top: 0.5rem;

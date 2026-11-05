@@ -26,6 +26,13 @@ export const educationalInformation: EducationalInformation[] = [
     calculatedDuration: parseDurationString("2023 - Present"),
     description:
       "Currently pursuing a Bachelor's degree in Computer Engineering. Developing expertise in software development, artificial intelligence, and algorithm design while maintaining strong academic performance.",
+    research: {
+      lab: "Computer Graphics Laboratory",
+      labLink: "https://www.cp.eng.chula.ac.th/~pizzanu/members.html",
+      advisor: "Assoc. Prof. Pizzanu Kanongchaiyos",
+      advisorLink: "https://www.cp.eng.chula.ac.th/~pizzanu/",
+      topic: "learning-based visual computing",
+    },
     coursework: [
       {
         area: "Systems & Architecture",
