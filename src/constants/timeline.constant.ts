@@ -253,4 +253,15 @@ export const experienceInformation: ExperienceInformation[] = [
     description:
       "I developed an E-learning platform using Next.js for the frontend and Express.js for the backend, featuring a course recommendation model that processes user input to suggest suitable courses. Additionally, I designed and implemented smart contracts for learning tokens and NFT-based course completion certificates, integrating blockchain technology into the educational experience.",
   },
+  {
+    image: "/images/experience/leaguesofcode-logo.png",
+    instituteName: "Leagues of Code",
+    link: "https://codeleagues.com/",
+    program: "Tutor (Part-time)",
+    location: "Thailand (Hybrid)",
+    duration: "Aug 2022 - Dec 2024",
+    calculatedDuration: parseDurationString("Aug 2022 - Dec 2024"),
+    description:
+      "I taught competitive programming in C/C++ across four course levels, from Basic C++ to Data Structures and Algorithms, and taught AI fundamentals during the 2023 Summer Camp and AI Camp. I also designed practice and final problems to challenge and assess students' skills.",
+  },
 ];
