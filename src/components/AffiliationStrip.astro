@@ -68,6 +68,7 @@ const heading =
                 >
                   <Row
                     class="pt-row"
+                    title={`${org.name}, ${org.position}`}
                     {...(org.link
                       ? {
                           href: org.link,
@@ -265,14 +266,37 @@ const heading =
       gap: 1.75rem 1.5rem;
     }
   }
+  /* On a phone five stacked cells cost most of a screen to say very little, so
+     the band collapses to a single row of marks. The name, role and period
+     stay in the DOM for screen readers; the full write-up is on /about. */
   @media (max-width: 460px) {
     .pt-list {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
+    .pt-row {
+      /* anchors the visually-hidden text below to its own mark */
+      position: relative;
+      height: auto;
+    }
+    /* 44px: the mark is now the whole tap target */
     .pt-logo {
-      width: 30px;
-      height: 30px;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 0;
+      border-radius: 10px;
+      padding: 4px;
+    }
+    .pt-org,
+    .pt-role,
+    .pt-period {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
     }
   }
 </style>
